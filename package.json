@@ -1,0 +1,26 @@
+{
+  "name": "miyabi",
+  "version": "14.5.6",
+  "private": "true",
+  "description": "Miyabi's lover",
+  "main": "miyabi.js",
+  "scripts": {
+    "dev": "nodemon miyabi.js"
+  },
+  "keywords": [
+    "Zenless Zone Zero",
+    "ZZZ"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "glob": "^7.2.0",
+    "mongoose": "^6.9.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

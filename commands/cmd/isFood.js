@@ -1,0 +1,80 @@
+const { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
+const axios = require("axios");
+
+module.exports = {
+	name: '음식',
+	description: '「Zenless Zone Zero」의 음식에 대해 알아보실 수 있습니다',
+	timeout: 5000,
+	options: [{
+		name: '이름',
+		description: '알아볼 음식의 이름을 입력해 주세요',
+		type: ApplicationCommandOptionType.String,
+		required: true,
+		autocomplete: true
+	}],
+	/**
+	 *
+	 * @param {Client} client
+	 * @param {CommandInteraction} interaction
+	 * @param {String[]} args
+	 */
+	run: async (client, interaction, args) => {
+		const name = interaction.options.getString('이름');
+
+		if (name == "검은 면기: 훈제 차슈라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/smoke_bbq_noodles/ramen.json"
+			generateObject()
+		} else if (name == "흰 면기: 호박라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/pumpkin_soup_noodles/ramen.json"
+			generateObject()
+		} else if (name == "흰 면기: 차슈 튀김라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json"
+			generateObject()
+		} else if (name == "흰 면기: 홍고추  돈코츠라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/red_pepper_meat_noodles/ramen.json"
+			generateObject()
+		} else if (name == "흰 면기: 청고추 돈코츠라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/green_pepper_meat_noodles/ramen.json"
+			generateObject()
+		} else if (name == "흰 면기: 해물라면") {
+			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/seafood_noodles/ramen.json"
+			generateObject()
+		} 
+
+		function generateObject() {
+			try {
+				axios.get(URL).then(data => {
+
+					var food_name = data.data.ZZZRamen.name
+					var food_desc = data.data.ZZZRamen.desc
+					var food_tips = data.data.ZZZRamen.info.tips
+					var food_price = data.data.ZZZRamen.info.price
+					var food_img = data.data.ZZZRamen.info.foods_image
+					var food_effect = data.data.ZZZRamen.effect.desc
+					var food_effect_icon = data.data.ZZZRamen.effect.icon
+
+					const Embed = new EmbedBuilder()
+						.setAuthor({ name: food_name })
+						.setDescription(food_desc)
+						.setColor('#C02E1B')
+						.setFields(
+							{
+								name: `음식 효과`,
+								value: food_effect+` `+food_effect_icon+`\n`+food_tips
+							},
+							{
+								name: "가격",
+								value: food_price+` <:Coin:1028294870009389096>`
+							}
+						)
+						.setThumbnail(food_img)
+						// .setImage('')
+					interaction.reply({ embeds: [Embed] })
+					return true;
+				})
+			} catch {
+				return false;
+			}
+		}
+	}
+}
