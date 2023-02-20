@@ -40,10 +40,10 @@ module.exports = {
                             name: "🇰🇷 / 한국 (한국어)",
                             value: "모든 기능 및 서비스가 해당 언어로 변경됩니다."
                         },
-                        {
-                            name: "🇯🇵 / 日本, (日本語)",
-                            value: "すべての機能およびサービスが該当言語に変更されます"
-                        }
+                        // {
+                        //     name: "🇯🇵 / 日本, (日本語)",
+                        //     value: "すべての機能およびサービスが該当言語に変更されます"
+                        // }
                     )
                     .setFooter({ text: lang.Language_selection_Relax })
                 const row = new ActionRowBuilder().addComponents(
@@ -64,12 +64,12 @@ module.exports = {
                                 description: "모든 기능 및 서비스가 해당 언어로 변경됩니다.",
                                 emoji: "🇰🇷",
                             },
-                            {
-                                label: "日本 (日本語)",
-                                value: "lang_jp",
-                                description: "すべての機能およびサービスが該当言語に変更されます",
-                                emoji: "🇯🇵",
-                            }
+                            // {
+                            //     label: "日本 (日本語)",
+                            //     value: "lang_jp",
+                            //     description: "すべての機能およびサービスが該当言語に変更されます",
+                            //     emoji: "🇯🇵",
+                            // }
                         ])
                 );
                 interaction.reply({ embeds: [embedTure], components: [row], ephemeral: true })

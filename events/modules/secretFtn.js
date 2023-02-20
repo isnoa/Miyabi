@@ -43,9 +43,7 @@ client.on("interactionCreate", async (interaction) => {
               .setRequired(false);
             const oneRow = new ActionRowBuilder().addComponents(textOneInput);
             const twoRow = new ActionRowBuilder().addComponents(textTwoInput);
-            const threeRow = new ActionRowBuilder().addComponents(
-              textThreeInput
-            );
+            const threeRow = new ActionRowBuilder().addComponents(textThreeInput);
             CodeModal.addComponents(oneRow, twoRow, threeRow);
             await interaction.showModal(CodeModal);
             break;
