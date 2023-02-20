@@ -51,27 +51,27 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
 
-                    case "lang_jp":
-                        db.findOne({ user: interaction.user.id }, async (err, data) => {
-                            if (!data) {
-                                new db({ user: interaction.user.id, i18n: "ja-jp", since: Date.now(), profileconnect: true })
-                                    .save().catch(err => console.error(err))
-                                await interaction.reply({
-                                    content: `「言語」が「日本語」に変更したの。`,
-                                    ephemeral: true,
-                                    components: []
-                                })
-                            } else {
-                                db.updateOne({ user: interaction.user.id }, { $set: { i18n: "ja-jp" } })
-                                    .catch(err => console.error(err))
-                                await interaction.update({
-                                    embeds: [new EmbedBuilder().setDescription(`「言語」が「日本語」に変更したの。`)],
-                                    ephemeral: true,
-                                    components: []
-                                })
-                            }
-                        })
-                        break;
+                    // case "lang_jp":
+                    //     db.findOne({ user: interaction.user.id }, async (err, data) => {
+                    //         if (!data) {
+                    //             new db({ user: interaction.user.id, i18n: "ja-jp", since: Date.now(), profileconnect: true })
+                    //                 .save().catch(err => console.error(err))
+                    //             await interaction.reply({
+                    //                 content: `「言語」が「日本語」に変更したの。`,
+                    //                 ephemeral: true,
+                    //                 components: []
+                    //             })
+                    //         } else {
+                    //             db.updateOne({ user: interaction.user.id }, { $set: { i18n: "ja-jp" } })
+                    //                 .catch(err => console.error(err))
+                    //             await interaction.update({
+                    //                 embeds: [new EmbedBuilder().setDescription(`「言語」が「日本語」に変更したの。`)],
+                    //                 ephemeral: true,
+                    //                 components: []
+                    //             })
+                    //         }
+                    //     })
+                    //     break;
                 }
             })
         }

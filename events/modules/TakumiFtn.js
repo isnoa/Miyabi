@@ -51,7 +51,7 @@ client.on("interactionCreate", async (interaction) => {
             loadCommands(client);
             interaction.reply({
               content: "슬레시 명령어, 리로드 완료.",
-              ephemeral: true,
+              ephemeral: true
             });
             break;
         }

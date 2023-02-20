@@ -118,24 +118,24 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setAuthor({ name: data.data.name + " 기본스텟" })
                                                 .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
                                                     {
-                                                        name: "1st (호소빌)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: true
+                                                        name: "예시 기준",
+                                                        value: "캐릭터 레벨: 40(만랩)",
+                                                        inline: false
                                                     },
                                                     {
-                                                        name: "2nd (호소코)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: true
+                                                        name: "필요한 재화",
+                                                        value: "?",
+                                                        inline: false
                                                     },
                                                     {
-                                                        name: "3rd (호소앤)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: true
+                                                        name: "능력치 비교",
+                                                        value: "HP: 462 -> 5164\n공격력: 101 -> 1132\n방어력: 48 -> 567\n충격력: 110 -> 121\n치명타 확률: 5% -> 10%\n치명타 피해: 50% -> 50%\n관통률: 0% -> 0%\n관통 수치: 0 -> 3%\n에너지 자동 회복: 1.8 -> 1.86",
+                                                        inline: false
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
 
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
@@ -236,6 +236,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
@@ -335,6 +336,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
@@ -433,6 +435,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
@@ -531,6 +534,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
@@ -629,6 +633,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
@@ -727,6 +732,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
