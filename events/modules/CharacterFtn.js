@@ -126,7 +126,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     },
                                                     {
                                                         name: "필요한 재화",
-                                                        value: "?",
+                                                        value: `에이전트 파일·${data.data.name}: ?\n승진 허가장: ?`,
                                                         inline: false
                                                     },
                                                     {
