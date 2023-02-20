@@ -5,7 +5,7 @@ const { EmbedBuilder } = require("discord.js");
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
         if (interaction.customId == "lang-select") {
-            await interaction.values.forEach(async (value) => {
+            interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "lang_global":
                         db.findOne({ user: interaction.user.id }, async (err, data) => {

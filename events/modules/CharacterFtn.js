@@ -7,7 +7,7 @@ const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require("dis
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
         if (interaction.customId == "character-select") {
-            await interaction.values.forEach(async (value) => {
+            interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "Info":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {

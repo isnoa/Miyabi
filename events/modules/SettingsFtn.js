@@ -13,7 +13,7 @@ const db = require("../../database/user");
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
         if (interaction.customId == "add-setting-select") {
-            await interaction.values.forEach(async (value) => {
+            interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "addProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: true } })

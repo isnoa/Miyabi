@@ -13,8 +13,8 @@ const { loadCommands } = require("../../handler/commandHandler.js");
 
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isStringSelectMenu()) {
-    if (interaction.customId == "secretfunction-select") {
-      await interaction.values.forEach(async (value) => {
+    if (interaction.customId == "takumifunction-select") {
+      interaction.values.forEach(async (value) => {
         switch (value) {
           case "codeSendToChannel":
             const CodeModal = new ModalBuilder()

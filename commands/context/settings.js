@@ -127,9 +127,9 @@ module.exports = {
 
 
           if (["1010159742104113162", "893424082945720351"].includes(interaction.user.id)) {
-            const secretRow = new ActionRowBuilder().addComponents(
+            const takumiRow = new ActionRowBuilder().addComponents(
               new StringSelectMenuBuilder()
-                .setCustomId("secretfunction-select")
+                .setCustomId("takumifunction-select")
                 .setPlaceholder("-")
                 .setMaxValues(1)
                 .addOptions([
@@ -145,7 +145,7 @@ module.exports = {
                   }
                 ])
             )
-            interaction.reply({ embeds: [Embed], components: [addRow, delRow, secretRow], ephemeral: true })
+            interaction.reply({ embeds: [Embed], components: [addRow, delRow, takumiRow], ephemeral: true })
           } else {
             interaction.reply({ embeds: [Embed], components: [addRow, delRow], ephemeral: true })
           }
