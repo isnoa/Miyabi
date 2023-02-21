@@ -10,7 +10,7 @@ const {
 } = require("discord.js");
 
 const client = new Client({
-  messageCacheLifetime: 60,
+  // messageCacheLifetime: 60,
   fetchAllMembers: false,
   messageCacheMaxSize: 10,
   restTimeOffset: 0,

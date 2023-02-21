@@ -88,12 +88,6 @@ client.on("interactionCreate", async (interaction) => {
         }
     }
 
-
-
-
-
-
-
     if (!interaction.isModalSubmit()) return;
     if (interaction.customId === 'setDescriptionModal') {
         const aboutMeText = interaction.fields.getTextInputValue('descriptionInput')

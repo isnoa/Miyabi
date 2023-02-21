@@ -1,21 +1,21 @@
-const client = require("../../miyabi");
-const clientprefix = "miyabichan?"
+// const client = require("../../miyabi");
+// const clientprefix = "miyabichan?"
 
-client.on("messageCreate", async (message) => {
-    if (
-        message.author.bot ||
-        !message.guild ||
-        !message.content.toLowerCase().startsWith(clientprefix)
-    )
-        return;
+// client.on("messageCreate", async (message) => {
+//     if (
+//         message.author.bot ||
+//         !message.guild ||
+//         !message.content.toLowerCase().startsWith(clientprefix)
+//     )
+//         return;
 
-    const [cmd, ...args] = message.content
-        .slice(clientprefix.length)
-        .trim()
-        .split(/ +/g);
+//     const [cmd, ...args] = message.content
+//         .slice(clientprefix.length)
+//         .trim()
+//         .split(/ +/g);
 
-    const messagecommand = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
+//     const messagecommand = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
 
-    if (!messagecommand) return;
-    await messagecommand.run(client, message, args);
-});
+//     if (!messagecommand) return;
+//     await messagecommand.run(client, message, args);
+// });

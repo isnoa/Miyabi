@@ -42,7 +42,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -100,12 +99,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "BaseStats":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -126,7 +119,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     },
                                                     {
                                                         name: "필요한 재화",
-                                                        value: `에이전트 파일·${data.data.name}: ?\n승진 허가장: ?`,
+                                                        value: ` · 에이전트 파일·${data.data.name}: ?\n · 승진 허가장: ?`,
                                                         inline: false
                                                     },
                                                     {
@@ -136,12 +129,38 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-
+                                            const rowLevelCalculator = new ActionRowBuilder().addComponents(
+                                                new StringSelectMenuBuilder()
+                                                    .setCustomId("levelcalculator-select")
+                                                    .setPlaceholder(`계산할 레벨을 선택해.`)
+                                                    .setMaxValues(1)
+                                                    .addOptions([
+                                                        {
+                                                            label: "1 ~ 10",
+                                                            value: "1to10",
+                                                            description: data.data.name + "의 1 ~ 10레벨까지 ",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 20",
+                                                            value: "1to20",
+                                                            description: data.data.name + "의 스텟 알아보기",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 30",
+                                                            value: "1to30",
+                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 40",
+                                                            value: "1to40",
+                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                        }
+                                                    ])
+                                            );
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -186,7 +205,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         }
                                                     ])
                                             );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowLevelCalculator, row] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -199,12 +218,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "BasicAttack":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -241,7 +254,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -299,12 +311,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "SpecialAttack":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -341,7 +347,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -399,12 +404,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "ComboAttack":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -440,7 +439,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -498,12 +496,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "Dodge":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -539,7 +531,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -597,12 +588,6 @@ client.on("interactionCreate", async (interaction) => {
                             }
                         })
                         break;
-
-
-
-
-
-
 
                     case "Talent":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
@@ -638,7 +623,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -697,12 +681,6 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
 
-
-
-
-
-
-
                     case "PartyRecs":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
                             if (err) throw err;
@@ -737,7 +715,6 @@ client.on("interactionCreate", async (interaction) => {
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("character-select")
                                                     .setPlaceholder(`옵션을 선택해.`)
-                                                    .setMinValues(1)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {

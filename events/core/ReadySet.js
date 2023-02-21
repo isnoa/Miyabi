@@ -1,8 +1,5 @@
 const client = require("../../miyabi");
-const {
-  EmbedBuilder,
-  ActivityType
-} = require("discord.js");
+const { EmbedBuilder, ActivityType } = require("discord.js");
 const { MiyabiColor } = require("../../database/color")
 
 client.on("ready", () => {
