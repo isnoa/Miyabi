@@ -116,7 +116,7 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setFields(
                                                     {
                                                         name: "예시 기준",
-                                                        value: "캐릭터 레벨: 40(만랩)",
+                                                        value: "캐릭터 레벨: 100(만랩)",
                                                         inline: false
                                                     },
                                                     {
@@ -134,7 +134,7 @@ client.on("interactionCreate", async (interaction) => {
                                             const rowLevelCalculator = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
                                                     .setCustomId("levelcalculator-select")
-                                                    .setPlaceholder(`계산할 레벨을 선택해.`)
+                                                    .setPlaceholder(`계산할 스텟을 선택해.`)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
@@ -156,6 +156,36 @@ client.on("interactionCreate", async (interaction) => {
                                                             label: "1 ~ 40",
                                                             value: "1to40",
                                                             description: data.data.name + "의 1 ~ 40레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 50",
+                                                            value: "1to50",
+                                                            description: data.data.name + "의 1 ~ 50레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 60",
+                                                            value: "1to60",
+                                                            description: data.data.name + "의 1 ~ 60레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 70",
+                                                            value: "1to70",
+                                                            description: data.data.name + "의 1 ~ 70레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 80",
+                                                            value: "1to80",
+                                                            description: data.data.name + "의 1 ~ 80레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 90",
+                                                            value: "1to90",
+                                                            description: data.data.name + "의 1 ~ 90레벨까지",
+                                                        },
+                                                        {
+                                                            label: "1 ~ 100",
+                                                            value: "1to100",
+                                                            description: data.data.name + "의 1 ~ 100레벨까지",
                                                         }
                                                     ])
                                             );

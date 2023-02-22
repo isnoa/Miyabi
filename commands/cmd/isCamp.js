@@ -27,9 +27,9 @@ module.exports = {
 	 */
 	run: async (client, interaction, args) => {
 		const name = interaction.options.getString("이름");
-		db.findOne({ user: interaction.user.id }, async (err, data) => {
+		db.findOne({ user: interaction.user.id }, async (err, userData) => {
 			if (err) throw err;
-			if (data) {
+			if (userData) {
 				if (name == "교활한 토끼굴") {
 					var URL = gentle_camp
 					generateObject(URL)

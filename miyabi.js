@@ -53,24 +53,25 @@ client.login(process.env.CLIENT_TOKEN)
     process.exit();
   })
 
-const { logger } = require("./events/core/logger");
+const logger = require("./events/core/logger");
 
 process.on('unhandledRejection', (reason, p) => {
   console.log(' [antiCrash] :: Unhandled Rejection/Catch');
   console.error(reason, p);
+  logger.error(reason, p);
 });
 process.on("uncaughtException", (err, origin) => {
   console.log(' [antiCrash] :: Uncaught Exception/Catch');
-  console.error(err, origin);
+  logger.error(err, origin);
 })
 process.on('uncaughtExceptionMonitor', (err, origin) => {
   console.log(' [antiCrash] :: Uncaught Exception/Catch (MONITOR)');
-  console.error(err, origin);
+  logger.error(err, origin);
 });
 
 process.on('warning', (warn) => {
   console.warn(warn);
-  logger.warn(warn)
+  logger.warn(warn);
 });
 
 // process.on('multipleResolves', (type, promise) => {

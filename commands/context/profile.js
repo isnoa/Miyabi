@@ -75,36 +75,36 @@ module.exports = {
             })
         } else {
             const user = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: user.id }, async (err, userData) => {
-                db.findOne({ user: interaction.user.id }, async (err, data) => {
-                    if (userData) {
-                        const lang = require(`../../i18n/${data.i18n}.js`)
-                        if (userData.profileconnect === true) {
+            db.findOne({ user: user.id }, async (err, data) => {
+                db.findOne({ user: interaction.user.id }, async (err, userData) => {
+                    if (data) {
+                        const lang = require(`../../i18n/${userData.i18n}.js`)
+                        if (data.profileconnect === true) {
                             // const member = await interaction.guild.members.fetch(interaction.targetId);
                             // const color = member.displayHexColor;
                             // if (color == '#000000') color = member.hoistRole.hexColor;
                             const Embed = new EmbedBuilder()
                                 .setTitle(user.tag)
-                                .setDescription(userData.description || "-")
+                                .setDescription(data.description || "-")
                                 .setFields(
                                     {
                                         name: lang.Profile_field_serviceRegistered,
-                                        value: `<t:${parseInt(userData.since / 1000)}:R>`,
+                                        value: `<t:${parseInt(data.since / 1000)}:R>`,
                                         inline: true
                                     },
                                     {
                                         name: lang.Profile_field_recentlySearchedCharacter,
-                                        value: lang[userData.nowcharacter || "none"],
+                                        value: lang[data.nowcharacter || "none"],
                                         inline: true
                                     },
                                     {
                                         name: lang.Profile_field_zzzConnect,
-                                        value: lang[!!userData.zzzconnect || "disabled"],
+                                        value: lang[!!data.zzzconnect || "disabled"],
                                         inline: true
                                     },
                                     {
                                         name: lang.Profile_field_dailyCheckIn,
-                                        value: lang[userData.dailycheckin || "disabled"],
+                                        value: lang[data.dailycheckin || "disabled"],
                                         inline: true
                                     }
                                 )

@@ -9,6 +9,7 @@ const {
 } = require("discord.js");
 const uuid = require("uuid");
 const db = require("../../database/user");
+const logger = require("../../events/core/logger")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
@@ -17,7 +18,7 @@ client.on("interactionCreate", async (interaction) => {
                 switch (value) {
                     case "addProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: true } })
-                            .catch(err => console.error(err), logger.error(err))
+                            .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
                     case "addDescription":
@@ -36,25 +37,25 @@ client.on("interactionCreate", async (interaction) => {
                         DescriptionModal.addComponents(descriptionRow)
                         await interaction.showModal(DescriptionModal);
                         break;
-                    case "addZZZConnect":
-                        const ZZZConnectModal = new ModalBuilder()
-                            .setCustomId('setZZZConnectModal')
-                            .setTitle('프로필 설정 : ZZZ연동')
-                        const zzzConnectInput = new TextInputBuilder()
-                            .setCustomId('zzzConnectInput')
-                            .setLabel("필요한 값: ltoken, ltuid")
-                            /** .setValue('ltoken=????????????????????????????????????????; ltuid=?????????; mi18nLang=??-??; _MHYUUID=????????-????-????-????-????????????;') */
-                            .setStyle(TextInputStyle.Short)
-                            .setMinLength(36)
-                            .setMaxLength(150)
-                            .setRequired(true)
-                        const zzzConnectRow = new ActionRowBuilder().addComponents(zzzConnectInput)
-                        ZZZConnectModal.addComponents(zzzConnectRow)
-                        await interaction.showModal(ZZZConnectModal);
-                        break;
+                    // case "addZZZConnect":
+                    //     const ZZZConnectModal = new ModalBuilder()
+                    //         .setCustomId('setZZZConnectModal')
+                    //         .setTitle('프로필 설정 : ZZZ연동')
+                    //     const zzzConnectInput = new TextInputBuilder()
+                    //         .setCustomId('zzzConnectInput')
+                    //         .setLabel("필요한 값: ltoken, ltuid")
+                    //         /** .setValue('ltoken=????????????????????????????????????????; ltuid=?????????; mi18nLang=??-??; _MHYUUID=????????-????-????-????-????????????;') */
+                    //         .setStyle(TextInputStyle.Short)
+                    //         .setMinLength(36)
+                    //         .setMaxLength(150)
+                    //         .setRequired(true)
+                    //     const zzzConnectRow = new ActionRowBuilder().addComponents(zzzConnectInput)
+                    //     ZZZConnectModal.addComponents(zzzConnectRow)
+                    //     await interaction.showModal(ZZZConnectModal);
+                    //     break;
                     case "adddailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: true } })
-                            .catch(err => console.error(err), logger.error(err))
+                            .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
                 }
@@ -65,22 +66,22 @@ client.on("interactionCreate", async (interaction) => {
                 switch (value) {
                     case "delProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: false } })
-                            .catch(err => console.error(err), logger.error(err))
+                            .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
                     case "delDescription":
                         db.updateOne({ user: interaction.user.id }, { $set: { description: "-\nㅤ" } })
-                            .catch(err => console.error(err), logger.error(err))
+                            .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
-                    case "delZZZConnect":
-                        db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "" } })
-                            .catch(err => console.error(err), logger.error(err))
-                            .then(updateActRow())
-                        break;
+                    // case "delZZZConnect":
+                    //     db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "" } })
+                    //         .catch(err => logger.error(err))
+                    //         .then(updateActRow())
+                    //     break;
                     case "delDailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: false } })
-                            .catch(err => console.error(err), logger.error(err))
+                            .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
                 }
@@ -92,17 +93,18 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.customId === 'setDescriptionModal') {
         const aboutMeText = interaction.fields.getTextInputValue('descriptionInput')
         db.updateOne({ user: interaction.user.id }, { $set: { description: aboutMeText + "\nㅤ" } })
-            .catch(err => console.error(err), logger.error(err))
+            .catch(err => logger.error(err))
             .then(updateActRow())
     }
     if (interaction.customId === 'setZZZConnectModal') {
-        const zzzConnectText = interaction.fields.getTextInputValue('zzzConnectInput')
+        const LtokenInput = interaction.fields.getTextInputValue('zzzConnectLtokenInput')
+        const LtuidInput = interaction.fields.getTextInputValue('zzzConnectLtuidInput')
         db.findOne({ user: interaction.user.id }, async (err, userData) => {
             if (err) throw err;
             if (userData) {
-                userData.updateOne({ $set: { zzzconnect: zzzConnectText + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};` } })
-                    .catch(err => console.error(err), logger.error(err))
-                    .then(updateActRow())
+                userData.updateOne({ $set: { zzzconnect: `ltoken=${LtokenInput};` + `ltuid=${LtuidInput};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};` } })
+                    .catch(err => logger.error(err))
+                    .then(interaction.reply({ content: "승인.", ephemeral: true }))
             }
         })
     }
@@ -170,11 +172,11 @@ client.on("interactionCreate", async (interaction) => {
                                 value: "addDescription",
                                 description: "프로필 설명 추가할 수 있어."
                             },
-                            {
-                                label: "ZZZ 연동",
-                                value: "addZZZConnect",
-                                description: "ZZZ 연동으로 게임 내에 너의 정보를 볼 수 있어."
-                            },
+                            // {
+                            //     label: "ZZZ 연동",
+                            //     value: "addZZZConnect",
+                            //     description: "ZZZ 연동으로 게임 내에 너의 정보를 볼 수 있어."
+                            // },
                             {
                                 label: "출석체크",
                                 value: "adddailyCheckIn",
@@ -198,11 +200,11 @@ client.on("interactionCreate", async (interaction) => {
                                 value: "delDescription",
                                 description: "프로필 설명을 제거할 수 있어."
                             },
-                            {
-                                label: "ZZZ 연동 조회 불가",
-                                value: "delZZZConnect",
-                                description: "ZZZ 연동 여부를 조회할 수 없게 할 수 있어."
-                            },
+                            // {
+                            //     label: "ZZZ 연동 조회 불가",
+                            //     value: "delZZZConnect",
+                            //     description: "ZZZ 연동 여부를 조회할 수 없게 할 수 있어."
+                            // },
                             {
                                 label: "출석체크 조회 불가",
                                 value: "delDailyCheckIn",

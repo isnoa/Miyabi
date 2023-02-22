@@ -7,15 +7,15 @@ const {
 const db = require("../../database/user");
 
 module.exports = {
-    name: "register",
+    name: "language",
     name_localizations: {
-        "ko": "가입",
-        "ja": "加入"
+        "ko": "언어",
+        "ja": "言語"
     },
-    description: "Register to use commands related to 「Zenless Zone Zero」",
+    description: "You can set the language",
     description_localizations: {
-        "ko": "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 가입을 진행.",
-        "ja": "「Zenless Zone Zero」に関連するコマンドを使用できるよう加入を進行。"
+        "ko": "언어를 설정할 수 있어",
+        "ja": "言語を設定できる"
     },
     timeout: 5000,
     /**
@@ -25,10 +25,10 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        db.findOne({ user: interaction.user.id }, async (err, data) => {
+        db.findOne({ user: interaction.user.id }, async (err, userData) => {
             if (err) throw err;
-            if (data) {
-                const lang = require(`../../i18n/${data.i18n}.js`)
+            if (userData) {
+                const lang = require(`../../i18n/${userData.i18n}.js`)
                 const embedTure = new EmbedBuilder()
                     .setTitle(lang.Language_selection_Text)
                     .setFields(

@@ -20,10 +20,10 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        // db.findOne({ user: interaction.user.id }, async (err, data) => {
+        // db.findOne({ user: interaction.user.id }, async (err, userData) => {
         //     if (err) throw err;
-        //     if (data) {
-        //         const lang = require(`../../i18n/${data.}.js`)
+        //     if (userData) {
+        //         const lang = require(`../../i18n/${userData.}.js`)
         //         const time = "<t:1680706800:R>"
         //         const Embed = new EmbedBuilder()
         //             .setTitle("미야비에 대해")

@@ -140,7 +140,7 @@ module.exports = {
 							if (err) throw err;
 							if (userData) {
 								db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchOneCharacter } })
-									.catch(err => console.error(err));
+									.catch(err => logger.error(err));
 							}
 						})
 					} catch (err) {
