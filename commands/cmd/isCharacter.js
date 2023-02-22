@@ -8,6 +8,7 @@ const {
 const axios = require("axios");
 const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
+const logger = require("../../events/core/logger");
 
 module.exports = {
 	name: "character",
@@ -53,23 +54,23 @@ module.exports = {
 					const matchOneCharacter = findOneCharacter(name)
 					await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchOneCharacter}.json`).then(data => {
 						const Embed = new EmbedBuilder()
-							.setTitle("정보")
+							.setAuthor({ name: "정보" })
 							.setColor(data.data.colour)
-							.setDescription(' ' + data.data.title)
+							.setDescription(data.data.title)
 							.setFields(
 								{
 									name: "ㅤ",
-									value: `ㅤ**이름**: ${data.data.name}\nㅤ**성별**: ${data.data.gender}\nㅤ**생일**: ██월 ██일`,
+									value: `**이름**: ${data.data.name}\n**성별**: ${data.data.gender}\n**생일**: ██월 ██일`,
 									inline: true
 								},
 								{
 									name: "ㅤ",
-									value: `ㅤ**소속**: ${data.data.camp}\nㅤ**속성**: ██\nㅤ**체계**: ███`,
+									value: `**소속**: ${data.data.camp}\n**속성**: ██\n**공격**: ███`,
 									inline: true
 								},
 								{
 									name: "ㅤ",
-									value: ` ${data.data.intro}\n\n ${data.data.interview}`
+									value: `${data.data.interview}\n\n${data.data.intro}`
 								}
 							)
 							.setThumbnail(data.data.archive.avatar)
@@ -142,8 +143,9 @@ module.exports = {
 									.catch(err => console.error(err));
 							}
 						})
-					} catch {
+					} catch (err) {
 						console.error(err)
+						logger.error(err)
 					}
 				}
 			} else {

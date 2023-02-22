@@ -17,7 +17,7 @@ client.on("interactionCreate", async (interaction) => {
                 switch (value) {
                     case "addProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: true } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                     case "addDescription":
@@ -54,7 +54,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
                     case "adddailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: true } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                 }
@@ -65,22 +65,22 @@ client.on("interactionCreate", async (interaction) => {
                 switch (value) {
                     case "delProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: false } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                     case "delDescription":
                         db.updateOne({ user: interaction.user.id }, { $set: { description: "-\nㅤ" } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                     case "delZZZConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "" } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                     case "delDailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: false } })
-                            .catch(err => console.error(err))
+                            .catch(err => console.error(err), logger.error(err))
                             .then(updateActRow())
                         break;
                 }
@@ -92,7 +92,7 @@ client.on("interactionCreate", async (interaction) => {
     if (interaction.customId === 'setDescriptionModal') {
         const aboutMeText = interaction.fields.getTextInputValue('descriptionInput')
         db.updateOne({ user: interaction.user.id }, { $set: { description: aboutMeText + "\nㅤ" } })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err), logger.error(err))
             .then(updateActRow())
     }
     if (interaction.customId === 'setZZZConnectModal') {
@@ -101,7 +101,7 @@ client.on("interactionCreate", async (interaction) => {
             if (err) throw err;
             if (userData) {
                 userData.updateOne({ $set: { zzzconnect: zzzConnectText + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};` } })
-                    .catch(err => console.error(err))
+                    .catch(err => console.error(err), logger.error(err))
                     .then(updateActRow())
             }
         })

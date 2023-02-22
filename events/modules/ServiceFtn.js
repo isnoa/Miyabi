@@ -1,6 +1,7 @@
 const client = require("../../miyabi");
 const db = require("../../database/user");
 const { EmbedBuilder } = require("discord.js");
+const logger = require("../../events/core/logger");;
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
@@ -11,7 +12,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ user: interaction.user.id }, async (err, data) => {
                             if (!data) {
                                 new db({ user: interaction.user.id, i18n: "en-us", since: Date.now(), profileconnect: true })
-                                    .save().catch(err => console.error(err))
+                                    .save().catch(err => console.error(err));
                                 await interaction.reply({
                                     content: `Language has been changed to 'English'.`,
                                     ephemeral: true,
@@ -19,7 +20,7 @@ client.on("interactionCreate", async (interaction) => {
                                 })
                             } else {
                                 db.updateOne({ user: interaction.user.id }, { $set: { i18n: "en-us" } })
-                                    .catch(err => console.error(err))
+                                    .catch(err => console.error(err));
                                 await interaction.update({
                                     embeds: [new EmbedBuilder().setDescription(`Language has been changed to 'English'.`)],
                                     ephemeral: true,
@@ -33,7 +34,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ user: interaction.user.id }, async (err, data) => {
                             if (!data) {
                                 new db({ user: interaction.user.id, i18n: "ko-kr", since: Date.now(), profileconnect: true })
-                                    .save().catch(err => console.error(err))
+                                    .save().catch(err => console.error(err));
                                 await interaction.reply({
                                     content: `「언어」가 "한국어"로 변경 변경됬어.`,
                                     ephemeral: true,
@@ -41,7 +42,7 @@ client.on("interactionCreate", async (interaction) => {
                                 })
                             } else {
                                 db.updateOne({ user: interaction.user.id }, { $set: { i18n: "ko-kr" } })
-                                    .catch(err => console.error(err))
+                                    .catch(err => console.error(err));
                                 await interaction.update({
                                     embeds: [new EmbedBuilder().setDescription(`「언어」가 "한국어"로 변경됬어.`)],
                                     ephemeral: true,
@@ -55,7 +56,7 @@ client.on("interactionCreate", async (interaction) => {
                     //     db.findOne({ user: interaction.user.id }, async (err, data) => {
                     //         if (!data) {
                     //             new db({ user: interaction.user.id, i18n: "ja-jp", since: Date.now(), profileconnect: true })
-                    //                 .save().catch(err => console.error(err))
+                    //                 .save().catch(err => console.error(err));
                     //             await interaction.reply({
                     //                 content: `「言語」が「日本語」に変更したの。`,
                     //                 ephemeral: true,
@@ -63,7 +64,7 @@ client.on("interactionCreate", async (interaction) => {
                     //             })
                     //         } else {
                     //             db.updateOne({ user: interaction.user.id }, { $set: { i18n: "ja-jp" } })
-                    //                 .catch(err => console.error(err))
+                    //                 .catch(err => console.error(err));
                     //             await interaction.update({
                     //                 embeds: [new EmbedBuilder().setDescription(`「言語」が「日本語」に変更したの。`)],
                     //                 ephemeral: true,

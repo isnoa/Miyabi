@@ -3,6 +3,7 @@ const axios = require("axios");
 const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
 const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require("discord.js");
+const logger = require("../../events/core/logger")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
@@ -20,7 +21,7 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setAuthor({ name: "정보" })
                                                 .setColor(data.data.colour)
-                                                .setDescription('> ' + data.data.title)
+                                                .setDescription(data.data.title)
                                                 .setFields(
                                                     {
                                                         name: "ㅤ",
@@ -29,12 +30,12 @@ client.on("interactionCreate", async (interaction) => {
                                                     },
                                                     {
                                                         name: "ㅤ",
-                                                        value: `**소속**: ${data.data.camp}\n**속성**: ██\n**체계**: ███`,
+                                                        value: `**소속**: ${data.data.camp}\n**속성**: ██\n**공격**: ███`,
                                                         inline: true
                                                     },
                                                     {
                                                         name: "ㅤ",
-                                                        value: `> ${data.data.intro}\n\n> ${data.data.interview}`
+                                                        value: `${data.data.interview}\n\n${data.data.intro}`
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
@@ -92,7 +93,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -143,17 +145,17 @@ client.on("interactionCreate", async (interaction) => {
                                                         {
                                                             label: "1 ~ 20",
                                                             value: "1to20",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: data.data.name + "의 1 ~ 20레벨까지",
                                                         },
                                                         {
                                                             label: "1 ~ 30",
                                                             value: "1to30",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: data.data.name + "의 1 ~ 30레벨까지",
                                                         },
                                                         {
                                                             label: "1 ~ 40",
                                                             value: "1to40",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: data.data.name + "의 1 ~ 40레벨까지",
                                                         }
                                                     ])
                                             );
@@ -211,7 +213,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -304,7 +307,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -397,7 +401,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -489,7 +494,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -581,7 +587,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -673,7 +680,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -765,7 +773,8 @@ client.on("interactionCreate", async (interaction) => {
                                     })
                                 } catch (err) {
                                     interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    return console.error(err);
+                                    console.error(err);
+                                    logger.error(err);
                                 }
                             } else {
                                 interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })

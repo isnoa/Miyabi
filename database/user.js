@@ -6,9 +6,9 @@ const Schema = new mongoose.Schema({
     i18n : String,
     nowcharacter : String,
     profileconnect : Boolean,
-    uid : Number,
     description : String,
     zzzconnect : String,
+    uid : Number,
     dailycheckin : Boolean
 }, { versionKey: false })
 
