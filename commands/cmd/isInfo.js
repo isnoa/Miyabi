@@ -7,10 +7,10 @@ module.exports = {
         "ko": "정보",
         "ja": "情報"
     },
-    description: "Listen to the story of「Miyabi」",
+    description: "I'll give you some information about 「Miyabi」",
     description_localizations: {
-        "ko": "「Miyabi」에 관련한 이야기를 들려 드릴게요",
-        "ja": "「Miyabi」に関する話をお聞かせします"
+        "ko": "「Miyabi」에 관련한 정보를 알려 줄게",
+        "ja": "「Miyabi」に関する情報を教えてあげる"
     },
     timeout: 5000,
     /**

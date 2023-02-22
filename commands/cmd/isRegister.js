@@ -13,10 +13,10 @@ module.exports = {
         "ko": "가입",
         "ja": "加入"
     },
-    description: "Register to use commands related to 「Zenless Zone Zero」.",
+    description: "Register to use commands related to 「Zenless Zone Zero」",
     description_localizations: {
-        "ko": "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 가입을 진행.",
-        "ja": "「Zenless Zone Zero」に関連するコマンドを使用できるよう加入を進行。"
+        "ko": "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 가입을 진행",
+        "ja": "「Zenless Zone Zero」に関連するコマンドを使用できるよう加入を進行"
     },
     timeout: 5000,
     /**

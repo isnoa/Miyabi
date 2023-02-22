@@ -16,10 +16,10 @@ module.exports = {
 		"ko": "캐릭터",
 		"ja": "キャラクター"
 	},
-	description: "Find more information about the characters in 「Zenless Zone Zero」",
+	description: "I'll give you all the information about the character.",
 	description_localizations: {
-		"ko": "「Zenless Zone Zero」의 캐릭터에 대한 더 많은 정보를 찾아볼 수 있습니다",
-		"ja": "「Zenless Zone Zero」のキャラクターに関するより多くの情報を見ることができます"
+		"ko": "캐릭터의 모든 정보를 알려줄게",
+		"ja": "キャラクターのすべての情報を教えてあげる"
 	},
 	timeout: 5000,
 	options: [{
@@ -28,10 +28,10 @@ module.exports = {
 			"ko": "이름",
 			"ja": "名前"
 		},
-		description: "Please enter a name for the character",
+		description: "Enter a character name.",
 		description_localizations: {
-			"ko": "캐릭터의 이름을 입력해 주세요",
-			"ja": "キャラクターの名前を入力してください"
+			"ko": "캐릭터 이름을 입력해",
+			"ja": "キャラクター名を入力して"
 		},
 		type: ApplicationCommandOptionType.String,
 		required: true,

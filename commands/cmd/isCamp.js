@@ -14,7 +14,7 @@ module.exports = {
 	timeout: 5000,
 	options: [{
 		name: '이름',
-		description: '알아볼 소속의 이름을 입력해 주세요',
+		description: '알아볼 소속의 이름을 입력해',
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true

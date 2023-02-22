@@ -34,11 +34,11 @@ module.exports = {
                     .setFields(
                         {
                             name: "🇺🇸 / Global (English)",
-                            value: "All features and services will be changed to their language."
+                            value: "All functions can be changed to that language."
                         },
                         {
                             name: "🇰🇷 / 한국 (한국어)",
-                            value: "모든 기능 및 서비스가 해당 언어로 변경됩니다."
+                            value: "모든 기능이 해당 언어로 변경이 가능해."
                         },
                         // {
                         //     name: "🇯🇵 / 日本, (日本語)",
@@ -55,13 +55,13 @@ module.exports = {
                             {
                                 label: "Global (English)",
                                 value: "lang_global",
-                                description: "All features and services will be changed to their language.",
+                                description: "All functions can be changed to that language.",
                                 emoji: "🇺🇸",
                             },
                             {
                                 label: "한국 (한국어)",
                                 value: "lang_kr",
-                                description: "모든 기능 및 서비스가 해당 언어로 변경됩니다.",
+                                description: "모든 기능이 해당 언어로 변경이 가능해.",
                                 emoji: "🇰🇷",
                             },
                             // {
@@ -79,11 +79,11 @@ module.exports = {
                     .setFields(
                         {
                             name: "🇺🇸 / Global (English)",
-                            value: "All features and services will be changed to their language."
+                            value: "All functions can be changed to that language."
                         },
                         {
                             name: "🇰🇷 / 한국 (한국어)",
-                            value: "모든 기능 및 서비스가 해당 언어로 변경됩니다."
+                            value: "모든 기능이 해당 언어로 변경이 가능해."
                         },
                         // {
                         //     name: "🇯🇵 / 日本 (日本語)",
@@ -100,13 +100,13 @@ module.exports = {
                             {
                                 label: "Global (English)",
                                 value: "lang_global",
-                                description: "All features and services will be changed to their language.",
+                                description: "All functions can be changed to that language.",
                                 emoji: "🇺🇸",
                             },
                             {
                                 label: "한국 (한국어)",
                                 value: "lang_kr",
-                                description: "모든 기능 및 서비스가 해당 언어로 변경됩니다.",
+                                description: "모든 기능이 해당 언어로 변경이 가능해.",
                                 emoji: "🇰🇷",
                             },
                             // {
