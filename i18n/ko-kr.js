@@ -10,6 +10,11 @@ module.exports = {
     Profile_field_recentlySearchedCharacter: "최근 검색한 캐릭터",
     Profile_field_zzzConnect: "ZZZ 연동",
     Profile_field_dailyCheckIn: "출석체크",
+
+    /** Settings */
+    Setting_title_zzzConnect: "ZZZ 연동",
+    Setting_label_needValue: "필요한 값",
+
     
     /** Characters */
     anby_demara: "엔비 데마라",
