@@ -3,9 +3,7 @@ const ko = require("../i18n/ko-kr");
 const ja = require("../i18n/ja-jp");
 
 const findOneCharacter = (name) => {
-    if (name === "A B C D E F G") {
-        return null;
-    } else if (name === en.nicole_demara) {
+    if (name === en.nicole_demara) {
         return "nicole_demara";
     } else if (name === ko.nicole_demara) {
         return "anby_demara";

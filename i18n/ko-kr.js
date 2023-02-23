@@ -13,8 +13,10 @@ module.exports = {
 
     /** Settings */
     Setting_title_zzzConnect: "ZZZ 연동",
-    Setting_label_needValue: "필요한 값",
+    Setting_label_requiredValue: "필요한 값",
 
+    /** Registers */
+    Register_description_retcodeZero : "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
     
     /** Characters */
     anby_demara: "엔비 데마라",
