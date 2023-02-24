@@ -29,7 +29,7 @@ module.exports = {
         db.findOne({ user: interaction.user.id }, async (err, userData) => {
             if (err) throw err;
             if (userData) {
-                const lang = require(`../../i18n/${userData.i18n}.js`)
+                const lang = require(`../../i18n/${userData.i18n}.js`);
                 const ZZZConnectModal = new ModalBuilder()
                     .setCustomId('setZZZConnectModal')
                     .setTitle('ZZZ연동')

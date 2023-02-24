@@ -23,7 +23,7 @@ module.exports = {
         // db.findOne({ user: interaction.user.id }, async (err, userData) => {
         //     if (err) throw err;
         //     if (userData) {
-        //         const lang = require(`../../i18n/${userData.}.js`)
+        //         const lang = require(`../../i18n/${userData.}.js`);
         //         const time = "<t:1680706800:R>"
         //         const Embed = new EmbedBuilder()
         //             .setTitle("미야비에 대해")

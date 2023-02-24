@@ -115,7 +115,7 @@ client.on("interactionCreate", async (interaction) => {
         db.findOne({ user: interaction.user.id }, async (err, userData) => {
             if (err) throw err;
             if (userData) {
-                const lang = require(`../../i18n/${userData.i18n}.js`)
+                const lang = require(`../../i18n/${userData.i18n}.js`);
                 const color = interaction.member.displayHexColor;
                 const Embed = new EmbedBuilder()
                     .setDescription(userData.description || "-\nㅤ")

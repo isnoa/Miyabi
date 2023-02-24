@@ -20,7 +20,7 @@ module.exports = {
         if (userMatch) {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (userData) {
-                    const lang = require(`../../i18n/${userData.i18n}.js`)
+                    const lang = require(`../../i18n/${userData.i18n}.js`);
                     // const color = interaction.member.displayHexColor;
                     const Embed = new EmbedBuilder()
                         .setDescription(userData.description || "-")
@@ -78,7 +78,7 @@ module.exports = {
             db.findOne({ user: user.id }, async (err, data) => {
                 db.findOne({ user: interaction.user.id }, async (err, userData) => {
                     if (data) {
-                        const lang = require(`../../i18n/${userData.i18n}.js`)
+                        const lang = require(`../../i18n/${userData.i18n}.js`);
                         if (data.profileconnect === true) {
                             // const member = await interaction.guild.members.fetch(interaction.targetId);
                             // const color = member.displayHexColor;

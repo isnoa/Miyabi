@@ -15,6 +15,7 @@ client.on("interactionCreate", async (interaction) => {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (err) throw err;
                 if (userData) {
+                    const lang = require(`../../i18n/${userData.i18n}.js`);;
                     const cookie = `ltoken=${LtokenInput};` + `ltuid=${LtuidInput};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};`
                     // const server = getServer(targetUID);
                     // const Region = getRegion(targetUID);

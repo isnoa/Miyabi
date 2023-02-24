@@ -9,7 +9,7 @@ client.on("interactionCreate", async (interaction) => {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (err) throw err;
                 if (userData) {
-                    const lang = require(`../../i18n/${userData.i18n}.js`)
+                    const lang = require(`../../i18n/${userData.i18n}.js`);
                     const choices = [
                         lang.anby_demara || "Anby Demara",
                         lang.nicole_demara || "Nicole Demara",
