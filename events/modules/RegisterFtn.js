@@ -10,13 +10,13 @@ const { DangerColor } = require("../../database/color");
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isModalSubmit()) {
         if (interaction.customId === 'setZZZConnectModal') {
-            const LtokenInput = interaction.fields.getTextInputValue('zzzConnectLtokenInput')
-            const LtuidInput = interaction.fields.getTextInputValue('zzzConnectLtuidInput')
+            const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '')
+            const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (err) throw err;
                 if (userData) {
-                    const lang = require(`../../i18n/${userData.i18n}.js`);;
-                    const cookie = `ltoken=${LtokenInput};` + `ltuid=${LtuidInput};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};`
+                    const lang = require(`../../i18n/${userData.i18n}.js`);
+                    const cookie = `ltoken=${Ltoken};` + `ltuid=${Ltuid};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};`
                     // const server = getServer(targetUID);
                     // const Region = getRegion(targetUID);
                     // const cookie = `ltoken=FfzAgAn2yVsFY4DNQk8EE9yV2Zjchkl2cp2oqsPL; ltuid=147312914; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`
@@ -50,7 +50,18 @@ client.on("interactionCreate", async (interaction) => {
                         return res;
                     });
 
-                    const profile = await dataMachine.get(`https://bbs-api-os.hoyolab.com/game_record/honkai3rd/api/index?server=kr01&role_id=13360324`).then(res => res.data);
+                    const profile = await dataMachine.get(`https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard?uid=${Ltuid}`).then(res => res.data);
+                    // console.log(profile.data.list.find((game_id) => game_id))
+                    const list = profile.data.list
+                    let resultList = []
+                    for (let i = 0; i < list.length; i++) {
+                        resultList.push(
+                            {
+                                game_id: list[i].game_id
+                            }
+                        )
+                    }
+                    console.log(resultList)
                     if (profile.retcode !== 0) {
                         const embedError = new EmbedBuilder()
                             .setDescription(lang.Register_description_retcodeZero)
@@ -67,13 +78,27 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             )
                             .setColor(DangerColor)
-                        // console.log(profile)
                         interaction.reply({ content: `${profile.message}`, embeds: [embedError] })
                         return undefined;
-
                     }
-                    interaction.reply({ content: profile.message })
-                    return cookie;
+
+                    const algorithm = 'aes-256-cbc';
+                    const key = process.env.SECRET_KEY;
+                    const iv = process.env.SECRET_VI;
+
+                    const cipher = crypto.createCipheriv(algorithm, key, iv);
+                    let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
+                    encryptedCookie += cipher.final('base64');
+                    console.log('암호화:', encryptedCookie);
+
+                    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+                    let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
+                    result2 += decipher.final('utf8');
+                    console.log('복호화:', result2);
+
+                    userData.updateOne({ $set: { zzzconnect: encryptedCookie, uid: Ltuid } })
+                        .catch(err => logger.error(err))
+                    interaction.reply({ content: profile.message + " 승인.", ephemeral: true });
 
                     function generateDSToken() {
                         const time = Math.floor(Date.now() / 1000);
@@ -97,19 +122,6 @@ client.on("interactionCreate", async (interaction) => {
                         return str;
                     };
                 }
-
-
-                const algorithm = 'aes-256-cbc';
-                const key = 'abcdefghijklmnopqrstuvwxyz123456';
-                const iv = '1234567890123456';
-
-                const cipher = crypto.createCipheriv(algorithm, key, iv);
-                let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
-                encryptedCookie += cipher.final('base64');
-                console.log('암호화:', encryptedCookie);
-                userData.updateOne({ $set: { zzzconnect: encryptedCookie } })
-                    .catch(err => logger.error(err))
-                    .then(interaction.reply({ content: "승인.", ephemeral: true }))
             })
         }
     }
