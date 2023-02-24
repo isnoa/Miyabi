@@ -96,18 +96,18 @@ client.on("interactionCreate", async (interaction) => {
             .catch(err => logger.error(err))
             .then(updateActRow())
     }
-    if (interaction.customId === 'setZZZConnectModal') {
-        const LtokenInput = interaction.fields.getTextInputValue('zzzConnectLtokenInput')
-        const LtuidInput = interaction.fields.getTextInputValue('zzzConnectLtuidInput')
-        db.findOne({ user: interaction.user.id }, async (err, userData) => {
-            if (err) throw err;
-            if (userData) {
-                userData.updateOne({ $set: { zzzconnect: `ltoken=${LtokenInput};` + `ltuid=${LtuidInput};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};` } })
-                    .catch(err => logger.error(err))
-                    .then(interaction.reply({ content: "승인.", ephemeral: true }))
-            }
-        })
-    }
+    // if (interaction.customId === 'setZZZConnectModal') {
+    //     const LtokenInput = interaction.fields.getTextInputValue('zzzConnectLtokenInput')
+    //     const LtuidInput = interaction.fields.getTextInputValue('zzzConnectLtuidInput')
+    //     db.findOne({ user: interaction.user.id }, async (err, userData) => {
+    //         if (err) throw err;
+    //         if (userData) {
+    //             userData.updateOne({ $set: { zzzconnect: `ltoken=${LtokenInput};` + `ltuid=${LtuidInput};` + ` mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};` } })
+    //                 .catch(err => logger.error(err))
+    //                 .then(interaction.reply({ content: "승인.", ephemeral: true }))
+    //         }
+    //     })
+    // }
 
 
 
