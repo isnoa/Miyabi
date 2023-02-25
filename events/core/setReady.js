@@ -14,8 +14,8 @@ client.on("ready", () => {
   });
 })
 
-//   var statusOptions = ['Zenless Zone Zero', '젠레스 존 제로', 'ゼンレスゾーンゼロ'];
-//   var counter = 0;
+//   const statusOptions = ['Zenless Zone Zero', '젠레스 존 제로', 'ゼンレスゾーンゼロ'];
+//   const counter = 0;
 //   const statusUpdate = () => {
 //     client.user.setPresence({
 //       // status: "dnd",

@@ -22,22 +22,22 @@ module.exports = {
 		const name = interaction.options.getString('이름');
 
 		if (name == "검은 면기: 훈제 차슈라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/smoke_bbq_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/smoke_bbq_noodles/ramen.json"
 			generateObject()
 		} else if (name == "흰 면기: 호박라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/pumpkin_soup_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/pumpkin_soup_noodles/ramen.json"
 			generateObject()
 		} else if (name == "흰 면기: 차슈 튀김라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json"
 			generateObject()
 		} else if (name == "흰 면기: 홍고추  돈코츠라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/red_pepper_meat_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/red_pepper_meat_noodles/ramen.json"
 			generateObject()
 		} else if (name == "흰 면기: 청고추 돈코츠라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/green_pepper_meat_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/green_pepper_meat_noodles/ramen.json"
 			generateObject()
 		} else if (name == "흰 면기: 해물라면") {
-			var URL = "https://zenlessdata.web.app/upload/community/data/noodle/seafood_noodles/ramen.json"
+			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/seafood_noodles/ramen.json"
 			generateObject()
 		} 
 
@@ -45,13 +45,13 @@ module.exports = {
 			try {
 				axios.get(URL).then(data => {
 
-					var food_name = data.data.ZZZRamen.name
-					var food_desc = data.data.ZZZRamen.desc
-					var food_tips = data.data.ZZZRamen.info.tips
-					var food_price = data.data.ZZZRamen.info.price
-					var food_img = data.data.ZZZRamen.info.foods_image
-					var food_effect = data.data.ZZZRamen.effect.desc
-					var food_effect_icon = data.data.ZZZRamen.effect.icon
+					const food_name = data.data.ZZZRamen.name
+					const food_desc = data.data.ZZZRamen.desc
+					const food_tips = data.data.ZZZRamen.info.tips
+					const food_price = data.data.ZZZRamen.info.price
+					const food_img = data.data.ZZZRamen.info.foods_image
+					const food_effect = data.data.ZZZRamen.effect.desc
+					const food_effect_icon = data.data.ZZZRamen.effect.icon
 
 					const Embed = new EmbedBuilder()
 						.setAuthor({ name: food_name })
@@ -68,12 +68,11 @@ module.exports = {
 							}
 						)
 						.setThumbnail(food_img)
-						// .setImage('')
 					interaction.reply({ embeds: [Embed] })
 					return true;
 				})
 			} catch {
-				return false;
+				return undefined;
 			}
 		}
 	}
