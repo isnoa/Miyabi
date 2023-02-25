@@ -1,5 +1,5 @@
 const en = require("../i18n/en-us");
-const ko = require("../i18n/ko-kr");
+const ko = require("./ko-kr");
 const ja = require("../i18n/ja-jp");
 
 const findOneCharacter = (name) => {

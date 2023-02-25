@@ -26,46 +26,23 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        db.findOne({ user: interaction.user.id }, async (err, userData) => {
-            if (err) throw err;
-            if (userData) {
-                const lang = require(`../../i18n/${userData.i18n}.js`);
-                const ZZZConnectModal = new ModalBuilder()
-                    .setCustomId('setZZZConnectModal')
-                    .setTitle('ZZZ연동')
-                const zzzConnectLtokenInput = new TextInputBuilder()
-                    .setCustomId('zzzConnectLtokenInput')
-                    .setLabel("필요한 값: ltoken")
-                    .setStyle(TextInputStyle.Short)
-                    .setRequired(true)
-                const zzzConnectLtuidInput = new TextInputBuilder()
-                    .setCustomId('zzzConnectLtuidInput')
-                    .setLabel("필요한 값: ltuid")
-                    .setStyle(TextInputStyle.Short)
-                    .setRequired(true)
-                const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
-                const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
-                ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
-                await interaction.showModal(ZZZConnectModal);
-            } else {
-                const ZZZConnectModal = new ModalBuilder()
-                    .setCustomId('setZZZConnectModal')
-                    .setTitle('ZZZConnect')
-                const zzzConnectLtokenInput = new TextInputBuilder()
-                    .setCustomId('zzzConnectLtokenInput')
-                    .setLabel("Required Value: ltoken")
-                    .setStyle(TextInputStyle.Short)
-                    .setRequired(true)
-                const zzzConnectLtuidInput = new TextInputBuilder()
-                    .setCustomId('zzzConnectLtuidInput')
-                    .setLabel("Required Value: ltuid")
-                    .setStyle(TextInputStyle.Short)
-                    .setRequired(true)
-                const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
-                const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
-                ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
-                await interaction.showModal(ZZZConnectModal);
-            }
-        })
+        const text = require("../../database/ko-kr.js");
+        const ZZZConnectModal = new ModalBuilder()
+            .setCustomId('setZZZConnectModal')
+            .setTitle('ZZZ연동')
+        const zzzConnectLtokenInput = new TextInputBuilder()
+            .setCustomId('zzzConnectLtokenInput')
+            .setLabel("필요한 값: ltoken")
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true)
+        const zzzConnectLtuidInput = new TextInputBuilder()
+            .setCustomId('zzzConnectLtuidInput')
+            .setLabel("필요한 값: ltuid")
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true)
+        const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
+        const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
+        ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
+        await interaction.showModal(ZZZConnectModal);
     }
 }
