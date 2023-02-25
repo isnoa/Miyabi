@@ -14,7 +14,6 @@ client.on("interactionCreate", async (interaction) => {
             const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (err) throw err;
-                if (userData) {
                     await interaction.deferReply();
                     const lang = require(`../../i18n/${userData.i18n}.js`);
                     const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=${userData.i18n}; _MHYUUID=${uuid.v4()};`
@@ -67,7 +66,7 @@ client.on("interactionCreate", async (interaction) => {
                     // console.log(resultList)
                     if (profile.retcode !== 0) {
                         const embedError = new EmbedBuilder()
-                            .setDescription(lang.Register_description_retcodeZero)
+                            .setDescription(lang.Register_description_retcodeZero || "I checked the registration status and no one matched.")
                             .setFields(
                                 {
                                     name: "캐릭터 HoYoLAB과 연동하는 방법",
@@ -126,7 +125,6 @@ client.on("interactionCreate", async (interaction) => {
                         }
                         return str;
                     };
-                }
             })
         }
     }

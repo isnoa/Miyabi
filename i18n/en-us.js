@@ -11,6 +11,13 @@ module.exports = {
     Profile_field_zzzConnect: "ZZZ Connect",
     Profile_field_dailyCheckIn: "Daily Check-In",
 
+    /** Settings */
+    Setting_title_zzzConnect: "ZZZ Connect",
+    Setting_label_requiredValue: "Required Value",
+
+    /** Registers */
+    Register_description_retcodeZero : "I checked the registration status and no one matched.",
+
     /** Characters */
     anby_demara: "Anby Demara",
     nicole_demara: "Nicole Demara",
