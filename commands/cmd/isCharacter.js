@@ -126,6 +126,7 @@ module.exports = {
 			if (err.response && err.response.status === 404) {
 				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
 			} else {
+				console.log(err)
 				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
 			}
 		}
@@ -137,6 +138,9 @@ module.exports = {
 					if (userData) {
 						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchOneCharacter } })
 							.catch(err => logger.error(err));
+					} else {
+						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchOneCharacter })
+							.save().catch(err => logger.error(err));
 					}
 				})
 			} catch (err) {
