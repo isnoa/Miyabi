@@ -35,7 +35,7 @@ module.exports = {
     UICharacterName: "이름",
     UICharacterGender: "성별",
     UICharacterBirthday: "생일",
-    UICharacter_Camp: "소속",
+    UICharacterCamp: "소속",
     UICharacterElement: "속성",
     UICharacterAttack: "공격",
 
