@@ -16,7 +16,7 @@ module.exports = {
     Setting_label_requiredValue: "필요한 값",
 
     /** Registers */
-    Register_description_retcodeZero : "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
+    Register_description_retcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
     
     /** Characters */
     anby_demara: "엔비 데마라",
@@ -31,6 +31,25 @@ module.exports = {
     ben_bigger: "벤 비거",
     soukaku: "소우카쿠",
     hoshimi_miyabi: "호시미 미야비",
+
+    Character_placeholder_text: "옵션을 선택해.",
+
+    Character_title_info: "정보",
+    Character_value_name: "이름",
+    Character_value_gender: "성별",
+    Character_label_bday: "생일",
+    Character_value_camp: "소속",
+    Character_value_element: "속성",
+    Character_value_attack: "공격",
+
+    Character_label_info: "정보",
+    Character_label_baseStats: "스텟",
+    Character_label_basicAttack: "기본공격",
+    Character_label_specialAttack: "특수공격",
+    Character_label_comboAttack: "연계공격",
+    Character_label_dodge: "회피",
+    Character_label_talent: "특성",
+    Character_label_partyRecs: "추천파티",
 
     /** System */
     none: "없음",

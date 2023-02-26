@@ -46,22 +46,23 @@ module.exports = {
 	run: async (client, interaction, args) => {
 		const name = interaction.options.getString("name");
 		try {
+			const text = require("../../database/ko-kr")
 			const { findOneCharacter } = require("../../database/characters")
 			const matchOneCharacter = findOneCharacter(name)
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchOneCharacter}.json`).then(data => {
 				const Embed = new EmbedBuilder()
-					.setAuthor({ name: "정보" })
+					.setAuthor({ name: text.Character_title_info })
 					.setColor(data.data.colour)
 					.setDescription(data.data.title)
 					.setFields(
 						{
 							name: "ㅤ",
-							value: `**이름**: ${data.data.name}\n**성별**: ${data.data.gender}\n**생일**: ██월 ██일`,
+							value: `**${text.Character_value_name}**: ${data.data.name}\n**${text.Character_value_gender}**: ${data.data.gender}\n**${text.Character_label_bday}**: ██월 ██일`,
 							inline: true
 						},
 						{
 							name: "ㅤ",
-							value: `**소속**: ${data.data.camp}\n**속성**: ██\n**공격**: ███`,
+							value: `**${text.Character_value_camp}**: ${data.data.camp}\n**${text.Character_value_element}**: ██\n**${text.Character_value_attack}**: ███`,
 							inline: true
 						},
 						{
@@ -74,46 +75,46 @@ module.exports = {
 				const row = new ActionRowBuilder().addComponents(
 					new StringSelectMenuBuilder()
 						.setCustomId("character-select")
-						.setPlaceholder(`옵션을 선택해.`)
+						.setPlaceholder(text.Character_placeholder_text)
 						.setMaxValues(1)
 						.addOptions([
 							{
-								label: "정보",
+								label: text.Character_label_info,
 								value: "Info",
 								description: data.data.name + "의 정보 알아보기",
 							},
 							{
-								label: "스텟",
+								label: text.Character_label_baseStats,
 								value: "BaseStats",
 								description: data.data.name + "의 스텟 알아보기",
 							},
 							{
-								label: "기본공격",
+								label: text.Character_label_basicAttack,
 								value: "BasicAttack",
 								description: data.data.name + "의 기본공격 알아보기",
 							},
 							{
-								label: "특수공격",
+								label: text.Character_label_specialAttack,
 								value: "SpecialAttack",
 								description: data.data.name + "의 특수공격 알아보기",
 							},
 							{
-								label: "연계공격",
+								label: text.Character_label_comboAttack,
 								value: "ComboAttack",
 								description: data.data.name + "의 연계공격 알아보기",
 							},
 							{
-								label: "회피",
+								label: text.Character_label_dodge,
 								value: "Dodge",
 								description: data.data.name + "의 회피 알아보기",
 							},
 							{
-								label: "특성",
+								label: text.Character_label_talent,
 								value: "Talent",
 								description: data.data.name + "의 특성 알아보기",
 							},
 							{
-								label: "추천파티",
+								label: text.Character_label_partyRecs,
 								value: "PartyRecs",
 								description: data.data.name + "의 추천파티 알아보기",
 							}
