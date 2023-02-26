@@ -48,8 +48,8 @@ module.exports = {
 		try {
 			const text = require("../../database/ko-kr")
 			const { findOneCharacter } = require("../../database/characters")
-			const matchOneCharacter = findOneCharacter(name)
-			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchOneCharacter}.json`).then(data => {
+			const matchedCharacter = findOneCharacter(name)
+			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedCharacter}.json`).then(data => {
 				const Embed = new EmbedBuilder()
 					.setAuthor({ name: text.Character_title_info })
 					.setColor(data.data.colour)
@@ -81,47 +81,47 @@ module.exports = {
 							{
 								label: text.Character_label_info,
 								value: "Info",
-								description: data.data.name + "의 정보 알아보기",
+								description: data.data.name + `의 ${text.Character_label_info} 알아보기`,
 							},
 							{
-								label: text.Character_label_baseStats,
-								value: "BaseStats",
-								description: data.data.name + "의 스텟 알아보기",
+								label: text.Character_label_stats,
+								value: "Stats",
+								description: data.data.name + `의 ${text.Character_label_stats} 알아보기`,
 							},
 							{
 								label: text.Character_label_basicAttack,
 								value: "BasicAttack",
-								description: data.data.name + "의 기본공격 알아보기",
+								description: data.data.name + `의 ${text.Character_label_basicAttack} 알아보기`,
 							},
 							{
 								label: text.Character_label_specialAttack,
 								value: "SpecialAttack",
-								description: data.data.name + "의 특수공격 알아보기",
+								description: data.data.name + `의 ${text.Character_label_specialAttack} 알아보기`,
 							},
 							{
 								label: text.Character_label_comboAttack,
 								value: "ComboAttack",
-								description: data.data.name + "의 연계공격 알아보기",
+								description: data.data.name + `의 ${text.Character_label_comboAttack} 알아보기`,
 							},
 							{
 								label: text.Character_label_dodge,
 								value: "Dodge",
-								description: data.data.name + "의 회피 알아보기",
+								description: data.data.name + `의 ${text.Character_label_dodge} 알아보기`,
 							},
 							{
 								label: text.Character_label_talent,
 								value: "Talent",
-								description: data.data.name + "의 특성 알아보기",
+								description: data.data.name + `의 ${text.Character_label_talent} 알아보기`,
 							},
 							{
 								label: text.Character_label_partyRecs,
 								value: "PartyRecs",
-								description: data.data.name + "의 추천파티 알아보기",
+								description: data.data.name + `의 ${text.Character_label_partyRecs} 알아보기`,
 							}
 						])
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
-				addHistory(matchOneCharacter)
+				addHistory(matchedCharacter)
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
@@ -132,15 +132,15 @@ module.exports = {
 			}
 		}
 
-		async function addHistory(matchOneCharacter) {
+		async function addHistory(matchedCharacter) {
 			try {
 				db.findOne({ user: interaction.user.id }, async (err, userData) => {
 					if (err) throw err;
 					if (userData) {
-						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchOneCharacter } })
+						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedCharacter } })
 							.catch(err => logger.error(err));
 					} else {
-						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchOneCharacter })
+						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedCharacter })
 							.save().catch(err => logger.error(err));
 					}
 				})

@@ -56,7 +56,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -106,7 +106,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
 
-                    case "BaseStats":
+                    case "Stats":
                         db.findOne({ user: interaction.user.id }, async (err, userData) => {
                             if (err) throw err;
                             if (userData) {
@@ -115,7 +115,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " 기본스텟" })
+                                                .setAuthor({ name: data.data.name + " 스텟" })
                                                 .setColor(data.data.colour)
                                                 .setFields(
                                                     {
@@ -206,7 +206,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -300,7 +300,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -394,7 +394,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -487,7 +487,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -580,7 +580,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -673,7 +673,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
@@ -766,7 +766,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         },
                                                         {
                                                             label: "스텟",
-                                                            value: "BaseStats",
+                                                            value: "Stats",
                                                             description: data.data.name + "의 스텟 알아보기",
                                                         },
                                                         {
