@@ -1,6 +1,5 @@
 module.exports = {
     /** Languages */
-    UILanguageSelect: "언어를 선택해.",
     UILanguageRelax: "실수로 다른 언어를 선택하더라도 다시 선택할 수 있으니 걱정마.",
 
     /** UIProfiles */
@@ -15,26 +14,10 @@ module.exports = {
     UISettingZZZConnect: "ZZZ 연동",
     UISettingREQValue: "필요한 값",
 
-    /** UIRegisters */
-    UIRegisterRETCODEZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
-    
-    /** Characters */
-    anby_demara: "엔비 데마라",
-    nicole_demara: "니콜 데마라",
-    billy_kid: "빌리 키드",
-    nekomiya_mana: "네코미야 마나",
-    soldier_11: "11호",
-    corin_wickes: "코린 위크스",
-    von_lycaon: "본 리카온",
-    anton_ivanov: "안톤 이바노프",
-    koleda_belobog: "콜레다 벨로보그",
-    ben_bigger: "벤 비거",
-    soukaku: "소우카쿠",
-    hoshimi_miyabi: "호시미 미야비",
-
+    /** UICharacters */
     UICharacterName: "이름",
     UICharacterGender: "성별",
-    UICharacterBirthday: "생일",
+    UICharacterBirthDay: "생일",
     UICharacterCamp: "소속",
     UICharacterElement: "속성",
     UICharacterAttack: "공격",
@@ -49,7 +32,31 @@ module.exports = {
     UICharacterPartyRecs: "추천파티",
 
     /** UIPlaceholder */
+    UIPlaceholderForLanguage: "언어를 선택해.",
+    UIPlaceholderForSettingAdd: "추가 옵션을 선택해.",
+    UIPlaceholderForSettingAdd: "제거 옵션을 선택해.",
     UIPlaceholderForCharacter: "옵션을 선택해.",
+    UIPlaceholderForStatsCalculator: "계산할 스텟을 선택해.",
+
+    /** UISystem */
+    none: "없음",
+    true: "사용중",
+    false: "사용안함",
+    UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
+
+    /** Characters */
+    anby_demara: "엔비 데마라",
+    nicole_demara: "니콜 데마라",
+    billy_kid: "빌리 키드",
+    nekomiya_mana: "네코미야 마나",
+    soldier_11: "11호",
+    corin_wickes: "코린 위크스",
+    von_lycaon: "본 리카온",
+    anton_ivanov: "안톤 이바노프",
+    koleda_belobog: "콜레다 벨로보그",
+    ben_bigger: "벤 비거",
+    soukaku: "소우카쿠",
+    hoshimi_miyabi: "호시미 미야비",
 
     /** Fight Props */
     FIGHT_PROP_HP: "HP",
@@ -66,13 +73,4 @@ module.exports = {
     FIGHT_PROP_ENERGY_RECOVERY: "에너지 자동 회복",
     FIGHT_PROP_INFLICTING_DMG: "가하는 속성 피해",
     FIGHT_PROP_ENERGY_RECOVERY_SPD_PERCENT: "에너지 자동 회복 속도%",
-
-    /** UISystem */
-    none: "없음",
-    enabled: "사용중",
-    disabled: "사용안함",
-    true: "사용중",
-    false: "사용안함",
-    unknow: "알 수 없음",
-    UIFTCD: " 관련된 데이터를 확인 할 수 없어.",
 }

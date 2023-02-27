@@ -40,12 +40,12 @@ module.exports = {
           },
           {
             name: text.Profile_field_zzzConnect,
-            value: text[!!userData.zzzconnect || "disabled"],
+            value: text[!!userData.zzzconnect || "false"],
             inline: true
           },
           {
             name: text.Profile_field_dailyCheckIn,
-            value: text[userData.dailycheckin || "disabled"],
+            value: text[userData.dailycheckin || "false"],
             inline: true
           }
         )

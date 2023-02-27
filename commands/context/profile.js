@@ -37,12 +37,12 @@ module.exports = {
                             },
                             {
                                 name: text.Profile_field_zzzConnect,
-                                value: text[!!userData.zzzconnect || "disabled"],
+                                value: text[!!userData.zzzconnect || "false"],
                                 inline: true
                             },
                             {
                                 name: text.Profile_field_dailyCheckIn,
-                                value: text[userData.dailycheckin || "disabled"],
+                                value: text[userData.dailycheckin || "false"],
                                 inline: true
                             }
                         )
@@ -98,12 +98,12 @@ module.exports = {
                                 },
                                 {
                                     name: text.Profile_field_zzzConnect,
-                                    value: text[!!data.zzzconnect || "disabled"],
+                                    value: text[!!data.zzzconnect || "false"],
                                     inline: true
                                 },
                                 {
                                     name: text.Profile_field_dailyCheckIn,
-                                    value: text[data.dailycheckin || "disabled"],
+                                    value: text[data.dailycheckin || "false"],
                                     inline: true
                                 }
                             )
