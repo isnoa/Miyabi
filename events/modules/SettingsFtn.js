@@ -111,7 +111,7 @@ client.on("interactionCreate", async (interaction) => {
                     inline: true
                 },
                 {
-                    name: text.Profile_field_recentlySearchedCharacter,
+                    name: text.Profile_field_recentlySearchedAgent,
                     value: text[userData.nowcharacter || "none"],
                     inline: true
                 },

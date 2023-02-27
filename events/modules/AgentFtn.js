@@ -7,11 +7,12 @@ const {
 const axios = require("axios");
 const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
-const logger = require("../../events/core/logger")
+const logger = require("../core/logger")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
-        if (interaction.customId == "character-select") {
+        const text = require("../../database/ko-kr")
+        if (interaction.customId == "AgentSelect") {
             interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "Info":
@@ -23,18 +24,18 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: "정보" })
+                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentInfo })
                                                 .setColor(data.data.colour)
                                                 .setDescription(data.data.title)
                                                 .setFields(
                                                     {
                                                         name: "ㅤ",
-                                                        value: `**이름**: ${data.data.name}\n**성별**: ${data.data.gender}\n**생일**: ██월 ██일`,
+                                                        value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
                                                         inline: true
                                                     },
                                                     {
                                                         name: "ㅤ",
-                                                        value: `**소속**: ${data.data.camp}\n**속성**: ██\n**공격**: ███`,
+                                                        value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
                                                         inline: true
                                                     },
                                                     {
@@ -45,49 +46,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -115,12 +116,12 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " 스텟" })
+                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentStats })
                                                 .setColor(data.data.colour)
                                                 .setFields(
                                                     {
-                                                        name: "예시 기준",
-                                                        value: "캐릭터 레벨: 100(만랩)",
+                                                        name: text.UIAgentEXCriteria,
+                                                        value: text.UIAgentMAXLvCriteria,
                                                         inline: false
                                                     },
                                                     {
@@ -195,49 +196,49 @@ client.on("interactionCreate", async (interaction) => {
                                             );
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -289,49 +290,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -383,49 +384,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -476,49 +477,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -569,49 +570,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -662,49 +663,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );
@@ -755,49 +756,49 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const row = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("character-select")
-                                                    .setPlaceholder(`옵션을 선택해.`)
+                                                    .setCustomId("AgentSelect")
+                                                    .setPlaceholder(text.UIPlaceholderForAgent)
                                                     .setMaxValues(1)
                                                     .addOptions([
                                                         {
-                                                            label: "정보",
+                                                            label: text.UIAgentInfo,
                                                             value: "Info",
-                                                            description: data.data.name + "의 정보 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
                                                         },
                                                         {
-                                                            label: "스텟",
+                                                            label: text.UIAgentStats,
                                                             value: "Stats",
-                                                            description: data.data.name + "의 스텟 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
                                                         },
                                                         {
-                                                            label: "기본공격",
+                                                            label: text.UIAgentBasicAttack,
                                                             value: "BasicAttack",
-                                                            description: data.data.name + "의 기본공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특수공격",
+                                                            label: text.UIAgentSpecialAttack,
                                                             value: "SpecialAttack",
-                                                            description: data.data.name + "의 특수공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "연계공격",
+                                                            label: text.UIAgentComboAttack,
                                                             value: "ComboAttack",
-                                                            description: data.data.name + "의 연계공격 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
                                                         },
                                                         {
-                                                            label: "회피",
+                                                            label: text.UIAgentDodge,
                                                             value: "Dodge",
-                                                            description: data.data.name + "의 회피 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
                                                         },
                                                         {
-                                                            label: "특성",
+                                                            label: text.UIAgentTalent,
                                                             value: "Talent",
-                                                            description: data.data.name + "의 특성 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
                                                         },
                                                         {
-                                                            label: "추천파티",
+                                                            label: text.UIAgentPartyRecs,
                                                             value: "PartyRecs",
-                                                            description: data.data.name + "의 추천파티 알아보기",
+                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
                                                         }
                                                     ])
                                             );

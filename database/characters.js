@@ -13,7 +13,7 @@ const {
     hoshimi_miyabi
 } = require("./ko-kr");
 
-const findOneCharacter = (name) => {
+const findOneAgent = (name) => {
     if (name === nicole_demara) {
         return "anby_demara";
     } else if (name === anby_demara) {
@@ -44,5 +44,5 @@ const findOneCharacter = (name) => {
 }
 
 module.exports = {
-    findOneCharacter
+    findOneAgent
 }

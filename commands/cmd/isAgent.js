@@ -47,22 +47,22 @@ module.exports = {
 		const name = interaction.options.getString("name");
 		try {
 			const text = require("../../database/ko-kr")
-			const { findOneCharacter } = require("../../database/characters")
-			const matchedCharacter = findOneCharacter(name)
-			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedCharacter}.json`).then(data => {
+			const { findOneAgent } = require("../../database/characters")
+			const matchedAgent = findOneAgent(name)
+			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 				const Embed = new EmbedBuilder()
-					.setAuthor({ name: text.Character_title_info })
+					.setAuthor({ name: data.data.name + " - " + text.UIAgentInfo })
 					.setColor(data.data.colour)
 					.setDescription(data.data.title)
 					.setFields(
 						{
 							name: "ㅤ",
-							value: `**${text.Character_value_name}**: ${data.data.name}\n**${text.Character_value_gender}**: ${data.data.gender}\n**${text.Character_label_bday}**: ██월 ██일`,
+							value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
 							inline: true
 						},
 						{
 							name: "ㅤ",
-							value: `**${text.Character_value_camp}**: ${data.data.camp}\n**${text.Character_value_element}**: ██\n**${text.Character_value_attack}**: ███`,
+							value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
 							inline: true
 						},
 						{
@@ -71,57 +71,56 @@ module.exports = {
 						}
 					)
 					.setThumbnail(data.data.archive.avatar)
-
 				const row = new ActionRowBuilder().addComponents(
 					new StringSelectMenuBuilder()
-						.setCustomId("character-select")
-						.setPlaceholder(text.Character_placeholder_text)
+						.setCustomId("AgentSelect")
+						.setPlaceholder(text.UIPlaceholderForAgent)
 						.setMaxValues(1)
 						.addOptions([
 							{
-								label: text.Character_label_info,
+								label: text.UIAgentInfo,
 								value: "Info",
-								description: data.data.name + `의 ${text.Character_label_info} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentInfo} 알아보기`,
 							},
 							{
-								label: text.Character_label_stats,
+								label: text.UIAgentStats,
 								value: "Stats",
-								description: data.data.name + `의 ${text.Character_label_stats} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentStats} 알아보기`,
 							},
 							{
-								label: text.Character_label_basicAttack,
+								label: text.UIAgentBasicAttack,
 								value: "BasicAttack",
-								description: data.data.name + `의 ${text.Character_label_basicAttack} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentBasicAttack} 알아보기`,
 							},
 							{
-								label: text.Character_label_specialAttack,
+								label: text.UIAgentSpecialAttack,
 								value: "SpecialAttack",
-								description: data.data.name + `의 ${text.Character_label_specialAttack} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentSpecialAttack} 알아보기`,
 							},
 							{
-								label: text.Character_label_comboAttack,
+								label: text.UIAgentComboAttack,
 								value: "ComboAttack",
-								description: data.data.name + `의 ${text.Character_label_comboAttack} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentComboAttack} 알아보기`,
 							},
 							{
-								label: text.Character_label_dodge,
+								label: text.UIAgentDodge,
 								value: "Dodge",
-								description: data.data.name + `의 ${text.Character_label_dodge} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentDodge} 알아보기`,
 							},
 							{
-								label: text.Character_label_talent,
+								label: text.UIAgentTalent,
 								value: "Talent",
-								description: data.data.name + `의 ${text.Character_label_talent} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentTalent} 알아보기`,
 							},
 							{
-								label: text.Character_label_partyRecs,
+								label: text.UIAgentPartyRecs,
 								value: "PartyRecs",
-								description: data.data.name + `의 ${text.Character_label_partyRecs} 알아보기`,
+								description: data.data.name + `의 ${text.UIAgentPartyRecs} 알아보기`,
 							}
 						])
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
-				addHistory(matchedCharacter)
+				addHistory(matchedAgent)
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
@@ -132,15 +131,15 @@ module.exports = {
 			}
 		}
 
-		async function addHistory(matchedCharacter) {
+		async function addHistory(matchedAgent) {
 			try {
 				db.findOne({ user: interaction.user.id }, async (err, userData) => {
 					if (err) throw err;
 					if (userData) {
-						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedCharacter } })
+						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedAgent } })
 							.catch(err => logger.error(err));
 					} else {
-						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedCharacter })
+						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedAgent })
 							.save().catch(err => logger.error(err));
 					}
 				})

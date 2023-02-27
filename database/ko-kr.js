@@ -14,28 +14,35 @@ module.exports = {
     UISettingZZZConnect: "ZZZ 연동",
     UISettingREQValue: "필요한 값",
 
-    /** UICharacters */
-    UICharacterName: "이름",
-    UICharacterGender: "성별",
-    UICharacterBirthDay: "생일",
-    UICharacterCamp: "소속",
-    UICharacterElement: "속성",
-    UICharacterAttack: "공격",
+    /** UIAgents */
+    UIAgentName: "이름",
+    UIAgentGender: "성별",
+    UIAgentBirthDay: "생일",
+    UIAgentCamp: "소속",
+    UIAgentAttribute: "속성",
+    UIAgentAttack: "공격",
 
-    UICharacterNormalInfo: "기본정보",
-    UICharacterStats: "스텟",
-    UICharacterBasicAttack: "기본공격",
-    UICharacterSpecialAttack: "특수공격",
-    UICharacterComboAttack: "연계공격",
-    UICharacterDodge: "회피",
-    UICharacterTalent: "특성",
-    UICharacterPartyRecs: "추천파티",
+    UIAgentEXCriteria: "예시 기준",
+    UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
+    UIAgentNecessaryArticles: "필요한 재화",
+    UIAgentAgentArchive: "에이전트 파일·",
+    UIAgent: "승진 허가장",
+    UIAgentAbilityCompare: "능력치 비교",
+
+    UIAgentInfo: "정보",
+    UIAgentStats: "스텟",
+    UIAgentBasicAttack: "기본공격",
+    UIAgentSpecialAttack: "특수공격",
+    UIAgentComboAttack: "연계공격",
+    UIAgentDodge: "회피",
+    UIAgentTalent: "특성",
+    UIAgentPartyRecs: "추천파티",
 
     /** UIPlaceholder */
     UIPlaceholderForLanguage: "언어를 선택해.",
     UIPlaceholderForSettingAdd: "추가 옵션을 선택해.",
     UIPlaceholderForSettingAdd: "제거 옵션을 선택해.",
-    UIPlaceholderForCharacter: "옵션을 선택해.",
+    UIPlaceholderForAgent: "옵션을 선택해.",
     UIPlaceholderForStatsCalculator: "계산할 스텟을 선택해.",
 
     /** UISystem */
@@ -44,7 +51,7 @@ module.exports = {
     false: "사용안함",
     UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
 
-    /** Characters */
+    /** Agents */
     anby_demara: "엔비 데마라",
     nicole_demara: "니콜 데마라",
     billy_kid: "빌리 키드",
