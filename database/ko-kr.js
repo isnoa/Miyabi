@@ -27,7 +27,7 @@ module.exports = {
     UIAgentNecessaryArticles: "필요한 재화",
     UIAgentAgentArchive: "에이전트 파일·",
     UIAgent: "승진 허가장",
-    UIAgentAbilityCompare: "능력치 비교",
+    UIAgentCompare: "능력치 비교",
 
     UIAgentInfo: "정보",
     UIAgentStats: "스텟",

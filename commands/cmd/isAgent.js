@@ -47,7 +47,7 @@ module.exports = {
 		const name = interaction.options.getString("name");
 		try {
 			const text = require("../../database/ko-kr")
-			const { findOneAgent } = require("../../database/characters")
+			const { findOneAgent } = require("../../database/agents")
 			const matchedAgent = findOneAgent(name)
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 				const Embed = new EmbedBuilder()
