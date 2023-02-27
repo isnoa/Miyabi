@@ -9,6 +9,8 @@ const axios = require("axios");
 const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
 const logger = require("../../events/core/logger");
+const text = require("../../database/ko-kr")
+const { findOneAgent } = require("../../database/agents")
 
 module.exports = {
 	name: "character",
@@ -46,8 +48,7 @@ module.exports = {
 	run: async (client, interaction, args) => {
 		const name = interaction.options.getString("name");
 		try {
-			const text = require("../../database/ko-kr")
-			const { findOneAgent } = require("../../database/agents")
+			
 			const matchedAgent = findOneAgent(name)
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 				const Embed = new EmbedBuilder()
