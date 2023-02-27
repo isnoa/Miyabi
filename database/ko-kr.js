@@ -1,5 +1,5 @@
 module.exports = {
-    /** Languages */
+    /** UILanguages */
     UILanguageRelax: "실수로 다른 언어를 선택하더라도 다시 선택할 수 있으니 걱정마.",
 
     /** UIProfiles */
@@ -13,6 +13,8 @@ module.exports = {
     /** UISettings */
     UISettingZZZConnect: "ZZZ 연동",
     UISettingREQValue: "필요한 값",
+    UISettingIntroUrself: "프로필 설정 : 소개",
+    UISettingIntroValue: "너에 대해 소개해봐.",
 
     /** UIAgents */
     UIAgentName: "이름",
@@ -26,7 +28,7 @@ module.exports = {
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
     UIAgentNecessaryArticles: "필요한 재화",
     UIAgentAgentArchive: "에이전트 파일·",
-    UIAgent: "승진 허가장",
+    UIAgentMaterial: "승진 허가장",
     UIAgentCompare: "능력치 비교",
 
     UIAgentInfo: "정보",

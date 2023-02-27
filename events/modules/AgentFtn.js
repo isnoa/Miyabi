@@ -125,8 +125,8 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: false
                                                     },
                                                     {
-                                                        name: "필요한 재화",
-                                                        value: ` · 에이전트 파일·${data.data.name}: ?\n · 승진 허가장: ?`,
+                                                        name: text.UIAgentNecessaryArticles,
+                                                        value: ` · ${text.UIAgentMaterial}·${data.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
                                                         inline: false
                                                     },
                                                     {

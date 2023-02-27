@@ -7,28 +7,28 @@ const {
     TextInputBuilder,
     TextInputStyle
 } = require("discord.js");
-const uuid = require("uuid");
 const db = require("../../database/user");
 const logger = require("../../events/core/logger")
+const text = require("../../database/ko-kr")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
-        if (interaction.customId == "add-setting-select") {
+        if (interaction.customId == "ADDSettingSelect") {
             interaction.values.forEach(async (value) => {
                 switch (value) {
-                    case "addProfileConnect":
+                    case "ADDProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: true } })
                             .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
-                    case "addDescription":
+                    case "ADDDescription":
                         const DescriptionModal = new ModalBuilder()
                             .setCustomId('setDescriptionModal')
-                            .setTitle('프로필 설정 : 소개')
+                            .setTitle(text.UISettingIntroUrself)
                         const descriptionInput = new TextInputBuilder()
                             .setCustomId('descriptionInput')
-                            .setLabel("너에 대해 소개해봐.")
-                            .setPlaceholder('Order cannot be broken.')
+                            .setLabel(text.UISettingIntroUrself)
+                            .setPlaceholder('질서를 어지럽히지 마')
                             .setStyle(TextInputStyle.Paragraph)
                             .setMinLength(1)
                             .setMaxLength(200)
@@ -37,23 +37,7 @@ client.on("interactionCreate", async (interaction) => {
                         DescriptionModal.addComponents(descriptionRow)
                         await interaction.showModal(DescriptionModal);
                         break;
-                    // case "addZZZConnect":
-                    //     const ZZZConnectModal = new ModalBuilder()
-                    //         .setCustomId('setZZZConnectModal')
-                    //         .setTitle('프로필 설정 : ZZZ연동')
-                    //     const zzzConnectInput = new TextInputBuilder()
-                    //         .setCustomId('zzzConnectInput')
-                    //         .setLabel("필요한 값: ltoken, ltuid")
-                    //         /** .setValue('ltoken=????????????????????????????????????????; ltuid=?????????; mi18nLang=??-??; _MHYUUID=????????-????-????-????-????????????;') */
-                    //         .setStyle(TextInputStyle.Short)
-                    //         .setMinLength(36)
-                    //         .setMaxLength(150)
-                    //         .setRequired(true)
-                    //     const zzzConnectRow = new ActionRowBuilder().addComponents(zzzConnectInput)
-                    //     ZZZConnectModal.addComponents(zzzConnectRow)
-                    //     await interaction.showModal(ZZZConnectModal);
-                    //     break;
-                    case "adddailyCheckIn":
+                    case "ADDdailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: true } })
                             .catch(err => logger.error(err))
                             .then(updateActRow())
@@ -61,25 +45,20 @@ client.on("interactionCreate", async (interaction) => {
                 }
             })
         }
-        if (interaction.customId == "del-setting-select") {
+        if (interaction.customId == "DELSettingSelect") {
             await interaction.values.forEach(async (value) => {
                 switch (value) {
-                    case "delProfileConnect":
+                    case "DELProfileConnect":
                         db.updateOne({ user: interaction.user.id }, { $set: { profileconnect: false } })
                             .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
-                    case "delDescription":
+                    case "DELDescription":
                         db.updateOne({ user: interaction.user.id }, { $set: { description: "-\nㅤ" } })
                             .catch(err => logger.error(err))
                             .then(updateActRow())
                         break;
-                    // case "delZZZConnect":
-                    //     db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "" } })
-                    //         .catch(err => logger.error(err))
-                    //         .then(updateActRow())
-                    //     break;
-                    case "delDailyCheckIn":
+                    case "DELDailyCheckIn":
                         db.updateOne({ user: interaction.user.id }, { $set: { dailycheckin: false } })
                             .catch(err => logger.error(err))
                             .then(updateActRow())
@@ -141,62 +120,62 @@ client.on("interactionCreate", async (interaction) => {
             Embed.setTitle(interaction.user.tag)
         }
 
-        const addRow = new ActionRowBuilder().addComponents(
+        const ADDRow = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder()
-                .setCustomId("add-setting-select")
+                .setCustomId("ADDSettingSelect")
                 .setPlaceholder(`추가 옵션을 선택해.`)
                 .setMaxValues(1)
-                .addOptions([
+                .ADDOptions([
                     {
                         label: "프로필 조회 가능",
-                        value: "addProfileConnect",
+                        value: "ADDProfileConnect",
                         description: "프로필을 조회할 수 있게 할 수 있어."
                     },
                     {
                         label: "설명",
-                        value: "addDescription",
+                        value: "ADDDescription",
                         description: "프로필 설명 추가할 수 있어."
                     },
                     // {
                     //     label: "ZZZ 연동",
-                    //     value: "addZZZConnect",
+                    //     value: "ADDZZZConnect",
                     //     description: "ZZZ 연동으로 게임 내에 너의 정보를 볼 수 있어."
                     // },
                     {
                         label: "출석체크",
-                        value: "adddailyCheckIn",
+                        value: "ADDdailyCheckIn",
                         description: "출석체크를 쓰는지 볼 수 있어."
                     },
                 ])
         )
-        const delRow = new ActionRowBuilder().addComponents(
+        const DELRow = new ActionRowBuilder().addComponents(
             new StringSelectMenuBuilder()
-                .setCustomId("del-setting-select")
+                .setCustomId("DELSettingSelect")
                 .setPlaceholder(`제거 옵션을 선택해.`)
                 .setMaxValues(1)
-                .addOptions([
+                .ADDOptions([
                     {
                         label: "프로필 조회 불가",
-                        value: "delProfileConnect",
+                        value: "DELProfileConnect",
                         description: "프로필을 조회할 수 없게 할 수 있어."
                     },
                     {
                         label: "설명 제거",
-                        value: "delDescription",
+                        value: "DELDescription",
                         description: "프로필 설명을 제거할 수 있어."
                     },
                     // {
                     //     label: "ZZZ 연동 조회 불가",
-                    //     value: "delZZZConnect",
+                    //     value: "DELZZZConnect",
                     //     description: "ZZZ 연동 여부를 조회할 수 없게 할 수 있어."
                     // },
                     {
                         label: "출석체크 조회 불가",
-                        value: "delDailyCheckIn",
+                        value: "DELDailyCheckIn",
                         description: "출석체크 여부를 조회할 수 없게 할 수 있어."
                     },
                 ])
         )
-        await interaction.update({ embeds: [Embed], components: [addRow, delRow], ephemeral: true })
+        await interaction.update({ embeds: [Embed], components: [ADDRow, DELRow], ephemeral: true })
     }
 })

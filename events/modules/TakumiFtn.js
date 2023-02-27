@@ -13,7 +13,7 @@ const { loadCommands } = require("../../handler/commandHandler.js");
 
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isStringSelectMenu()) {
-    if (interaction.customId == "takumifunction-select") {
+    if (interaction.customId == "TakumiSelect") {
       interaction.values.forEach(async (value) => {
         switch (value) {
           case "codeSendToChannel":

@@ -64,58 +64,58 @@ module.exports = {
         Embed.setTitle(interaction.user.tag)
       }
 
-      const addRow = new ActionRowBuilder().addComponents(
+      const ADDRow = new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
-          .setCustomId("add-setting-select")
+          .setCustomId("ADDSettingSelect")
           .setPlaceholder(`추가 옵션을 선택해.`)
           .setMaxValues(1)
           .addOptions([
             {
               label: "프로필 조회 가능",
-              value: "addProfileConnect",
+              value: "ADDProfileConnect",
               description: "프로필을 조회할 수 있게 할 수 있어."
             },
             {
               label: "설명",
-              value: "addDescription",
+              value: "ADDDescription",
               description: "프로필 설명 추가할 수 있어."
             },
             {
               label: "ZZZ 연동",
-              value: "addZZZConnect",
+              value: "ADDZZZConnect",
               description: "게임 내에 정보를 볼 수 있어."
             },
             {
               label: "출석체크",
-              value: "adddailyCheckIn",
+              value: "ADDdailyCheckIn",
               description: "출석체크를 쓸 수 있어."
             },
           ])
       )
-      const delRow = new ActionRowBuilder().addComponents(
+      const DELRow = new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
-          .setCustomId("del-setting-select")
+          .setCustomId("DELSettingSelect")
           .setPlaceholder(`제거 옵션을 선택해.`)
           .setMaxValues(1)
           .addOptions([
             {
               label: "프로필 조회 불가",
-              value: "delProfileConnect",
+              value: "DELProfileConnect",
               description: "프로필을 조회할 수 없게 할 수 있어."
             },
             {
               label: "설명 제거",
-              value: "delDescription",
+              value: "DELDescription",
               description: "프로필 설명을 제거할 수 있어."
             },
             {
               label: "ZZZ 연동 조회 불가",
-              value: "delZZZConnect",
+              value: "DELZZZConnect",
               description: "ZZZ 연동 여부를 조회할 수 없게 할 수 있어."
             },
             {
               label: "출석체크 조회 불가",
-              value: "delDailyCheckIn",
+              value: "DELDailyCheckIn",
               description: "출석체크 여부를 조회할 수 없게 할 수 있어."
             },
           ])
@@ -126,7 +126,7 @@ module.exports = {
       if (["1010159742104113162", "893424082945720351"].includes(interaction.user.id)) {
         const takumiRow = new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
-            .setCustomId("takumifunction-select")
+            .setCustomId("TakumiSelect")
             .setPlaceholder("-")
             .setMaxValues(1)
             .addOptions([
@@ -142,9 +142,9 @@ module.exports = {
               }
             ])
         )
-        interaction.reply({ embeds: [Embed], components: [addRow, delRow, takumiRow], ephemeral: true })
+        interaction.reply({ embeds: [Embed], components: [ADDRow, DELRow, takumiRow], ephemeral: true })
       } else {
-        interaction.reply({ embeds: [Embed], components: [addRow, delRow], ephemeral: true })
+        interaction.reply({ embeds: [Embed], components: [ADDRow, DELRow], ephemeral: true })
       }
     } else {
       interaction.reply({ content: "<:miyabi:1073113287102840892>", ephemeral: true })
