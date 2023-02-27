@@ -8,10 +8,10 @@ const axios = require("axios");
 const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
 const logger = require("../core/logger")
+const text = require("../../database/ko-kr")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
-        const text = require("../../database/ko-kr")
         if (interaction.customId == "AgentSelect") {
             interaction.values.forEach(async (value) => {
                 switch (value) {
