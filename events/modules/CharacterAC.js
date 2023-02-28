@@ -1,11 +1,11 @@
 const client = require("../../miyabi");
 const { InteractionType } = require('discord.js');
+const text = require("../../database/ko-kr");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
         if (interaction.commandName === 'character') {
             const focusedValue = interaction.options.getFocused();
-            const text = require("../../database/ko-kr");
             const choices = [
                 text.anby_demara,
                 text.nicole_demara,
