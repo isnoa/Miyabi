@@ -13,28 +13,12 @@ const text = require("../../database/ko-kr")
 const { findOneAgent } = require("../../database/agents")
 
 module.exports = {
-	name: "character",
-	name_localizations: {
-		"ko": "캐릭터",
-		"ja": "キャラクター"
-	},
-	description: "I'll give you all the information about the character.",
-	description_localizations: {
-		"ko": "캐릭터의 모든 정보를 알려줄게",
-		"ja": "キャラクターのすべての情報を教えてあげる"
-	},
+	name: "에이전트",
+	description: "캐릭터의 모든 정보를 알려줄게",
 	timeout: 5000,
 	options: [{
-		name: "name",
-		name_localizations: {
-			"ko": "이름",
-			"ja": "名前"
-		},
-		description: "Enter a character name.",
-		description_localizations: {
-			"ko": "캐릭터 이름을 입력해",
-			"ja": "キャラクター名を入力して"
-		},
+		name: "이름",
+		description: "에이전트 이름을 입력해",
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true

@@ -4,7 +4,7 @@ const text = require("../../database/ko-kr");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
-        if (interaction.commandName === 'character') {
+        if (interaction.commandName === '에이전트') {
             const focusedValue = interaction.options.getFocused();
             const choices = [
                 text.anby_demara,

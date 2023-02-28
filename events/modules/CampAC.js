@@ -4,7 +4,7 @@ const text = require("../../database/ko-kr");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
-        if (interaction.commandName === 'camp') {
+        if (interaction.commandName === '소속') {
             const focusedValue = interaction.options.getFocused();
             const choices = [
                 '교활한 토끼굴',
