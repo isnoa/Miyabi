@@ -4,6 +4,7 @@ const {
 } = require("discord.js");
 const db = require("../../database/user");
 const text = require("../../database/ko-kr.js");
+const logger = require("../../events/core/logger");
 
 module.exports = {
     name: "탈퇴",
