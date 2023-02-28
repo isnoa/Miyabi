@@ -1,7 +1,4 @@
 module.exports = {
-    /** UILanguages */
-    UILanguageRelax: "실수로 다른 언어를 선택하더라도 다시 선택할 수 있으니 걱정마.",
-
     /** UIProfiles */
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
