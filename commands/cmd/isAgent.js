@@ -122,6 +122,7 @@ module.exports = {
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
+				logger.info(`${interaction.user.id}`);
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
