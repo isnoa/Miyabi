@@ -9,16 +9,8 @@ const db = require("../../database/user");
 const { MiyabiColor } = require("../../database/color")
 
 module.exports = {
-    name: "getcookie",
-    name_localizations: {
-        "ko": "쿠키얻기",
-        "ja": "クッキー得方"
-    },
-    description: "I'll tell you how to get the cookie value to link the account.",
-    description_localizations: {
-        "ko": "계정을 연동하기 위해 어떻게 쿠키 값을 얻는지 알려줄게.",
-        "ja": "I'll tell you how to get the cookie value to link the account."
-    },
+    name: "쿠키얻기",
+    description: "계정을 연동하기 위해 어떻게 쿠키 값을 얻는지 알려줄게.",
     timeout: 5000,
     /**
      *

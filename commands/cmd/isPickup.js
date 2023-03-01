@@ -3,7 +3,7 @@ const text = require("../../database/ko-kr.js");
 
 module.exports = {
     name: "픽업",
-    description: "현재 픽업 중인 캐릭터",
+    description: "현재 픽업 중 혹은 픽업 했던 캐릭터들을 알려줄게.",
     timeout: 5000,
     /**
      *

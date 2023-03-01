@@ -5,19 +5,11 @@ const {
     TextInputBuilder,
     TextInputStyle
 } = require("discord.js");
-const db = require("../../database/user");
+const text = require("../../database/ko-kr.js");
 
 module.exports = {
-    name: "register",
-    name_localizations: {
-        "ko": "가입",
-        "ja": "加入"
-    },
-    description: "Register to use commands related to 「Zenless Zone Zero」",
-    description_localizations: {
-        "ko": "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 가입을 진행",
-        "ja": "「Zenless Zone Zero」に関連するコマンドを使用できるよう加入を進行"
-    },
+    name: "가입",
+    description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 해줄게.",
     timeout: 5000,
     /**
      *
@@ -26,18 +18,18 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        const text = require("../../database/ko-kr.js");
+
         const ZZZConnectModal = new ModalBuilder()
             .setCustomId('setZZZConnectModal')
-            .setTitle('ZZZ연동')
+            .setTitle(text.UISettingZZZConnect)
         const zzzConnectLtokenInput = new TextInputBuilder()
             .setCustomId('zzzConnectLtokenInput')
-            .setLabel("필요한 값: ltoken")
+            .setLabel(`${text.UISettingREQValue}: ltoken`)
             .setStyle(TextInputStyle.Short)
             .setRequired(true)
         const zzzConnectLtuidInput = new TextInputBuilder()
             .setCustomId('zzzConnectLtuidInput')
-            .setLabel("필요한 값: ltuid")
+            .setLabel(`${text.UISettingREQValue}: ltuid`)
             .setStyle(TextInputStyle.Short)
             .setRequired(true)
         const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)

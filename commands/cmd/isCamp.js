@@ -12,8 +12,8 @@ const {
 } = require("../../database/links");
 
 module.exports = {
-	name: 'camp',
-	description: 'None',
+	name: '소속',
+	description: '캐릭터가 소속된 모든 소속을 알려줄게',
 	options: [{
 		name: '이름',
 		description: '알아볼 소속의 이름을 입력해',

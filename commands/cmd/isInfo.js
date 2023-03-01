@@ -2,16 +2,8 @@ const { CommandInteraction, EmbedBuilder } = require("discord.js");
 const db = require("../../database/user");
 
 module.exports = {
-    name: "info",
-    name_localizations: {
-        "ko": "정보",
-        "ja": "情報"
-    },
-    description: "I'll give you some information about 「Miyabi」",
-    description_localizations: {
-        "ko": "「Miyabi」에 관련한 정보를 알려 줄게",
-        "ja": "「Miyabi」に関する情報を教えてあげる"
-    },
+    name: "정보",
+    description: "나에 대해 알려줄게.",
     timeout: 5000,
     /**
      *
