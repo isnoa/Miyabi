@@ -17,7 +17,7 @@ client.on("interactionCreate", async (interaction) => {
         });
       } else if (option.value) args.push(option.value);
     }
-    interaction.member = interaction.guild.members.cache.get(interaction.user.id);
+    interaction.user = client.users.cache.get(interaction.user.id);
 
     if (cmd) {
       // if (cmd.ownerOnly) {
@@ -29,12 +29,12 @@ client.on("interactionCreate", async (interaction) => {
       //   }
       // }
       if(cmd.timeout) {
-        if(client.timeout.has(`${cmd.name}${interaction.member.id}`))
+        if(client.timeout.has(`${cmd.name}${interaction.user.id}`))
         return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
         cmd.run(client, interaction, args)
-        client.timeout.set(`${cmd.name}${interaction.member.id}`, Date.now() + cmd.timeout)
+        client.timeout.set(`${cmd.name}${interaction.user.id}`, Date.now() + cmd.timeout)
         setTimeout(() => {
-            client.timeout.delete(`${cmd.name}${interaction.member.id}`)
+            client.timeout.delete(`${cmd.name}${interaction.user.id}`)
         }, cmd.timeout)
     }
     }

@@ -3,8 +3,8 @@
 
 // client.on("messageCreate", async (message) => {
 //     if (
-//         message.author.bot ||
-//         !message.guild ||
+//         message.author.bot ??
+//         !message.guild ??
 //         !message.content.toLowerCase().startsWith(clientprefix)
 //     )
 //         return;
@@ -14,7 +14,7 @@
 //         .trim()
 //         .split(/ +/g);
 
-//     const messagecommand = client.commands.get(cmd.toLowerCase()) || client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
+//     const messagecommand = client.commands.get(cmd.toLowerCase()) ?? client.commands.find(c => c.aliases?.includes(cmd.toLowerCase()));
 
 //     if (!messagecommand) return;
 //     await messagecommand.run(client, message, args);

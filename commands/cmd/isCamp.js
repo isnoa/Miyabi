@@ -67,7 +67,7 @@ module.exports = {
 						.setThumbnail(logo)
 						.setDescription(desc)
 						.setColor(color)
-						.setFields({ name: "소속된 캐릭터", value: `${character_first}\n${character_second || ""}\n${character_third || ""}\n${character_fourth || ""}` })
+						.setFields({ name: "소속된 캐릭터", value: `${character_first}\n${character_second ?? ""}\n${character_third ?? ""}\n${character_fourth ?? ""}` })
 
 					// if (character_first) {
 					// 	Embed.setFields(

@@ -1,6 +1,7 @@
 const { ContextMenuCommandInteraction, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 const db = require("../../database/user");
-const { MiyabiColor } = require("../../database/color")
+const { MiyabiColor } = require("../../database/color");
+const text = require("../../database/ko-kr.js");
 
 module.exports = {
     name: "Profile",
@@ -20,29 +21,28 @@ module.exports = {
         if (userMatch) {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (userData) {
-                    const text = require("../../database/ko-kr.js");
                     // const color = interaction.member.displayHexColor;
                     const Embed = new EmbedBuilder()
-                        .setDescription(userData.description || "-")
+                        .setDescription(userData.description ?? "-")
                         .setFields(
                             {
-                                name: text.Profile_field_serviceRegistered,
+                                name: text.UIProfileRegist,
                                 value: `<t:${parseInt(userData.since / 1000)}:R>`,
                                 inline: true
                             },
                             {
-                                name: text.Profile_field_recentlySearchedAgent,
-                                value: text[userData.nowcharacter || "none"],
+                                name: text.UIProfileRSC,
+                                value: text[userData.nowcharacter ?? "none"],
                                 inline: true
                             },
                             {
-                                name: text.Profile_field_zzzConnect,
-                                value: text[!!userData.zzzconnect || "false"],
+                                name: text.UIProfileZZZConnect,
+                                value: text[!!userData.zzzconnect ?? "false"],
                                 inline: true
                             },
                             {
-                                name: text.Profile_field_dailyCheckIn,
-                                value: text[userData.dailycheckin || "false"],
+                                name: text.UIProfileDailyCheckIn,
+                                value: text[userData.dailycheckin ?? "false"],
                                 inline: true
                             }
                         )
@@ -77,33 +77,32 @@ module.exports = {
             const user = await client.users.fetch(interaction.targetId);
             db.findOne({ user: user.id }, async (err, data) => {
                 if (data) {
-                    const text = require("../../database/ko-kr.js");
                     if (data.profileconnect === true) {
                         // const member = await interaction.guild.members.fetch(interaction.targetId);
                         // const color = member.displayHexColor;
                         // if (color == '#000000') color = member.hoistRole.hexColor;
                         const Embed = new EmbedBuilder()
                             .setTitle(user.tag)
-                            .setDescription(data.description || "-")
+                            .setDescription(data.description ?? "-")
                             .setFields(
                                 {
-                                    name: text.Profile_field_serviceRegistered,
+                                    name: text.UIProfileRegist,
                                     value: `<t:${parseInt(data.since / 1000)}:R>`,
                                     inline: true
                                 },
                                 {
-                                    name: text.Profile_field_recentlySearchedAgent,
-                                    value: text[data.nowcharacter || "none"],
+                                    name: text.UIProfileRSC,
+                                    value: text[data.nowcharacter ?? "none"],
                                     inline: true
                                 },
                                 {
-                                    name: text.Profile_field_zzzConnect,
-                                    value: text[!!data.zzzconnect || "false"],
+                                    name: text.UIProfileZZZConnect,
+                                    value: text[!!data.zzzconnect ?? "false"],
                                     inline: true
                                 },
                                 {
-                                    name: text.Profile_field_dailyCheckIn,
-                                    value: text[data.dailycheckin || "false"],
+                                    name: text.UIProfileDailyCheckIn,
+                                    value: text[data.dailycheckin ?? "false"],
                                     inline: true
                                 }
                             )
@@ -122,7 +121,7 @@ module.exports = {
                         }
                         interaction.reply({ embeds: [Embed] })
                     } else {
-                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData || " I can't check the data."]).setColor(MiyabiColor)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData ?? " I can't check the data."]).setColor(MiyabiColor)] })
                     }
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + " I can't check the data.").setColor(MiyabiColor)] })

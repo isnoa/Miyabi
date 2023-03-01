@@ -82,7 +82,7 @@ client.on("interactionCreate", async (interaction) => {
         const text = require("../../database/ko-kr.js");
         const color = interaction.member.displayHexColor;
         const Embed = new EmbedBuilder()
-            .setDescription(userData.description || "-\nㅤ")
+            .setDescription(userData.description ?? "-\nㅤ")
             .setFields(
                 {
                     name: text.Profile_field_serviceRegistered,
@@ -91,27 +91,27 @@ client.on("interactionCreate", async (interaction) => {
                 },
                 {
                     name: text.Profile_field_recentlySearchedAgent,
-                    value: text[userData.nowcharacter || "none"],
+                    value: text[userData.nowcharacter ?? "none"],
                     inline: true
                 },
                 {
                     name: text.Profile_field_zzzConnect,
-                    value: text[!!userData.zzzconnect || "false"],
+                    value: text[!!userData.zzzconnect ?? "false"],
                     inline: true
                 },
                 {
                     name: text.Profile_field_dailyCheckIn,
-                    value: text[userData.dailycheckin || "false"],
+                    value: text[userData.dailycheckin ?? "false"],
                     inline: true
                 }
             )
             .setThumbnail(interaction.user.avatarURL({ dynamic: true, size: 2048 }))
-            .setColor(color || "#000000")
+            .setColor(color ?? "#000000")
 
         if (userData.profileconnect === true) {
             Embed.setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/1074016284292947969.png", name: text.Profile_title_preview + ` / ${text.Profile_userFind_LookUp}: ${text[userData.profileconnect]}` })
         } else {
-            Embed.setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/1074016285836451930.png", name: text.Profile_title_preview + ` / ${text.Profile_userFind_LookUp}: ${text[userData.profileconnect || "false"]}` })
+            Embed.setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/1074016285836451930.png", name: text.Profile_title_preview + ` / ${text.Profile_userFind_LookUp}: ${text[userData.profileconnect ?? "false"]}` })
         }
 
         if (userData.uid) {

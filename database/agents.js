@@ -14,10 +14,10 @@ const {
 } = require("./ko-kr");
 
 const findOneAgent = (name) => {
-    if (name === nicole_demara) {
+    if (name === anby_demara) {
         return "anby_demara";
-    } else if (name === anby_demara) {
-        return "anby_demara";
+    } else if (name === nicole_demara) {
+        return "nicole_demara";
     } else if (name === billy_kid) {
         return "billy_kid";
     } else if (name === nekomiya_mana) {

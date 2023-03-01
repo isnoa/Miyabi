@@ -73,16 +73,16 @@ client.on("interactionCreate", async (interaction) => {
     const row = new ActionRowBuilder().setComponents(
       new ButtonBuilder()
         .setCustomId("codeOne")
-        .setLabel(codeOneText || "-")
+        .setLabel(codeOneText ?? "-")
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
         .setCustomId("codeTwo")
         .setLabel(codeTwoText)
-        .setStyle(ButtonStyle.Secondary || "-"),
+        .setStyle(ButtonStyle.Secondary ?? "-"),
       new ButtonBuilder()
         .setCustomId("codeThree")
         .setLabel(codeThreeText)
-        .setStyle(ButtonStyle.Secondary || "-")
+        .setStyle(ButtonStyle.Secondary ?? "-")
     );
     interaction.reply({ content: "보내졌어.", ephemeral: true });
     const channel = client.channels.cache.get("1026469757970554965");

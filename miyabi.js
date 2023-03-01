@@ -48,7 +48,7 @@ require("./handler")(client);
 module.exports = client;
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {
-    console.log("[CRUSH] Something went wrong while connecting to Miyabi" + "\n");
+    console.log("[CRUSH] Something went wrong while connecting to MIYABI" + "\n");
     console.error("[CRUSH] Error from DiscordAPI :" + err);
     process.exit();
   })

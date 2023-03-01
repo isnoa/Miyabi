@@ -30,9 +30,8 @@ module.exports = {
 	 * @param {String[]} args
 	 */
 	run: async (client, interaction, args) => {
-		const name = interaction.options.getString("name");
+		const name = interaction.options.getString("이름");
 		try {
-			
 			const matchedAgent = findOneAgent(name)
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 				const Embed = new EmbedBuilder()
