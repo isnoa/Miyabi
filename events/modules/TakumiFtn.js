@@ -9,7 +9,7 @@ const {
   TextInputStyle,
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color");
-const { loadCommands } = require("../../handler/commandHandler.js");
+const { loadCommands } = require("../../handler/loadCommands.js");
 
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isStringSelectMenu()) {

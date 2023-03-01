@@ -21,7 +21,6 @@ const client = new Client({
     repliedUser: false,
   },
   partials: [
-    // Partials.Message,
     Partials.Channel,
     Partials.User,
     Partials.GuildMember,
@@ -33,9 +32,6 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMembers,
-    // GatewayIntentBits.GuildMessages,
-    // GatewayIntentBits.DirectMessages,
-    // GatewayIntentBits.MessageContent,
   ],
   // ws: { properties: { browser: 'Discord iOS' } },
 });

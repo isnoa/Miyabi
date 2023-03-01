@@ -1,5 +1,5 @@
 async function loadCommands(client) {
-  const { loadFiles } = require("../events/core/fileLoader");
+  const { loadFiles } = require("./fileLoader");
   
   const arrayOfSlashCommands = [];
   const Files = await loadFiles("commands");

@@ -5,7 +5,7 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     const cmd = client.slashCommands.get(interaction.commandName);
     if (!cmd)
-      return interaction.reply({ content: "An error has occurred " });
+      return interaction.reply({ content: "An error has occurred" });
 
     const args = [];
 
@@ -20,14 +20,6 @@ client.on("interactionCreate", async (interaction) => {
     interaction.user = client.users.cache.get(interaction.user.id);
 
     if (cmd) {
-      // if (cmd.ownerOnly) {
-      //   if (!config.OwnerIds.includes(interaction.member.id)) {
-      //     interaction.reply({
-      //       content: `**${interaction.member}** You can't access community owner commands`,
-      //     })
-      //     return;
-      //   }
-      // }
       if(cmd.timeout) {
         if(client.timeout.has(`${cmd.name}${interaction.user.id}`))
         return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })

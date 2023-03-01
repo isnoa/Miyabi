@@ -14,28 +14,6 @@ client.on("ready", () => {
   });
 })
 
-//   const statusOptions = ['Zenless Zone Zero', '젠레스 존 제로', 'ゼンレスゾーンゼロ'];
-//   const counter = 0;
-//   const statusUpdate = () => {
-//     client.user.setPresence({
-//       // status: "dnd",
-//       activities: [
-//         {
-//           name: statusOptions[counter],
-//           type: ActivityType.Competing,
-//         },
-//       ],
-//     });
-//     if (++counter >= statusOptions.length) {
-//       counter = 0;
-//     }
-//     setInterval(statusUpdate, 6000)
-//     setTimeout
-
-//   };
-//   statusUpdate();
-// });
-
 client.on("guildCreate", async (guild) => {
   const found = 0;
   guild.channels.cache.map((channel) => {
