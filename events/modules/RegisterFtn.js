@@ -3,7 +3,6 @@ const { EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
-const db = require("../../database/user");
 const logger = require("../../events/core/logger");
 const { DangerColor } = require("../../database/color");
 
@@ -15,16 +14,6 @@ client.on("interactionCreate", async (interaction) => {
             const text = require("../../database/ko-kr.js");
             await interaction.deferReply();
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`
-            // const server = getServer(targetUID);
-            // const Region = getRegion(targetUID);
-            // const cookie = `ltoken=FfzAgAn2yVsFY4DNQk8EE9yV2Zjchkl2cp2oqsPL; ltuid=147312914; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`
-            // const encryptedCookie = Object.entries(parseCookie(cookie)).map(([key, value]) => {
-            //     if (['ltuid', 'ltoken', 'account_id', 'cookie_token'].includes(key)) {
-            //         value = '********';
-            //     }
-            //     return `${key}=${value}`;
-            // }).join('; ');
-            // console.log(`[DEBUG] Cookie set: ${encryptedCookie}`);
             const dataMachine = axios.create({
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
