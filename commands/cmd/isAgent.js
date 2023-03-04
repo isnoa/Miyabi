@@ -51,7 +51,13 @@ module.exports = {
 						},
 						{
 							name: "ㅤ",
-							value: `${data.data.interview}\n\n${data.data.intro}`
+							value: `${text.UIAgentJapaneseVA} **일본어**: ${data.data.cv.japanese}\n${text.UIAgentChineseVA} **중국어**: ${data.data.cv.chinese}`,
+							inline: false
+						},
+						{
+							name: "ㅤ",
+							value: `${data.data.interview}\n\n${data.data.intro}`,
+							inline: false
 						}
 					)
 					.setThumbnail(data.data.archive.avatar)

@@ -20,6 +20,8 @@ module.exports = {
     UIAgentCamp: "소속",
     UIAgentAttribute: "속성",
     UIAgentAttack: "공격",
+    UIAgentJapaneseVA: "<:mic:1081553033835597854>",
+    UIAgentChineseVA: "<:mic:1081553033835597854>",
 
     UIAgentEXCriteria: "예시 기준",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
