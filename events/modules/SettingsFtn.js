@@ -8,8 +8,8 @@ const {
     TextInputStyle
 } = require("discord.js");
 const db = require("../../database/user");
-const logger = require("../../events/core/logger")
-const text = require("../../database/ko-kr")
+const logger = require("../../events/core/logger");
+const text = require("../../database/ko-kr");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {

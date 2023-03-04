@@ -1,6 +1,4 @@
 const { CommandInteraction, EmbedBuilder } = require("discord.js");
-const text = require("../../database/ko-kr.js");
-
 
 module.exports = {
     name: "정보",

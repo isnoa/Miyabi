@@ -5,13 +5,13 @@ const uuid = require("uuid");
 const crypto = require('crypto');
 const logger = require("../../events/core/logger");
 const { DangerColor } = require("../../database/color");
+const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isModalSubmit()) {
         if (interaction.customId === 'setZZZConnectModal') {
             const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '')
             const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
-            const text = require("../../database/ko-kr.js");
             await interaction.deferReply();
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`
             const dataMachine = axios.create({

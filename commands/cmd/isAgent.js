@@ -8,9 +8,9 @@ const {
 const axios = require("axios");
 const db = require("../../database/user");
 const logger = require("../../events/core/logger");
-const { MiyabiColor } = require("../../database/color")
-const text = require("../../database/ko-kr")
-const { findOneAgent } = require("../../database/agents")
+const { MiyabiColor } = require("../../database/color");
+const text = require("../../database/ko-kr");
+const { findOneAgent } = require("../../database/agents");
 
 module.exports = {
 	name: "에이전트",
