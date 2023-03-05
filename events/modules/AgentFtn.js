@@ -44,55 +44,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -138,7 +90,7 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(data.data.archive.avatar)
                                             const rowLevelCalculator = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
-                                                    .setCustomId("levelcalculator-select")
+                                                    .setCustomId("LevelCalculatorSelect")
                                                     .setPlaceholder(text.UIPlaceholderForStatsCalculator)
                                                     .setMaxValues(1)
                                                     .addOptions([
@@ -194,55 +146,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         }
                                                     ])
                                             );
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [rowLevelCalculator, row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowLevelCalculator, rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -287,55 +191,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -380,55 +236,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -473,55 +281,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -566,55 +326,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -659,55 +371,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -752,55 +416,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     }
                                                 )
                                                 .setThumbnail(data.data.archive.avatar)
-                                            const row = new ActionRowBuilder().addComponents(
-                                                new StringSelectMenuBuilder()
-                                                    .setCustomId("AgentSelect")
-                                                    .setPlaceholder(text.UIPlaceholderForAgent)
-                                                    .setMaxValues(1)
-                                                    .addOptions([
-                                                        {
-                                                            label: text.UIAgentInfo,
-                                                            value: "Info",
-                                                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentStats,
-                                                            value: "Stats",
-                                                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentBasicAttack,
-                                                            value: "BasicAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentSpecialAttack,
-                                                            value: "SpecialAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentComboAttack,
-                                                            value: "ComboAttack",
-                                                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentDodge,
-                                                            value: "Dodge",
-                                                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentTalent,
-                                                            value: "Talent",
-                                                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
-                                                        },
-                                                        {
-                                                            label: text.UIAgentPartyRecs,
-                                                            value: "PartyRecs",
-                                                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
-                                                        }
-                                                    ])
-                                            );
-                                            interaction.editReply({ embeds: [Embed], components: [row] })
+                                            interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
                                         }, 2000);
                                     })
@@ -816,6 +432,57 @@ client.on("interactionCreate", async (interaction) => {
                         break;
                 }
             })
+        }
+        function rowAgentSelect(data) {
+            const row = new ActionRowBuilder().addComponents(
+                new StringSelectMenuBuilder()
+                    .setCustomId("AgentSelect")
+                    .setPlaceholder(text.UIPlaceholderForAgent)
+                    .setMaxValues(1)
+                    .addOptions([
+                        {
+                            label: text.UIAgentInfo,
+                            value: "Info",
+                            description: `${data.data.name}의 ${text.UIAgentInfo} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentStats,
+                            value: "Stats",
+                            description: `${data.data.name}의 ${text.UIAgentStats} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentBasicAttack,
+                            value: "BasicAttack",
+                            description: `${data.data.name}의 ${text.UIAgentBasicAttack} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentSpecialAttack,
+                            value: "SpecialAttack",
+                            description: `${data.data.name}의 ${text.UIAgentSpecialAttack} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentComboAttack,
+                            value: "ComboAttack",
+                            description: `${data.data.name}의 ${text.UIAgentComboAttack} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentDodge,
+                            value: "Dodge",
+                            description: `${data.data.name}의 ${text.UIAgentDodge} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentTalent,
+                            value: "Talent",
+                            description: `${data.data.name}의 ${text.UIAgentTalent} 알아보기`,
+                        },
+                        {
+                            label: text.UIAgentPartyRecs,
+                            value: "PartyRecs",
+                            description: `${data.data.name}의 ${text.UIAgentPartyRecs} 알아보기`,
+                        }
+                    ])
+            );
+            return row;
         }
     }
 })
