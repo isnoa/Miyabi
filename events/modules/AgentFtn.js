@@ -733,20 +733,20 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setAuthor({ name: data.data.name + " - " + text.UIAgentPartyRecs })
                                                 .setColor(data.data.colour)
-                                                .setDescription("캐릭터 추천 순위는 1st, 2nd, 3rd 순이야.")
+                                                .setDescription(text.UIAgentOrderOfTier)
                                                 .setFields(
                                                     {
-                                                        name: "1st - 호소빌",
+                                                        name: `${text.UIAgentTierOrder1st} - 호소빌`,
                                                         value: "> 호시미 미야비\n> 소우카쿠\n> 빌리 키드",
                                                         inline: true
                                                     },
                                                     {
-                                                        name: "2nd - 호소코",
+                                                        name: `${text.UIAgentTierOrder2nd} - 호소코`,
                                                         value: "> 호시미 미야비\n> 소우카쿠\n> 코린 위크스",
                                                         inline: true
                                                     },
                                                     {
-                                                        name: "3rd - 호소앤",
+                                                        name: `${text.UIAgentTierOrder3rd} - 호소앤`,
                                                         value: "> 호시미 미야비\n> 소우카쿠\n> 앤톤 이바노프",
                                                         inline: true
                                                     }

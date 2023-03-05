@@ -30,6 +30,15 @@ module.exports = {
     UIAgentMaterial: "승진 허가장",
     UIAgentCompare: "능력치 비교",
 
+
+
+
+    
+    UIAgentOrderOfTier: "파티 추천 티어는 1st, 2nd, 3rd 순이야.",
+    UIAgentTierOrder1st: "1st",
+    UIAgentTierOrder2nd: "2nd",
+    UIAgentTierOrder3rd: "3rd",
+
     UIAgentInfo: "정보",
     UIAgentStats: "스텟",
     UIAgentBasicAttack: "기본공격",
