@@ -1,32 +1,35 @@
 require("dotenv").config();
 console.clear();
-// https://arca.live/b/zenlesszonezero/55939456
 
 const {
   Client,
   Collection,
+  Options,
   Partials,
   GatewayIntentBits,
 } = require("discord.js");
 
 const client = new Client({
-  // messageCacheLifetime: 60,
   fetchAllMembers: false,
-  messageCacheMaxSize: 10,
   restTimeOffset: 0,
-  restWsBridgetimeout: 100,
   // shards: "auto",
   allowedMentions: {
     parse: ["roles", "users", "everyone"],
     repliedUser: false,
   },
+  sweepers: {
+		...Options.DefaultSweeperSettings,
+		users: {
+			interval: 3600, // Every hour...
+			filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
+		},
+	},
   partials: [
     Partials.Channel,
     Partials.User,
     Partials.GuildMember,
     Partials.ThreadMember,
     Partials.Reaction,
-    Partials.GuildScheduledEvent,
   ],
   intents: [
     GatewayIntentBits.Guilds,
