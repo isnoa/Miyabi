@@ -39,7 +39,6 @@ const client = new Client({
 });
 
 client.timeout = new Collection();
-client.commands = new Collection();
 client.slashCommands = new Collection();
 
 require("./handler")(client);
