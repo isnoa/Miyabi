@@ -1,7 +1,7 @@
 const { ContextMenuCommandInteraction, ApplicationCommandType, EmbedBuilder } = require("discord.js");
 const db = require("../../database/user.js");
 const { MiyabiColor } = require("../../database/color.js");
-const text = require("../../database/ko-kr.js.js");
+const text = require("../../database/ko-kr.js");
 
 module.exports = {
     name: "Profile",

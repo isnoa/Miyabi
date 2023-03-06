@@ -79,7 +79,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
     async function updateActRow() {
-        const text = require("../../database/ko-kr.js.js");
+        const text = require("../../database/ko-kr.js");
         const color = interaction.member.displayHexColor;
         const Embed = new EmbedBuilder()
             .setDescription(userData.description ?? "-\nㅤ")

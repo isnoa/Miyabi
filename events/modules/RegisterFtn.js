@@ -5,7 +5,7 @@ const uuid = require("uuid");
 const crypto = require('crypto');
 const logger = require("../../events/core/logger.js");
 const { DangerColor } = require("../../database/color.js");
-const text = require("../../database/ko-kr.js.js");
+const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isModalSubmit()) {

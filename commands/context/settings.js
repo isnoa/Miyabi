@@ -23,7 +23,7 @@ module.exports = {
   run: async (client, interaction) => {
     const userFind = interaction.user.id === interaction.targetId
     if (userFind) {
-      const text = require("../../database/ko-kr.js.js");
+      const text = require("../../database/ko-kr.js");
       const Embed = new EmbedBuilder()
         .setDescription(userData.description ?? "-\nㅤ")
         .setFields(

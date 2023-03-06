@@ -10,7 +10,7 @@ const db = require("../../database/user.js");
 const logger = require("../../events/core/logger.js");
 const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
-const { findOneAgent } = require("../../database/agents");
+const { findOneAgent } = require("../../database/agents.js");
 
 module.exports = {
 	name: "에이전트",

@@ -9,7 +9,7 @@ const {
 	unknown_camp,
 	victoria_camp,
 	belobog_camp
-} = require("../../database/links");
+} = require("../../database/links.js");
 
 module.exports = {
 	name: '소속',
