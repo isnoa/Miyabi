@@ -1,11 +1,11 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 const { EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
-const logger = require("../../events/core/logger");
-const { DangerColor } = require("../../database/color");
-const text = require("../../database/ko-kr.js");
+const logger = require("../../events/core/logger.js");
+const { DangerColor } = require("../../database/color.js");
+const text = require("../../database/ko-kr.js.js");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isModalSubmit()) {

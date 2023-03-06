@@ -5,7 +5,7 @@ const {
   ActionRowBuilder,
   StringSelectMenuBuilder
 } = require("discord.js");
-const { MiyabiColor } = require("../../database/color");
+const { MiyabiColor } = require("../../database/color.js");
 
 module.exports = {
   name: 'Settings',
@@ -23,7 +23,7 @@ module.exports = {
   run: async (client, interaction) => {
     const userFind = interaction.user.id === interaction.targetId
     if (userFind) {
-      const text = require("../../database/ko-kr.js");
+      const text = require("../../database/ko-kr.js.js");
       const Embed = new EmbedBuilder()
         .setDescription(userData.description ?? "-\nㅤ")
         .setFields(

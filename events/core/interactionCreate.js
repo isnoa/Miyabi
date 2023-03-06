@@ -1,4 +1,4 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 
 client.on("interactionCreate", async (interaction) => {
   // Slash Command Handling

@@ -5,9 +5,9 @@ const {
     ButtonBuilder,
     ButtonStyle
 } = require("discord.js");
-const db = require("../../database/user");
-const { MiyabiColor } = require("../../database/color");
-const text = require("../../database/ko-kr.js");
+const db = require("../../database/user.js");
+const { MiyabiColor } = require("../../database/color.js");
+const text = require("../../database/ko-kr.js.js");
 
 module.exports = {
     name: "쿠키얻기",

@@ -1,4 +1,4 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 const {
   EmbedBuilder,
   ActionRowBuilder,
@@ -8,7 +8,7 @@ const {
   TextInputBuilder,
   TextInputStyle,
 } = require("discord.js");
-const { MiyabiColor } = require("../../database/color");
+const { MiyabiColor } = require("../../database/color.js");
 const { loadCommands } = require("../../handler/loadCommands.js");
 
 client.on("interactionCreate", async (interaction) => {

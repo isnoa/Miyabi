@@ -49,7 +49,7 @@ client.login(process.env.CLIENT_TOKEN)
     process.exit();
   })
 
-const logger = require("./events/core/logger");
+const logger = require("./events/core/logger.js");
 
 process.on('unhandledRejection', (reason, p) => {
   console.log(' [antiCrash] :: Unhandled Rejection/Catch');

@@ -2,8 +2,8 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const db = require("../../database/user");
-const logger = require("../../events/core/logger");
+const db = require("../../database/user.js");
+const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "탈퇴",

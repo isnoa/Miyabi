@@ -11,7 +11,7 @@ const {
     ben_bigger,
     soukaku,
     hoshimi_miyabi
-} = require("./ko-kr");
+} = require("./ko-kr.js");
 
 const findOneAgent = (name) => {
     if (name === anby_demara) {

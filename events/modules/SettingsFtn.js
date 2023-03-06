@@ -1,4 +1,4 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 const {
     EmbedBuilder,
     StringSelectMenuBuilder,
@@ -7,9 +7,9 @@ const {
     TextInputBuilder,
     TextInputStyle
 } = require("discord.js");
-const db = require("../../database/user");
-const logger = require("../../events/core/logger");
-const text = require("../../database/ko-kr");
+const db = require("../../database/user.js");
+const logger = require("../../events/core/logger.js");
+const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
@@ -79,7 +79,7 @@ client.on("interactionCreate", async (interaction) => {
 
 
     async function updateActRow() {
-        const text = require("../../database/ko-kr.js");
+        const text = require("../../database/ko-kr.js.js");
         const color = interaction.member.displayHexColor;
         const Embed = new EmbedBuilder()
             .setDescription(userData.description ?? "-\nㅤ")

@@ -5,7 +5,7 @@ const {
     TextInputBuilder,
     TextInputStyle
 } = require("discord.js");
-const text = require("../../database/ko-kr.js");
+const text = require("../../database/ko-kr.js.js");
 
 module.exports = {
     name: "가입",

@@ -1,6 +1,6 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 const { EmbedBuilder, ActivityType } = require("discord.js");
-const { MiyabiColor } = require("../../database/color")
+const { MiyabiColor } = require("../../database/color.js")
 
 client.on("ready", () => {
   console.log(`${client.user.tag} is ready for battle.`);

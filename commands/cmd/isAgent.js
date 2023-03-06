@@ -6,10 +6,10 @@ const {
 	ActionRowBuilder,
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../database/user");
-const logger = require("../../events/core/logger");
-const { MiyabiColor } = require("../../database/color");
-const text = require("../../database/ko-kr");
+const db = require("../../database/user.js");
+const logger = require("../../events/core/logger.js");
+const { MiyabiColor } = require("../../database/color.js");
+const text = require("../../database/ko-kr.js");
 const { findOneAgent } = require("../../database/agents");
 
 module.exports = {

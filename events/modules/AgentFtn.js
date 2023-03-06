@@ -1,14 +1,14 @@
-const client = require("../../miyabi");
+const client = require("../../miyabi.js");
 const {
     EmbedBuilder,
     ActionRowBuilder,
     StringSelectMenuBuilder
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../database/user");
-const { MiyabiColor } = require("../../database/color")
-const logger = require("../core/logger")
-const text = require("../../database/ko-kr")
+const db = require("../../database/user.js");
+const { MiyabiColor } = require("../../database/color.js")
+const logger = require("../core/logger.js")
+const text = require("../../database/ko-kr.js")
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isStringSelectMenu()) {
