@@ -11,7 +11,6 @@ const {
 
 const client = new Client({
   fetchAllMembers: false,
-  restTimeOffset: 0,
   // shards: "auto",
   allowedMentions: {
     parse: ["roles", "users", "everyone"],
@@ -53,7 +52,6 @@ client.login(process.env.CLIENT_TOKEN)
   })
 
 const logger = require("./events/core/logger.js");
-
 process.on('unhandledRejection', (reason, p) => {
   console.log(' [antiCrash] :: Unhandled Rejection/Catch');
   console.error(reason, p);
@@ -67,7 +65,6 @@ process.on('uncaughtExceptionMonitor', (err, origin) => {
   console.log(' [antiCrash] :: Uncaught Exception/Catch (MONITOR)');
   logger.error(err, origin);
 });
-
 process.on('warning', (warn) => {
   console.warn(warn);
   logger.warn(warn);
