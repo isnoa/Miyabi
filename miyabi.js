@@ -4,7 +4,7 @@ console.clear();
 const {
   Client,
   Collection,
-  Options,
+  // Options,
   Partials,
   GatewayIntentBits,
 } = require("discord.js");
@@ -16,13 +16,13 @@ const client = new Client({
     parse: ["roles", "users", "everyone"],
     repliedUser: false,
   },
-  sweepers: {
-		...Options.DefaultSweeperSettings,
-		users: {
-			interval: 3600, // Every hour...
-			filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
-		},
-	},
+  // sweepers: {
+	// 	...Options.DefaultSweeperSettings,
+	// 	users: {
+	// 		interval: 3600, // Every hour...
+	// 		filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
+	// 	},
+	// },
   partials: [
     Partials.Channel,
     Partials.User,
@@ -43,9 +43,9 @@ client.slashCommands = new Collection();
 
 require("./handler")(client);
 module.exports = client;
+
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {
-    console.log("[CRUSH] Something went wrong while connecting to MIYABI" + "\n");
     console.error("[CRUSH] Error from DiscordAPI :" + err);
     process.exit();
   })
@@ -68,7 +68,6 @@ process.on('warning', (warn) => {
   console.warn(warn);
   logger.warn(warn);
 });
-
 // process.on('multipleResolves', (type, promise) => {
 //   console.log(' [antiCrash] :: Multiple Resolves');
 //   console.log(type, promise);
