@@ -12,6 +12,7 @@ const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 const icon = require("../../database/icons.js");
 const { findOneAgent } = require("../../database/agents.js");
+const path = require("path");
 
 module.exports = {
 	name: "에이전트",
@@ -112,7 +113,8 @@ module.exports = {
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
-				logger.info(`${interaction.user.id} || ${matchedAgent}`);
+				const file = path.parse(__filename)
+				logger.info(`ID: ${interaction.user.id} || File: ${file.base} || Request Value: ${matchedAgent}`);
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
