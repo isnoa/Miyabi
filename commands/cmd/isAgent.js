@@ -40,26 +40,6 @@ module.exports = {
 					.setColor(data.data.colour)
 					.setDescription(data.data.title)
 					.setFields(
-						// {
-						// 	name: "ㅤ",
-						// 	value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
-						// 	inline: true
-						// },
-						// {
-						// 	name: "ㅤ",
-						// 	value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
-						// 	inline: true
-						// },
-						// {
-						// 	name: "ㅤ",
-						// 	value: `${text.UIAgentJapaneseVA} **일본어**: ${data.data.cv.japanese}\n${text.UIAgentChineseVA} **중국어**: ${data.data.cv.chinese}`,
-						// 	inline: false
-						// },
-						// {
-						// 	name: "ㅤ",
-						// 	value: `${data.data.interview}\n\n${data.data.intro}`,
-						// 	inline: false
-						// }
 						{
 							name: "기본 정보",
 							value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
@@ -132,7 +112,7 @@ module.exports = {
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
-				logger.info(`${interaction.user.id}`);
+				logger.info(`${interaction.user.id} || ${matchedAgent}`);
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
@@ -143,7 +123,7 @@ module.exports = {
 			}
 		}
 
-		async function addHistory(matchedAgent) {
+		function addHistory(matchedAgent) {
 			try {
 				db.findOne({ user: interaction.user.id }, async (err, userData) => {
 					if (err) throw err;
