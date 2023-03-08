@@ -10,6 +10,7 @@ const db = require("../../database/user.js");
 const logger = require("../../events/core/logger.js");
 const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
+const icon = require("../../database/icons.js");
 const { findOneAgent } = require("../../database/agents.js");
 
 module.exports = {
@@ -70,7 +71,7 @@ module.exports = {
 							inline: true
 						},
 						{
-							name: `${text.UIAgentJapaneseVA} 성우 정보`,
+							name: `${icon.UIMIC} 성우 정보`,
 							value: `**일본어**: ${data.data.cv.japanese}\n**중국어**: ${data.data.cv.chinese}`,
 							inline: true
 						},
