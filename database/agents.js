@@ -43,6 +43,4 @@ const findOneAgent = (name) => {
     }
 }
 
-module.exports = {
-    findOneAgent
-}
+module.exports = { findOneAgent }

@@ -35,24 +35,44 @@ module.exports = {
 			const matchedAgent = findOneAgent(name)
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 				const Embed = new EmbedBuilder()
-					.setAuthor({ name: data.data.name + " - " + text.UIAgentInfo })
+					.setTitle(data.data.name + " - " + text.UIAgentInfo)
 					.setColor(data.data.colour)
 					.setDescription(data.data.title)
 					.setFields(
+						// {
+						// 	name: "ㅤ",
+						// 	value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
+						// 	inline: true
+						// },
+						// {
+						// 	name: "ㅤ",
+						// 	value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
+						// 	inline: true
+						// },
+						// {
+						// 	name: "ㅤ",
+						// 	value: `${text.UIAgentJapaneseVA} **일본어**: ${data.data.cv.japanese}\n${text.UIAgentChineseVA} **중국어**: ${data.data.cv.chinese}`,
+						// 	inline: false
+						// },
+						// {
+						// 	name: "ㅤ",
+						// 	value: `${data.data.interview}\n\n${data.data.intro}`,
+						// 	inline: false
+						// }
 						{
-							name: "ㅤ",
+							name: "기본 정보",
 							value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일`,
 							inline: true
 						},
 						{
-							name: "ㅤ",
+							name: "전투 정보",
 							value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
 							inline: true
 						},
 						{
-							name: "ㅤ",
-							value: `${text.UIAgentJapaneseVA} **일본어**: ${data.data.cv.japanese}\n${text.UIAgentChineseVA} **중국어**: ${data.data.cv.chinese}`,
-							inline: false
+							name: `${text.UIAgentJapaneseVA} 성우 정보`,
+							value: `**일본어**: ${data.data.cv.japanese}\n**중국어**: ${data.data.cv.chinese}`,
+							inline: true
 						},
 						{
 							name: "ㅤ",

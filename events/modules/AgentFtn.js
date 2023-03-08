@@ -24,7 +24,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentInfo })
+                                                .setTitle(data.data.name + " - " + text.UIAgentInfo)
                                                 .setColor(data.data.colour)
                                                 .setDescription(data.data.title)
                                                 .setFields(
@@ -68,7 +68,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentStats })
+                                                .setTitle(data.data.name + " - " + text.UIAgentStats)
                                                 .setColor(data.data.colour)
                                                 .setFields(
                                                     {
@@ -170,7 +170,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentBasicAttack })
+                                                .setTitle(data.data.name + " - " + text.UIAgentBasicAttack)
                                                 .setColor(data.data.colour)
                                                 .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
@@ -215,7 +215,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentSpecialAttack })
+                                                .setTitle(data.data.name + " - " + text.UIAgentSpecialAttack)
                                                 .setColor(data.data.colour)
                                                 .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
@@ -260,7 +260,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentComboAttack })
+                                                .setTitle(data.data.name + " - " + text.UIAgentComboAttack)
                                                 .setColor(data.data.colour)
                                                 .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
@@ -305,7 +305,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentDodge })
+                                                .setTitle(data.data.name + " - " + text.UIAgentDodge)
                                                 .setColor(data.data.colour)
                                                 .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
@@ -350,7 +350,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentTalent })
+                                                .setTitle(data.data.name + " - " + text.UIAgentTalent)
                                                 .setColor(data.data.colour)
                                                 .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
                                                 .setFields(
@@ -395,7 +395,7 @@ client.on("interactionCreate", async (interaction) => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
-                                                .setAuthor({ name: data.data.name + " - " + text.UIAgentPartyRecs })
+                                                .setTitle(data.data.name + " - " + text.UIAgentPartyRecs)
                                                 .setColor(data.data.colour)
                                                 .setDescription(text.UIAgentOrderOfTier)
                                                 .setFields(
