@@ -12,7 +12,6 @@ const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 const icon = require("../../database/icons.js");
 const { findOneAgent } = require("../../database/agents.js");
-const path = require("path");
 
 module.exports = {
 	name: "에이전트",
@@ -113,8 +112,7 @@ module.exports = {
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
-				const file = path.parse(__filename)
-				logger.info(`User Id: [${interaction.user.id}] || File Director: [${file.dir}] || Request Values: [${matchedAgent}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+				logger.info(`User Id: [${interaction.user.id}] || File Director: (${__filename}) || Request Values: [${matchedAgent}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
