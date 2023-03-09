@@ -114,7 +114,7 @@ module.exports = {
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
 				const file = path.parse(__filename)
-				logger.info(`ID: ${interaction.user.id} || File: ${file.base} || Request Value: ${matchedAgent}`);
+				logger.info(`User Id: [${interaction.user.id}] || File Director: [${file.dir}] || Request Values: [${matchedAgent}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
 			if (err.response && err.response.status === 404) {
