@@ -18,7 +18,6 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-
         const ZZZConnectModal = new ModalBuilder()
             .setCustomId('setZZZConnectModal')
             .setTitle(text.UISettingZZZConnect)

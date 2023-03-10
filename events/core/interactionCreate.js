@@ -1,7 +1,6 @@
 const client = require("../../miyabi.js");
 
 client.on("interactionCreate", async (interaction) => {
-  // Slash Command Handling
   if (interaction.isChatInputCommand()) {
     const cmd = client.slashCommands.get(interaction.commandName);
     if (!cmd)

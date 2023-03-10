@@ -1,14 +1,14 @@
-const { ContextMenuCommandInteraction, ApplicationCommandType, EmbedBuilder } = require("discord.js");
+const {
+    ContextMenuCommandInteraction,
+    ApplicationCommandType,
+    EmbedBuilder
+} = require("discord.js");
 const db = require("../../database/user.js");
 const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 
 module.exports = {
-    name: "Profile",
-    name_localizations: {
-        "ko": "프로필",
-        "ja": "プロフィール"
-    },
+    name: "프로필",
     type: ApplicationCommandType.User,
     /**
      * 
@@ -21,7 +21,6 @@ module.exports = {
         if (userMatch) {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (userData) {
-                    // const color = interaction.member.displayHexColor;
                     const Embed = new EmbedBuilder()
                         .setDescription(userData.description ?? "-")
                         .setFields(
@@ -78,9 +77,6 @@ module.exports = {
             db.findOne({ user: user.id }, async (err, data) => {
                 if (data) {
                     if (data.profileconnect === true) {
-                        // const member = await interaction.guild.members.fetch(interaction.targetId);
-                        // const color = member.displayHexColor;
-                        // if (color == '#000000') color = member.hoistRole.hexColor;
                         const Embed = new EmbedBuilder()
                             .setTitle(user.tag)
                             .setDescription(data.description ?? "-")

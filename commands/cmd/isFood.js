@@ -1,4 +1,8 @@
-const { CommandInteraction, ApplicationCommandOptionType, EmbedBuilder } = require("discord.js");
+const {
+	CommandInteraction,
+	ApplicationCommandOptionType,
+	EmbedBuilder
+} = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
@@ -23,25 +27,25 @@ module.exports = {
 
 		if (name == "검은 면기: 훈제 차슈라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/smoke_bbq_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} else if (name == "흰 면기: 호박라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/pumpkin_soup_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} else if (name == "흰 면기: 차슈 튀김라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} else if (name == "흰 면기: 홍고추  돈코츠라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/red_pepper_meat_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} else if (name == "흰 면기: 청고추 돈코츠라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/green_pepper_meat_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} else if (name == "흰 면기: 해물라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/seafood_noodles/ramen.json"
-			generateObject()
+			generateObject(URL)
 		} 
 
-		function generateObject() {
+		function generateObject(URL) {
 			try {
 				axios.get(URL).then(data => {
 
@@ -69,10 +73,11 @@ module.exports = {
 						)
 						.setThumbnail(food_img)
 					interaction.reply({ embeds: [Embed] })
-					return true;
+					logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 				})
-			} catch {
-				return undefined;
+			} catch (err) {
+				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+				logger.error(err)
 			}
 		}
 	}

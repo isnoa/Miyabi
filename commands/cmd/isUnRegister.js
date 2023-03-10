@@ -16,19 +16,14 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        try {
-            db.findOne({ user: interaction.user.id }, async (err, userData) => {
-                if (err) throw err;
-                if (userData) {
-                    db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "", uid: "" } })
-                        .catch(err => logger.error(err));
-                } else {
-                    interaction.reply({ content: "그.. 가입도 안하고 탈퇴를 해달라면 어떻게 못해줘." })
-                }
-            })
-        } catch (err) {
-            console.error(err)
-            logger.error(err)
-        }
+        db.findOne({ user: interaction.user.id }, async (err, userData) => {
+            if (err) throw err;
+            if (userData) {
+                db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: "", uid: "" } })
+                    .catch(err => logger.error(err));
+            } else {
+                interaction.reply({ content: "그.. 가입도 안하고 탈퇴를 해달라면 어떻게 못해줘." })
+            }
+        })
     }
 }

@@ -6,13 +6,10 @@ const {
   StringSelectMenuBuilder
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color.js");
+const text = require("../../database/ko-kr.js");
 
 module.exports = {
-  name: 'Settings',
-  name_localizations: {
-    "ko": "설정",
-    "ja": "設定"
-  },
+  name: '설정',
   type: ApplicationCommandType.User,
   /**
    * 
@@ -23,7 +20,6 @@ module.exports = {
   run: async (client, interaction) => {
     const userFind = interaction.user.id === interaction.targetId
     if (userFind) {
-      const text = require("../../database/ko-kr.js");
       const Embed = new EmbedBuilder()
         .setDescription(userData.description ?? "-\nㅤ")
         .setFields(

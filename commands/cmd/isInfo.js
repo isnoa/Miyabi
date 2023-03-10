@@ -1,4 +1,7 @@
-const { CommandInteraction, EmbedBuilder } = require("discord.js");
+const {
+    CommandInteraction,
+    EmbedBuilder
+} = require("discord.js");
 
 module.exports = {
     name: "정보",

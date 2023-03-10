@@ -10,6 +10,7 @@ const {
 	victoria_camp,
 	belobog_camp
 } = require("../../database/links.js");
+const logger = require("../../events/core/logger.js");
 
 module.exports = {
 	name: '소속',
@@ -50,23 +51,17 @@ module.exports = {
 		async function generateObject(URL) {
 			try {
 				await axios.get(URL).then(data => {
-					const name = data.data.ZZZCamp.camp_info[0].camp_name
-					const desc = data.data.ZZZCamp.camp_info[0].camp_desc
-					const banner = data.data.ZZZCamp.camp_info[0].camp_banner
-					const logo = data.data.ZZZCamp.camp_info[0].camp_logo
-					const color = data.data.ZZZCamp.camp_info[0].camp_original_color
-
 					const character_first = data.data.ZZZCamp.camp_info[1].character[0]
 					const character_second = data.data.ZZZCamp.camp_info[1].character[1]
 					const character_third = data.data.ZZZCamp.camp_info[1].character[2]
 					const character_fourth = data.data.ZZZCamp.camp_info[1].character[3]
 
 					const Embed = new EmbedBuilder()
-						.setAuthor({ name: name })
-						.setImage(banner)
-						.setThumbnail(logo)
-						.setDescription(desc)
-						.setColor(color)
+						.setAuthor({ name: data.data.ZZZCamp.camp_info[0].camp_name })
+						.setImage(data.data.ZZZCamp.camp_info[0].camp_banner)
+						.setThumbnail(data.data.ZZZCamp.camp_info[0].camp_logo)
+						.setDescription(data.data.ZZZCamp.camp_info[0].camp_desc)
+						.setColor(data.data.ZZZCamp.camp_info[0].camp_original_color)
 						.setFields({ name: "소속된 캐릭터", value: `${character_first}\n${character_second ?? ""}\n${character_third ?? ""}\n${character_fourth ?? ""}` })
 
 					// if (character_first) {
@@ -94,10 +89,11 @@ module.exports = {
 					// }
 
 					interaction.reply({ embeds: [Embed] })
-					return true;
+					logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 				})
-			} catch {
-				return undefined;
+			} catch (err) {
+				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+				logger.error(err)
 			}
 		}
 	}

@@ -112,33 +112,24 @@ module.exports = {
 				);
 				interaction.reply({ embeds: [Embed], components: [row] })
 				addHistory(matchedAgent)
-				logger.info(`User Id: [${interaction.user.id}] || File Director: (${__filename}) || Request Values: [${matchedAgent}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
-			if (err.response && err.response.status === 404) {
-				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-			} else {
-				console.log(err)
-				interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "에러가 발생했어, 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-			}
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+			logger.error(err)
 		}
 
 		function addHistory(matchedAgent) {
-			try {
-				db.findOne({ user: interaction.user.id }, async (err, userData) => {
-					if (err) throw err;
-					if (userData) {
-						db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedAgent } })
-							.catch(err => logger.error(err));
-					} else {
-						new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedAgent })
-							.save().catch(err => logger.error(err));
-					}
-				})
-			} catch (err) {
-				console.error(err)
-				logger.error(err)
-			}
+			db.findOne({ user: interaction.user.id }, async (err, userData) => {
+				if (err) throw err;
+				if (userData) {
+					db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedAgent } })
+						.catch(err => logger.error(err));
+				} else {
+					new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedAgent })
+						.save().catch(err => logger.error(err));
+				}
+			})
 		}
 	}
 }
