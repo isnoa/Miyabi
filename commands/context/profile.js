@@ -53,7 +53,7 @@ module.exports = {
                         Embed.setTitle(interaction.user.tag)
                     }
                     if (["985121434428911628"].includes(interaction.user.id)) {
-                        Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782114036986016/IconRoleCircle13_1178533.png" })
+                        Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/emojis/1083933342837243934.png?size=80&quality=lossless" })
                     }
                     if (["1010159742104113162"].includes(interaction.user.id)) {
                         Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
@@ -105,7 +105,7 @@ module.exports = {
                             .setThumbnail(user.avatarURL({ dynamic: true, size: 2048 }))
                             .setColor(MiyabiColor)
                         if (["985121434428911628"].includes(user.id)) {
-                            Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782114036986016/IconRoleCircle13_1178533.png" })
+                            Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/emojis/1083933342837243934.png?size=80&quality=lossless" })
                         }
                         if (["1010159742104113162"].includes(user.id)) {
                             Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
