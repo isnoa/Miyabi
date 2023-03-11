@@ -52,9 +52,6 @@ module.exports = {
                     } else {
                         Embed.setTitle(interaction.user.tag)
                     }
-                    if (["985121434428911628"].includes(interaction.user.id)) {
-                        Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/emojis/1083933342837243934.png?size=80&quality=lossless" })
-                    }
                     if (["1010159742104113162"].includes(interaction.user.id)) {
                         Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                         Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1076696736900333659/71ed8c758171edce1937ae9fb8a7a2c5_4050754917781907821.jpg")
@@ -104,9 +101,6 @@ module.exports = {
                             )
                             .setThumbnail(user.avatarURL({ dynamic: true, size: 2048 }))
                             .setColor(MiyabiColor)
-                        if (["985121434428911628"].includes(user.id)) {
-                            Embed.setAuthor({ name: "MIYABI", iconURL: "https://cdn.discordapp.com/emojis/1083933342837243934.png?size=80&quality=lossless" })
-                        }
                         if (["1010159742104113162"].includes(user.id)) {
                             Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                             Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070787654620291152/100477646_p0.jpg")
@@ -117,10 +111,10 @@ module.exports = {
                         }
                         interaction.reply({ embeds: [Embed] })
                     } else {
-                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData ?? " I can't check the data."]).setColor(MiyabiColor)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData ?? text.UIMismatchData]).setColor(MiyabiColor)] })
                     }
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + " I can't check the data.").setColor(MiyabiColor)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             })
         }
