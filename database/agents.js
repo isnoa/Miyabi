@@ -38,8 +38,6 @@ const findOneAgent = (name) => {
         return "soukaku";
     } else if (name === hoshimi_miyabi) {
         return "hoshimi_miyabi";
-    } else {
-        return undefined;
     }
 }
 
