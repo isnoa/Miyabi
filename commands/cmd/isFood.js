@@ -7,7 +7,7 @@ const axios = require("axios");
 
 module.exports = {
 	name: '음식',
-	description: '「Zenless Zone Zero」의 음식에 대해 알아보실 수 있습니다',
+	description: '음식 종류를 알려줄게.',
 	timeout: 5000,
 	options: [{
 		name: '이름',
@@ -24,7 +24,6 @@ module.exports = {
 	 */
 	run: async (client, interaction, args) => {
 		const name = interaction.options.getString('이름');
-
 		if (name == "검은 면기: 훈제 차슈라면") {
 			const URL = "https://zenlessdata.web.app/upload/community/data/noodle/smoke_bbq_noodles/ramen.json"
 			generateObject(URL)

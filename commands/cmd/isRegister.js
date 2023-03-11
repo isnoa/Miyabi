@@ -9,7 +9,7 @@ const text = require("../../database/ko-kr.js");
 
 module.exports = {
     name: "가입",
-    description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할수 있도록 해줄게.",
+    description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할 수 있도록 해줄게.",
     timeout: 5000,
     /**
      *
