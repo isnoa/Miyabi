@@ -16,7 +16,7 @@ module.exports = {
     run: async (client, interaction, args) => {
         const Embed = new EmbedBuilder()
             .setTitle("MIYABI에 대해")
-            .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다.\n<@1010159742104113162>가 세뇌 걸어서 정식 출시 이후 지금까지 저희와 함께하고 있으며, 보다 나은 서비스의 퀄리티로 보답해 드리도록 더욱 노력하겠습니다.\n⠀")
+            .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다.\n<@1010159742104113162>가 세뇌를 걸어서 정식 출시 이후 지금까지 저희와 함께하고 있으며, 보다 나은 서비스의 퀄리티로 보답해 드리도록 더욱 노력하겠습니다.\n⠀")
             .setFields(
                 {
                     name: "— 이용 및 통계",
