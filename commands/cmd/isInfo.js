@@ -2,6 +2,7 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
+const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "정보",
@@ -33,5 +34,6 @@ module.exports = {
             )
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1080400140080250880/184908dc4ea4cacdc.jpg")
         interaction.reply({ embeds: [Embed], ephemeral: true })
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

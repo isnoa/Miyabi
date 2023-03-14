@@ -6,6 +6,7 @@ const {
     TextInputStyle
 } = require("discord.js");
 const text = require("../../database/ko-kr.js");
+const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "가입",
@@ -35,5 +36,6 @@ module.exports = {
         const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
         ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
         await interaction.showModal(ZZZConnectModal);
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }
