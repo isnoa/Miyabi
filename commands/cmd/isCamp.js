@@ -15,6 +15,7 @@ const logger = require("../../events/core/logger.js");
 module.exports = {
 	name: '소속',
 	description: '캐릭터가 소속된 모든 소속을 알려줄게',
+	timeout: 5000,
 	options: [{
 		name: '이름',
 		description: '알아볼 소속의 이름을 입력해',
@@ -22,7 +23,6 @@ module.exports = {
 		required: true,
 		autocomplete: true
 	}],
-	timeout: 5000,
 	/**
 	 *
 	 * @param {Client} client
