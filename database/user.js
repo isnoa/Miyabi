@@ -1,13 +1,15 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
-    since : String,
     user : String,
-    nowcharacter : String,
-    profileconnect : Boolean,
-    description : String,
+    timestamp : String,
+    lastcharacter : String,
+    viewprofile : Boolean,
+    introduce : String,
     zzzconnect : String,
     uid : Number,
+    zzzdate: String,
+    zzzlevel: Number,
     dailycheckin : Boolean
 }, { versionKey: false })
 

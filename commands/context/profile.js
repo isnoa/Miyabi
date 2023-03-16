@@ -23,16 +23,16 @@ module.exports = {
             db.findOne({ user: interaction.user.id }, async (err, userData) => {
                 if (userData) {
                     const Embed = new EmbedBuilder()
-                        .setDescription(userData.description ?? "-")
+                        .setDescription(userData.introduce ?? "-")
                         .setFields(
                             {
                                 name: text.UIProfileRegist,
-                                value: `<t:${parseInt(userData.since / 1000)}:R>`,
+                                value: `<t:${parseInt(userData.timestamp / 1000)}:R>`,
                                 inline: true
                             },
                             {
                                 name: text.UIProfileRSC,
-                                value: text[userData.nowcharacter ?? "none"],
+                                value: text[userData.lastcharacter ?? "none"],
                                 inline: true
                             },
                             {
@@ -61,7 +61,7 @@ module.exports = {
                         Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                         Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
                     }
-                    if (userData.profileconnect === true) {
+                    if (userData.viewprofile === true) {
                         interaction.reply({ embeds: [Embed] })
                         logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     } else {
@@ -74,31 +74,31 @@ module.exports = {
             })
         } else {
             const user = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: user.id }, async (err, data) => {
-                if (data) {
-                    if (data.profileconnect === true) {
+            db.findOne({ user: user.id }, async (err, userData) => {
+                if (userData) {
+                    if (userData.viewprofile === true) {
                         const Embed = new EmbedBuilder()
                             .setTitle(user.tag)
-                            .setDescription(data.description ?? "-")
+                            .setDescription(userData.introduce ?? "-")
                             .setFields(
                                 {
                                     name: text.UIProfileRegist,
-                                    value: `<t:${parseInt(data.since / 1000)}:R>`,
+                                    value: `<t:${parseInt(userData.timestamp / 1000)}:R>`,
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileRSC,
-                                    value: text[data.nowcharacter ?? "none"],
+                                    value: text[userData.lastcharacter ?? "none"],
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileZZZConnect,
-                                    value: text[!!data.zzzconnect ?? "false"],
+                                    value: text[!!userData.zzzconnect ?? "false"],
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileDailyCheckIn,
-                                    value: text[data.dailycheckin ?? "false"],
+                                    value: text[userData.dailycheckin ?? "false"],
                                     inline: true
                                 }
                             )

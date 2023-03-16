@@ -3,6 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
+const db = require("../../database/user.js");
 const logger = require("../../events/core/logger.js");
 const { DangerColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
@@ -13,7 +14,9 @@ client.on("interactionCreate", async (interaction) => {
             const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '')
             const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
             await interaction.deferReply();
-            const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`
+
+            const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`;
+
             const dataMachine = axios.create({
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
@@ -75,9 +78,28 @@ client.on("interactionCreate", async (interaction) => {
 
             const uid = profile.data.list[0].game_uid
 
-            userData.updateOne({ $set: { zzzconnect: encryptedCookie, uid: uid } })
-                .catch(err => logger.error(err))
-            interaction.editReply({ content: profile.message + " 승인.", ephemeral: true })
+
+            addCookieData(encryptedCookie, uid);
+            interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
+
+
+
+            function addCookieData(encryptedCookie, uid) {
+                let date = new Date();
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                db.findOne({ user: interaction.user.id }, async (err, userData) => {
+                    if (err) throw err;
+                    if (userData) {
+                        db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 } })
+                            .catch(err => logger.error(err));
+                    } else {
+                        new db({ timestamp: Date.now(), user: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 })
+                            .save().catch(err => logger.error(err));
+                    }
+                })
+            }
 
             function generateDSToken() {
                 const time = Math.floor(Date.now() / 1000);

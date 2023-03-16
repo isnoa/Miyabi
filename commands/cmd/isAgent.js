@@ -119,10 +119,10 @@ module.exports = {
 			db.findOne({ user: interaction.user.id }, async (err, userData) => {
 				if (err) throw err;
 				if (userData) {
-					db.updateOne({ user: interaction.user.id }, { $set: { nowcharacter: matchedAgent } })
+					db.updateOne({ user: interaction.user.id }, { $set: { lastcharacter: matchedAgent } })
 						.catch(err => logger.error(err));
 				} else {
-					new db({ since: Date.now(), user: interaction.user.id, nowcharacter: matchedAgent })
+					new db({ timestamp: Date.now(), user: interaction.user.id, lastcharacter: matchedAgent })
 						.save().catch(err => logger.error(err));
 				}
 			})
