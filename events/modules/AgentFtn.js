@@ -35,7 +35,7 @@ client.on("interactionCreate", async (interaction) => {
                                                     },
                                                     {
                                                         name: "ㅤ",
-                                                        value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttribute}**: ██\n**${text.UIAgentAttack}**: ███`,
+                                                        value: `**${text.UIAgentCamp}**: ${data.data.camp}\n**${text.UIAgentAttackAttribute}**: ██\n**${text.UIAgentDamageAttribute}**: ███`,
                                                         inline: true
                                                     },
                                                     {

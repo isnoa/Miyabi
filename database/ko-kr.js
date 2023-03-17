@@ -18,8 +18,9 @@ module.exports = {
     UIAgentGender: "성별",
     UIAgentBirthDay: "생일",
     UIAgentCamp: "소속",
-    UIAgentAttribute: "속성",
-    UIAgentAttack: "공격",
+    UIAgentDamageAttribute: "속성 피해",
+    UIAgentAttackAttribute: "공격 속성",
+    // UIAgentAttributeCounterType: "공격 속성 상성",
 
     UIAgentEXCriteria: "예시 기준",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",

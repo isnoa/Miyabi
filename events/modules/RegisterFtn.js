@@ -44,7 +44,7 @@ client.on("interactionCreate", async (interaction) => {
             const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=bh3_global`).then(res => res.data);
             if (profile.retcode !== 0) {
                 const embedError = new EmbedBuilder()
-                    .setDescription(text.Register_description_retcodeZero)
+                    .setDescription(text.UIRetcodeZero)
                     .setFields(
                         {
                             name: "캐릭터 HoYoLAB과 연동하는 방법",
