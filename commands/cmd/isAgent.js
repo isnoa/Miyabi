@@ -41,17 +41,17 @@ module.exports = {
 					.setDescription(data.data.title)
 					.setFields(
 						{
-							name: "기본 정보",
+							name: `${icon.UIExclamationmarkOne} 기본 정보`,
 							value: `**${text.UIAgentName}**: ${data.data.name}\n**${text.UIAgentGender}**: ${data.data.gender}\n**${text.UIAgentBirthDay}**: ██월 ██일\n**${text.UIAgentCamp}**: ${data.data.camp}`,
 							inline: true
 						},
 						{
-							name: "전투 정보",
-							value: `**${text.UIAgentDamageAttribute}**: 얼음\n**${text.UIAgentAttackAttribute}**: 베기\n→ *에테리얼류*(*상성*)`,
+							name: `${icon.UIExclamationmarkTwo} 전투 정보`,
+							value: `**${text.UIAgentDamageAttribute}**: 얼음\n**${text.UIAgentAttackAttribute}**: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
 						{
-							name: `${icon.UIMIC} 성우 정보`,
+							name: `${icon.UIMic} 성우 정보`,
 							value: `**일본어**: ${data.data.cv.japanese}\n**중국어**: ${data.data.cv.chinese}`,
 							inline: true
 						},
@@ -105,7 +105,7 @@ module.exports = {
 							},
 							{
 								label: text.UIAgentPartyRecs,
-								value: "PartyRecs",
+								value: "checkUsersInfo",
 								description: data.data.name + `의 ${text.UIAgentPartyRecs} 알아보기`,
 							}
 						])
