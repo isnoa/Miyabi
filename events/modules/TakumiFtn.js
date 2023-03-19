@@ -62,8 +62,7 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.customId === "CodeModal") {
     const codeOneText = interaction.fields.getTextInputValue("textOneInput");
     const codeTwoText = interaction.fields.getTextInputValue("textTwoInput");
-    const codeThreeText =
-      interaction.fields.getTextInputValue("textThreeInput");
+    const codeThreeText = interaction.fields.getTextInputValue("textThreeInput");
 
     const Embed = new EmbedBuilder()
       .setTitle("new.ZenlessCode")

@@ -2,6 +2,7 @@ const { glob } = require("glob");
 const { promisify } = require("util");
 const globPromise = promisify(glob);
 const mongoose = require("mongoose");
+const logger = require("../events/core/logger.js");
 
 module.exports = async (client) => {
   // Slash Commands
@@ -33,7 +34,7 @@ module.exports = async (client) => {
 
   // mongoose database
   mongoose.set("strictQuery", false);
-  mongoose.connect(process.env.MONGO_DATABASE_URI, () => {
-  console.log("Connected to Mongoose Database.");
-});
+  mongoose.connect(process.env.MONGO_DATABASE_URI)
+  .then(() => console.log('connected to MongoDB.'))
+  .catch((err) => logger.error(err));
 };

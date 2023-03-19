@@ -105,7 +105,7 @@ module.exports = {
 							},
 							{
 								label: text.UIAgentPartyRecs,
-								value: "checkUsersInfo",
+								value: "PartyRecs",
 								description: data.data.name + `의 ${text.UIAgentPartyRecs} 알아보기`,
 							}
 						])
