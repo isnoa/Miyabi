@@ -116,7 +116,8 @@ module.exports = {
 			})
 
 		function addHistory(matchedAgent) {
-			const userData = db.findOne({ user: interaction.user.id })
+			// const userData = db.findOne({ user: interaction.user.id })
+			db.findOne({ user: interaction.user.id }).then((userData) => {
 				if (userData) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastcharacter: matchedAgent } })
 						.catch(err => logger.error(err));
@@ -124,7 +125,9 @@ module.exports = {
 					new db({ timestamp: Date.now(), user: interaction.user.id, lastcharacter: matchedAgent })
 						.save().catch(err => logger.error(err));
 				}
-			
+			}).catch((err) => {
+				if (err) throw err;
+			})
 		}
 	}
 }
