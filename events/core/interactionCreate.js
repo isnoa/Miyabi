@@ -22,7 +22,6 @@ client.on("interactionCreate", async (interaction) => {
       if(cmd.timeout) {
         if(client.timeout.has(`${cmd.name}${interaction.user.id}`))
         return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
-        // return interaction.reply({ content: "[있지, 그렇게 허둥지둥 무슨 일이라도 있어?](https://www.youtube.com/watch?v=doGHTVEEsgk&t=81s)" })
         cmd.run(client, interaction, args)
         client.timeout.set(`${cmd.name}${interaction.user.id}`, Date.now() + cmd.timeout)
         setTimeout(() => {
