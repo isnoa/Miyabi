@@ -26,7 +26,7 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setTitle(data.data.name + " - " + text.UIAgentInfo)
                                                 .setColor(data.data.colour)
-                                                .setDescription(data.data.title)
+                                                .setDescription(`> ${(data.data.title).replace(/\n/i, "\n> ")}`)
                                                 .setFields(
                                                     {
                                                         name: `기본 정보`,
