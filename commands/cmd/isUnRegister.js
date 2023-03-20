@@ -16,8 +16,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        db.findOne({ user: interaction.user.id }, async (err, userData) => {
-            if (err) throw err;
+        db.findOne({ user: interaction.user.id }).then((userData) => {
             if (userData) {
                 const Embed = new EmbedBuilder()
                 .setTitle("탈퇴를 완료했어.")
@@ -29,6 +28,8 @@ module.exports = {
             } else {
                 interaction.reply({ content: "그.. 가입 이력이 없어서 탈퇴를 못 해줘." })
             }
+        }).catch((err) => {
+            if (err) throw err;
         })
     }
 }
