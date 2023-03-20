@@ -89,8 +89,7 @@ client.on("interactionCreate", async (interaction) => {
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
                 let day = date.getDate();
-                db.findOne({ user: interaction.user.id }, async (err, userData) => {
-                    if (err) throw err;
+                db.findOne({ user: interaction.user.id }).then((userData) => {
                     if (userData) {
                         db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 } })
                             .catch(err => logger.error(err));
@@ -98,6 +97,8 @@ client.on("interactionCreate", async (interaction) => {
                         new db({ timestamp: Date.now(), user: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 })
                             .save().catch(err => logger.error(err));
                     }
+                }).catch((err) => {
+                    if (err) throw err;
                 })
             }
 
