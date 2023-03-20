@@ -35,6 +35,6 @@ module.exports = async (client) => {
   // mongoose database
   mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGO_DATABASE_URI)
-  .then(() => console.log('connected to MongoDB.'))
+  .then(() => console.log('Connected to MongoDB.'))
   .catch((err) => logger.error(err));
 };
