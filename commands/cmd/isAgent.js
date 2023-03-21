@@ -63,7 +63,7 @@ module.exports = {
 					{
 						name: `성우 정보`,
 						value: `일본어: ${data.data.cv.japanese}\n중국어: ${data.data.cv.chinese}`,
-						inline: true
+						inline: false
 					},
 					{
 						name: "ㅤ",
