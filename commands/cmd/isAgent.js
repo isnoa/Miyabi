@@ -35,10 +35,20 @@ module.exports = {
 		const matchedAgent = findOneAgent(name)
 		if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
 		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
+			function ReplaceTheContents() {
+				if (matchedAgent === "soukaku") {
+					return `>${(data.data.title).replace(/\n/i, " ")}`
+				} else if (matchedAgent === "ben_bigger") {
+					return `> ${(data.data.title).replace(/\n/i, " ")}`
+				} else {
+					return `> ${(data.data.title).replace(/\n/i, "\n> ")}`
+				}
+			}
+
 			const Embed = new EmbedBuilder()
 				.setTitle(data.data.name + " - " + text.UIAgentInfo)
 				.setColor(data.data.colour)
-				.setDescription(function ReplaceTheContents(){if(matchedAgent==="soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(matchedAgent==="ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
+				.setDescription(ReplaceTheContents())
 				.setFields(
 					{
 						name: `기본 정보`,

@@ -16,16 +16,26 @@ client.on("interactionCreate", async (interaction) => {
             interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "Info":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
+                                            function ReplaceTheContents() {
+                                                if (userData.lastcharacter === "soukaku") {
+                                                    return `>${(data.data.title).replace(/\n/i, " ")}`
+                                                } else if (userData.lastcharacter === "ben_bigger") {
+                                                    return `> ${(data.data.title).replace(/\n/i, " ")}`
+                                                } else {
+                                                    return `> ${(data.data.title).replace(/\n/i, "\n> ")}`
+                                                }
+                                            }
+
                                             const Embed = new EmbedBuilder()
                                                 .setTitle(data.data.name + " - " + text.UIAgentInfo)
                                                 .setColor(data.data.colour)
-                                                .setDescription(function ReplaceTheContents(){if(userData.lastcharacter==="soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(userData.lastcharacter==="ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
+                                                .setDescription(ReplaceTheContents())
                                                 .setFields(
                                                     {
                                                         name: `기본 정보`,
@@ -66,7 +76,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "Stats":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -168,7 +178,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "BasicAttack":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -213,7 +223,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "SpecialAttack":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -258,7 +268,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "ComboAttack":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -303,7 +313,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "Dodge":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -348,7 +358,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "Talent":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
@@ -393,7 +403,7 @@ client.on("interactionCreate", async (interaction) => {
                         break;
 
                     case "PartyRecs":
-                        db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
                             if (userData) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastcharacter}.json`).then(data => {
