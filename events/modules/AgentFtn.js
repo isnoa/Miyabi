@@ -25,7 +25,7 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setTitle(data.data.name + " - " + text.UIAgentInfo)
                                                 .setColor(data.data.colour)
-                                                .setDescription(function ReplaceTheContents(){if(userData.lastcharacter === "soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(userData.lastcharacter === "ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
+                                                .setDescription(function ReplaceTheContents(){if(userData.lastcharacter==="soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(userData.lastcharacter==="ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
                                                 .setFields(
                                                     {
                                                         name: `기본 정보`,

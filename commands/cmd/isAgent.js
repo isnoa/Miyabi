@@ -38,7 +38,7 @@ module.exports = {
 			const Embed = new EmbedBuilder()
 				.setTitle(data.data.name + " - " + text.UIAgentInfo)
 				.setColor(data.data.colour)
-				.setDescription(function ReplaceTheContents(){if(matchedAgent === "soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(matchedAgent === "ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
+				.setDescription(function ReplaceTheContents(){if(matchedAgent==="soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(matchedAgent==="ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
 				.setFields(
 					{
 						name: `기본 정보`,
