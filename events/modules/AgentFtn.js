@@ -25,7 +25,7 @@ client.on("interactionCreate", async (interaction) => {
                                             const Embed = new EmbedBuilder()
                                                 .setTitle(data.data.name + " - " + text.UIAgentInfo)
                                                 .setColor(data.data.colour)
-                                                .setDescription(`> ${(data.data.title).replace(/\n/i, "\n> ")}`)
+                                                .setDescription(function ReplaceTheContents(){if(userData.lastcharacter === "soukaku"){return`>${(data.data.title).replace(/\n/i," ")}`}else if(userData.lastcharacter === "ben_bigger"){return`> ${(data.data.title).replace(/\n/i," ")}`}else{return`> ${(data.data.title).replace(/\n/i,"\n> ")}`}})
                                                 .setFields(
                                                     {
                                                         name: `기본 정보`,
@@ -48,6 +48,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: false
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -91,6 +92,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: false
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             const rowLevelCalculator = new ActionRowBuilder().addComponents(
                                                 new StringSelectMenuBuilder()
@@ -193,6 +195,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -237,6 +240,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -281,6 +285,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -325,6 +330,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -369,6 +375,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)
@@ -413,6 +420,7 @@ client.on("interactionCreate", async (interaction) => {
                                                         inline: true
                                                     }
                                                 )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
                                                 .setThumbnail(data.data.archive.avatar)
                                             interaction.editReply({ embeds: [Embed], components: [rowAgentSelect(data)] })
                                             clearTimeout(setTimeAct)

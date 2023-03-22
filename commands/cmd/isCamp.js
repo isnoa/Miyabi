@@ -66,25 +66,25 @@ module.exports = {
 
 					// if (character_first) {
 					// 	Embed.setFields(
-					// 		{ name: "ㅤ", value: character_first, inline: false }
+					// 		{ name: "\u200B", value: character_first, inline: false }
 					// 	)
 					// } if (character_second) {
 					// 	Embed.setFields(
-					// 		{ name: "ㅤ", value: character_first, inline: false },
-					// 		{ name: "ㅤ", value: character_second, inline: false }
+					// 		{ name: "\u200B", value: character_first, inline: false },
+					// 		{ name: "\u200B", value: character_second, inline: false }
 					// 	)
 					// } else if (character_third) {
 					// 	Embed.setFields(
-					// 		{ name: "ㅤ", value: character_first, inline: false },
-					// 		{ name: "ㅤ", value: character_second, inline: false },
-					// 		{ name: "ㅤ", value: character_third, inline: false }
+					// 		{ name: "\u200B", value: character_first, inline: false },
+					// 		{ name: "\u200B", value: character_second, inline: false },
+					// 		{ name: "\u200B", value: character_third, inline: false }
 					// 	)
 					// } else if (character_fourth) {
 					// 	Embed.setFields(
-					// 		{ name: "ㅤ", value: character_first, inline: false },
-					// 		{ name: "ㅤ", value: character_second, inline: false },
-					// 		{ name: "ㅤ", value: character_third, inline: false },
-					// 		{ name: "ㅤ", value: character_fourth, inline: false }
+					// 		{ name: "\u200B", value: character_first, inline: false },
+					// 		{ name: "\u200B", value: character_second, inline: false },
+					// 		{ name: "\u200B", value: character_third, inline: false },
+					// 		{ name: "\u200B", value: character_fourth, inline: false }
 					// 	)
 					// }
 
