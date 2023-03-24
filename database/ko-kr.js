@@ -48,10 +48,9 @@ module.exports = {
     UIAgentPartyRecs: "추천파티",
 
     /** UIPlaceholder */
-    UIPlaceholderForLanguage: "언어를 선택해.",
     UIPlaceholderForSettingAdd: "추가 옵션을 선택해.",
     UIPlaceholderForSettingAdd: "제거 옵션을 선택해.",
-    UIPlaceholderForAgent: "옵션을 선택해.",
+    UIPlaceholderForAgent: "에이전트 옵션을 선택해.",
     UIPlaceholderForStatsCalculator: "계산할 스텟을 선택해.",
 
     /** UISystem */
