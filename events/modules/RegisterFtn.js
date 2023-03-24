@@ -1,5 +1,11 @@
 const client = require("../../miyabi.js");
-const { EmbedBuilder } = require("discord.js");
+const {
+    ActionRowBuilder,
+    ModalBuilder,
+    TextInputBuilder,
+    TextInputStyle,
+    EmbedBuilder
+} = require("discord.js");
 const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
@@ -9,6 +15,28 @@ const { DangerColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
+    if (interaction.isButton()) {
+        if (interaction.customId === 'RegistrationButton') {
+            const ZZZConnectModal = new ModalBuilder()
+                .setCustomId('setZZZConnectModal')
+                .setTitle(text.UISettingZZZConnect)
+            const zzzConnectLtokenInput = new TextInputBuilder()
+                .setCustomId('zzzConnectLtokenInput')
+                .setLabel(`${text.UISettingREQValue}: ltoken`)
+                .setStyle(TextInputStyle.Short)
+                .setRequired(true)
+            const zzzConnectLtuidInput = new TextInputBuilder()
+                .setCustomId('zzzConnectLtuidInput')
+                .setLabel(`${text.UISettingREQValue}: ltuid`)
+                .setStyle(TextInputStyle.Short)
+                .setRequired(true)
+            const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
+            const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
+            ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
+            await interaction.showModal(ZZZConnectModal);
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        }
+    }
     if (interaction.isModalSubmit()) {
         if (interaction.customId === 'setZZZConnectModal') {
             const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '')
@@ -58,7 +86,7 @@ client.on("interactionCreate", async (interaction) => {
                         }
                     )
                     .setColor(DangerColor)
-                interaction.editReply({ content: `${profile.message}`, embeds: [embedError] })
+                interaction.editReply({ content: `${profile.message}`, embeds: [embedError], ephemeral: true })
                 return undefined;
             }
 
@@ -69,18 +97,18 @@ client.on("interactionCreate", async (interaction) => {
             const cipher = crypto.createCipheriv(algorithm, key, iv);
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
-            console.log('암호화:', encryptedCookie);
+            // console.log('암호화:', encryptedCookie);
 
             const decipher = crypto.createDecipheriv(algorithm, key, iv);
             let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
             result2 += decipher.final('utf8');
-            console.log('복호화:', result2);
-
+            // console.log('복호화:', result2);
+            
             const uid = profile.data.list[0].game_uid
-
 
             addCookieData(encryptedCookie, uid);
             interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
 
 

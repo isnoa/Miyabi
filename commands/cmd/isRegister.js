@@ -1,10 +1,9 @@
 const {
     CommandInteraction,
+    EmbedBuilder,
     ActionRowBuilder,
-    ModalBuilder,
-    TextInputBuilder,
-    TextInputStyle,
-    EmbedBuilder
+    ButtonBuilder,
+    ButtonStyle
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color.js");
 const logger = require("../../events/core/logger.js");
@@ -21,28 +20,17 @@ module.exports = {
      */
     run: async (client, interaction, args) => {
         const Embed = new EmbedBuilder()
-            .setDescription("음? 가입을 하고 싶다고? 좋아 그럼 아래 설명을 잘 읽어봐.\n디바이스에 맞게 영상을 시청 후에 아래에 있는 버튼을 눌러서 `ltoken`과 `ltuid`의 값을 입력해주면 돼.\n만약에 궁금한게 생기면 [이 서버](/:discord)로 와서 문의를 하도록 해.\n**[[PC로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]** **|** **[[모바일로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]**")
+            .setDescription("**음? 가입을 하고 싶다고? 좋아 그럼 아래 설명을 잘 읽어봐.**\n디바이스에 맞게 영상을 시청 후에 아래에 있는 `가입하기 버튼`을 눌러서 `ltoken`과 `ltuid`의 값을 입력해주면 돼.\n만약에 궁금한게 생기면 [이 서버](/:discord)로 와서 문의를 하도록 해.\n**[[PC로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]** **|** **[[모바일로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]**")
             .setColor(MiyabiColor)
-        interaction.reply({ embeds: [Embed], components: [], ephemeral: true })
 
-
-        // const ZZZConnectModal = new ModalBuilder()
-        //     .setCustomId('setZZZConnectModal')
-        //     .setTitle(text.UISettingZZZConnect)
-        // const zzzConnectLtokenInput = new TextInputBuilder()
-        //     .setCustomId('zzzConnectLtokenInput')
-        //     .setLabel(`${text.UISettingREQValue}: ltoken`)
-        //     .setStyle(TextInputStyle.Short)
-        //     .setRequired(true)
-        // const zzzConnectLtuidInput = new TextInputBuilder()
-        //     .setCustomId('zzzConnectLtuidInput')
-        //     .setLabel(`${text.UISettingREQValue}: ltuid`)
-        //     .setStyle(TextInputStyle.Short)
-        //     .setRequired(true)
-        // const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
-        // const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
-        // ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
-        // await interaction.showModal(ZZZConnectModal);
-        // logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        const row = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setCustomId('RegistrationButton')
+                    .setLabel('가입하기')
+                    .setStyle(ButtonStyle.Success),
+            );
+        interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }
