@@ -117,7 +117,7 @@ client.on("interactionCreate", async (interaction) => {
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
                 let day = date.getDate();
-                db.findOne({ user: interaction.user.id }).then((userData) => {
+                db.findOne({ user: interaction.user.id }).then(async(userData) => {
                     if (userData) {
                         db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 } })
                             .catch(err => logger.error(err));

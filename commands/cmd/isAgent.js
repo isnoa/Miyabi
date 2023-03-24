@@ -127,7 +127,7 @@ module.exports = {
 		})
 
 		function addHistory(matchedAgent) {
-			db.findOne({ user: interaction.user.id }).then((userData) => {
+			db.findOne({ user: interaction.user.id }).then(async(userData) => {
 				if (userData) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastcharacter: matchedAgent } })
 						.catch(err => logger.error(err));

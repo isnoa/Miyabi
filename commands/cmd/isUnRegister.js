@@ -16,7 +16,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction, args) => {
-        db.findOne({ user: interaction.user.id }).then((userData) => {
+        db.findOne({ user: interaction.user.id }).then(async(userData) => {
             if (userData) {
                 const Embed = new EmbedBuilder()
                 .setTitle("탈퇴를 완료했어.")

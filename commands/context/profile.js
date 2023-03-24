@@ -20,7 +20,7 @@ module.exports = {
     run: async (client, interaction) => {
         const userMatch = interaction.user.id == interaction.targetId
         if (userMatch) {
-            db.findOne({ user: interaction.user.id }, async (err, userData) => {
+            db.findOne({ user: interaction.user.id }).then(async(userData) => {
                 if (userData) {
                     const Embed = new EmbedBuilder()
                         .setDescription(userData.introduce ?? "-")
@@ -71,10 +71,12 @@ module.exports = {
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(interaction.user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
-            })
+            }).catch((err) => {
+				if (err) throw err;
+			})
         } else {
             const user = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: user.id }, async (err, userData) => {
+            db.findOne({ user: user.id }).then(async(userData) => {
                 if (userData) {
                     if (userData.viewprofile === true) {
                         const Embed = new EmbedBuilder()
@@ -120,7 +122,9 @@ module.exports = {
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
-            })
+            }).catch((err) => {
+				if (err) throw err;
+			})
         }
     }
 }
