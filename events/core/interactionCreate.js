@@ -22,7 +22,7 @@ client.on("interactionCreate", async (interaction) => {
       if(cmd.timeout) {
         if(client.timeout.has(`${cmd.name}${interaction.user.id}`))
         return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
-        cmd.run(client, interaction, args)
+        cmd.run(client, interaction, args);
         client.timeout.set(`${cmd.name}${interaction.user.id}`, Date.now() + cmd.timeout)
         setTimeout(() => {
             client.timeout.delete(`${cmd.name}${interaction.user.id}`)

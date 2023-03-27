@@ -53,12 +53,13 @@ client.login(process.env.CLIENT_TOKEN)
 const logger = require("./events/core/logger.js");
 process.on('unhandledRejection', (reason, p) => {
   console.log(' [antiCrash] :: Unhandled Rejection/Catch');
-  console.warn(reason, p)
   logger.error(reason, p);
+  console.warn(reason, p);
 });
 process.on("uncaughtException", (err, origin) => {
   console.log(' [antiCrash] :: Uncaught Exception/Catch');
   logger.error(err, origin);
+  console.log(err, origin);
 })
 process.on('uncaughtExceptionMonitor', (err, origin) => {
   console.log(' [antiCrash] :: Uncaught Exception/Catch (MONITOR)');
