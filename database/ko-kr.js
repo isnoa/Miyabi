@@ -25,7 +25,7 @@ module.exports = {
     UIAgentEXCriteria: "예시 기준",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
     UIAgentNecessaryArticles: "필요한 재화",
-    UIAgentAgentArchive: "에이전트 파일·",
+    UIAgentAgentArchive: "에이전트 파일",
     UIAgentMaterial: "승진 허가장",
     UIAgentCompare: "능력치 비교",
 

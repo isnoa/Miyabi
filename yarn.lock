@@ -547,13 +547,9 @@ __metadata:
     dotenv: ^16.0.3
     glob: ^7.2.3
     mongoose: ^7.0.2
-    string-progressbar: ^1.0.4
     uuid: ^9.0.0
     winston: ^3.8.2
     winston-daily-rotate-file: ^4.7.1
-  dependenciesMeta:
-    dotenv@16.0.3:
-      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -794,13 +790,6 @@ __metadata:
   version: 1.1.0
   resolution: "streamsearch@npm:1.1.0"
   checksum: 1cce16cea8405d7a233d32ca5e00a00169cc0e19fbc02aa839959985f267335d435c07f96e5e0edd0eadc6d39c98d5435fb5bbbdefc62c41834eadc5622ad942
-  languageName: node
-  linkType: hard
-
-"string-progressbar@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "string-progressbar@npm:1.0.4"
-  checksum: 3c1bd3adcb109d4f52daf4cf20cd12ae1dc6d91885a599447cb8768b23ea353b9c529566bf6e4d8403170e77f7455e1d5ff1391b0cb13b8a62ae4862e64db5b2
   languageName: node
   linkType: hard
 

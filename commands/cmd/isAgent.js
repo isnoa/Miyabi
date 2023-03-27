@@ -46,27 +46,28 @@ module.exports = {
 			}
 
 			const Embed = new EmbedBuilder()
-				.setTitle(data.data.name + " - " + text.UIAgentInfo)
+				.setTitle(data.data.name + " — " + text.UIAgentInfo)
 				.setColor(data.data.colour)
 				.setDescription(ReplaceTheContents())
 				.setFields(
 					{
-						name: `기본 정보`,
+						name: `—기본 정보`,
 						value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
 						inline: true
 					},
 					{
-						name: `전투 정보`,
+						name: `—전투 정보`,
 						value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 						inline: true
 					},
 					{
-						name: `성우 정보`,
-						value: `일본어: ${data.data.cv.japanese}\n중국어: ${data.data.cv.chinese}`,
-						inline: true
+						name: `—언어별 표기 & 성우`,
+						value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
+						inline: false
 					},
 					{
-						name: "\u200B",
+						// name: "\u200B",
+						name: "—인터뷰 & 소개",
 						value: `${data.data.interview}\n\n${data.data.intro}`,
 						inline: false
 					}
