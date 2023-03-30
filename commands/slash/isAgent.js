@@ -3,7 +3,7 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder,
 	StringSelectMenuBuilder,
-	ActionRowBuilder,
+	ActionRowBuilder
 } = require("discord.js");
 const axios = require("axios");
 const db = require("../../database/user.js");
@@ -36,13 +36,9 @@ module.exports = {
 		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
 
 			function ReplaceTheContents() {
-				if (matchedAgent === "soukaku") {
-					return `>${(data.data.title).replace(/\n/i, " ")}`
-				} else if (matchedAgent === "ben_bigger") {
-					return `> ${(data.data.title).replace(/\n/i, " ")}`
-				} else {
-					return `> ${(data.data.title).replace(/\n/i, "\n> ")}`
-				}
+				if (matchedAgent === "soukaku") { return `>${(data.data.title).replace(/\n/i, " ")}` }
+				else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
+				else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
 			}
 
 			const Embed = new EmbedBuilder()
@@ -51,22 +47,21 @@ module.exports = {
 				.setDescription(ReplaceTheContents())
 				.setFields(
 					{
-						name: `—기본 정보`,
+						name: "—기본 정보",
 						value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
 						inline: true
 					},
 					{
-						name: `—전투 정보`,
+						name: "—전투 정보",
 						value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 						inline: true
 					},
 					{
-						name: `—언어별 표기 & 성우`,
+						name: "—언어별 표기 & 성우",
 						value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
 						inline: false
 					},
 					{
-						// name: "\u200B",
 						name: "—인터뷰 & 소개",
 						value: `${data.data.interview}\n\n${data.data.intro}`,
 						inline: false
@@ -80,46 +75,14 @@ module.exports = {
 					.setPlaceholder(text.UIPlaceholderForAgent)
 					.setMaxValues(1)
 					.addOptions([
-						{
-							label: text.UIAgentInfo,
-							value: "Info",
-							description: data.data.name + `의 ${text.UIAgentInfo} 알아보기`,
-						},
-						{
-							label: text.UIAgentStats,
-							value: "Stats",
-							description: data.data.name + `의 ${text.UIAgentStats} 알아보기`,
-						},
-						{
-							label: text.UIAgentBasicAttack,
-							value: "BasicAttack",
-							description: data.data.name + `의 ${text.UIAgentBasicAttack} 알아보기`,
-						},
-						{
-							label: text.UIAgentSpecialAttack,
-							value: "SpecialAttack",
-							description: data.data.name + `의 ${text.UIAgentSpecialAttack} 알아보기`,
-						},
-						{
-							label: text.UIAgentComboAttack,
-							value: "ComboAttack",
-							description: data.data.name + `의 ${text.UIAgentComboAttack} 알아보기`,
-						},
-						{
-							label: text.UIAgentDodge,
-							value: "Dodge",
-							description: data.data.name + `의 ${text.UIAgentDodge} 알아보기`,
-						},
-						{
-							label: text.UIAgentTalent,
-							value: "Talent",
-							description: data.data.name + `의 ${text.UIAgentTalent} 알아보기`,
-						},
-						{
-							label: text.UIAgentPartyRecs,
-							value: "PartyRecs",
-							description: data.data.name + `의 ${text.UIAgentPartyRecs} 알아보기`,
-						}
+						{ label: text.UIAgentInfo, value: "Info" },
+						{ label: text.UIAgentStats, value: "Stats" },
+						{ label: text.UIAgentBasicAttack, value: "BasicAttack" },
+						{ label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
+						{ label: text.UIAgentComboAttack, value: "ComboAttack" },
+						{ label: text.UIAgentDodge, value: "Dodge" },
+						{ label: text.UIAgentTalent, value: "Talent" },
+						{ label: text.UIAgentPartyRecs, value: "PartyRecs" }
 					])
 			);
 			interaction.reply({ embeds: [Embed], components: [row] })

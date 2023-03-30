@@ -17,12 +17,12 @@ const client = new Client({
     repliedUser: false,
   },
   // sweepers: {
-	// 	...Options.DefaultSweeperSettings,
-	// 	users: {
-	// 		interval: 3600, // Every hour...
-	// 		filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
-	// 	},
-	// },
+  // 	...Options.DefaultSweeperSettings,
+  // 	users: {
+  // 		interval: 3600, // Every hour...
+  // 		filter: user => user.bot && user.id !== client.user.id, // Remove all bots.
+  // 	},
+  // },
   partials: [
     Partials.Channel,
     Partials.User,
@@ -34,6 +34,7 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildMessages,
   ],
   // ws: { properties: { browser: 'Discord iOS' } },
 });
@@ -70,6 +71,9 @@ process.on('warning', (warn) => {
   console.warn(warn);
   logger.warn(warn);
 });
+if (process.env.NODE_ENV) {
+  client.on('debug', console.log);
+}
 // process.on('multipleResolves', (type, promise) => {
 //   console.log(' [antiCrash] :: Multiple Resolves');
 //   console.log(type, promise);
