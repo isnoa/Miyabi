@@ -34,17 +34,10 @@ module.exports = {
 		const matchedAgent = findOneAgent(name)
 		if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
 		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
-
-			function ReplaceTheContents() {
-				if (matchedAgent === "soukaku") { return `>${(data.data.title).replace(/\n/i, " ")}` }
-				else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-				else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
-			}
-
 			const Embed = new EmbedBuilder()
 				.setTitle(data.data.name + " — " + text.UIAgentInfo)
 				.setColor(data.data.colour)
-				.setDescription(ReplaceTheContents())
+				.setDescription(replaceDescription(data))
 				.setFields(
 					{
 						name: "—기본 정보",
@@ -69,9 +62,38 @@ module.exports = {
 				)
 				.setFooter({ text: text.UIPleaseKnowThat })
 				.setThumbnail(data.data.archive.avatar)
+			// const filter = i => i.values === 'Info'
+			// const collector = interaction.channel.createMessageComponentCollector({ filter, time: 5000 });
+			// collector.on('collect', async i => {
+			// 	if (i.user.id === interaction.user.id) {
+			// 		await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+			// 		setTimeout(async function setTimeAct() {
+			// 			await i.editReply(`${i.user.id} clicked on the ${i.customId} button.`);
+			// 			clearTimeout(setTimeAct)
+			// 		}, 2000);
+			// 		collector.stop();
+			// 	} else {
+			// 	    i.update({ content: "남의 것을 뺐으면 안 돼" });
+			// 	    collector.stop();
+			// 	}
+			// 	//https://discordjs.guide/interactions/buttons.html#responding-to-buttons
+			// })
+			// collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+			interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
+			addHistory(matchedAgent)
+			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+		})
+
+		function replaceDescription(data) {
+			if (matchedAgent === "soukaku") { return `>${(data.data.title).replace(/\n/i, " ")}` }
+			else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
+			else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
+		}
+
+		function selectAgentRow() {
 			const row = new ActionRowBuilder().addComponents(
 				new StringSelectMenuBuilder()
-					.setCustomId("AgentSelect")
+					.setCustomId("selectAgent")
 					.setPlaceholder(text.UIPlaceholderForAgent)
 					.setMaxValues(1)
 					.addOptions([
@@ -85,13 +107,11 @@ module.exports = {
 						{ label: text.UIAgentPartyRecs, value: "PartyRecs" }
 					])
 			);
-			interaction.reply({ embeds: [Embed], components: [row] })
-			addHistory(matchedAgent)
-			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-		})
+			return row;
+		}
 
 		function addHistory(matchedAgent) {
-			db.findOne({ user: interaction.user.id }).then(async(userData) => {
+			db.findOne({ user: interaction.user.id }).then(async (userData) => {
 				if (userData) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastcharacter: matchedAgent } })
 						.catch(err => logger.error(err));
