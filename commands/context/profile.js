@@ -32,7 +32,7 @@ module.exports = {
                             },
                             {
                                 name: text.UIProfileRSC,
-                                value: text[userData.lastcharacter ?? "none"],
+                                value: text[userData.lastagent ?? "none"],
                                 inline: true
                             },
                             {
@@ -90,7 +90,7 @@ module.exports = {
                                 },
                                 {
                                     name: text.UIProfileRSC,
-                                    value: text[userData.lastcharacter ?? "none"],
+                                    value: text[userData.lastagent ?? "none"],
                                     inline: true
                                 },
                                 {

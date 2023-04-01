@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
     user : String,
     timestamp : String,
-    lastcharacter : String,
+    lastagent : String,
     viewprofile : Boolean,
     introduce : String,
     zzzconnect : String,

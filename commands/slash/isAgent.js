@@ -31,6 +31,7 @@ module.exports = {
 	 */
 	run: async (client, interaction, args) => {
 		const name = interaction.options.getString("이름");
+		const 
 		const matchedAgent = findOneAgent(name)
 		if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
 		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
@@ -113,10 +114,10 @@ module.exports = {
 		function addHistory(matchedAgent) {
 			db.findOne({ user: interaction.user.id }).then(async (userData) => {
 				if (userData) {
-					db.updateOne({ user: interaction.user.id }, { $set: { lastcharacter: matchedAgent } })
+					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
 						.catch(err => logger.error(err));
 				} else {
-					new db({ timestamp: Date.now(), user: interaction.user.id, lastcharacter: matchedAgent })
+					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })
 						.save().catch(err => logger.error(err));
 				}
 			}).catch((err) => {
