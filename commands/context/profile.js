@@ -31,7 +31,7 @@ module.exports = {
                                 inline: true
                             },
                             {
-                                name: text.UIProfileRSC,
+                                name: text.UIProfileRSA,
                                 value: text[userData.lastagent ?? "none"],
                                 inline: true
                             },
@@ -89,7 +89,7 @@ module.exports = {
                                     inline: true
                                 },
                                 {
-                                    name: text.UIProfileRSC,
+                                    name: text.UIProfileRSA,
                                     value: text[userData.lastagent ?? "none"],
                                     inline: true
                                 },

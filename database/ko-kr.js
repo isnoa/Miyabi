@@ -3,7 +3,7 @@ module.exports = {
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
     UIProfileRegist: "서비스 가입",
-    UIProfileRSC: "최근 검색한 캐릭터",
+    UIProfileRSA: "최근 검색한 에이전트",
     UIProfileZZZConnect: "ZZZ 연동",
     UIProfileDailyCheckIn: "출석체크",
 
