@@ -17,70 +17,50 @@ client.on("interactionCreate", async (interaction) => {
             interaction.values.forEach(async (value) => {
                 switch (value) {
                     case "Info":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentInfo)
-                                                .setColor(data.data.colour)
-                                                .setDescription(replaceDescription(data))
-                                                .setFields(
-                                                    {
-                                                        name: "—기본 정보",
-                                                        value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "—전투 정보",
-                                                        value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "—언어별 표기 & 성우",
-                                                        value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
-                                                        inline: false
-                                                    },
-                                                    {
-                                                        name: "—인터뷰 & 소개",
-                                                        value: `${data.data.interview}\n\n${data.data.intro}`,
-                                                        inline: false
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
-                                }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        // const filter = i => i.customId === 'Info' && i.user.id === interaction.user.id;
-                        // const collector = interaction.channel.createMessageComponentCollector({ filter, componentType: ComponentType.StringSelect, time: 15000 });
-
-                        // collector.on('collect', async i => {
-                        //     // if (i.user.id === interaction.user.id) {
-                        //         await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                        //         setTimeout(async function setTimeAct() {
-                        //             await i.editReply(`${i.user.id} clicked on the ${i.customId} button.`);
-                        //             clearTimeout(setTimeAct)
-                        //         }, 2000);
-                        //         collector.stop();
-                        //     // } else {
-                        //     //     i.update({ content: "남의 것을 뺐으면 안 돼" });
-                        //     //     collector.stop();
-                        //     // }
-                        // })
-                        // collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+                        try {
+                            const lastagent = client.lastagent
+                            if(lastagent.has(`lastagent${interaction.user.id}`)) {
+                            await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent.get(`lastagent${interaction.user.id}`)}.json`).then(data => {
+                                interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                setTimeout(function setTimeAct() {
+                                    const Embed = new EmbedBuilder()
+                                        .setTitle(data.data.name + " — " + text.UIAgentInfo)
+                                        .setColor(data.data.colour)
+                                        .setDescription(replaceDescription(lastAgentData = lastagent.get(`lastagent${interaction.user.id}`), data))
+                                        .setFields(
+                                            {
+                                                name: "—기본 정보",
+                                                value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
+                                                inline: true
+                                            },
+                                            {
+                                                name: "—전투 정보",
+                                                value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
+                                                inline: true
+                                            },
+                                            {
+                                                name: "—언어별 표기 & 성우",
+                                                value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
+                                                inline: false
+                                            },
+                                            {
+                                                name: "—인터뷰 & 소개",
+                                                value: `${data.data.interview}\n\n${data.data.intro}`,
+                                                inline: false
+                                            }
+                                        )
+                                        .setFooter({ text: text.UIPleaseKnowThat })
+                                        .setThumbnail(data.data.archive.avatar)
+                                    interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                    clearTimeout(setTimeAct)
+                                }, 2000);
+                            })
+                        }
+                        } catch (err) {
+                            interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                            console.error(err);
+                            logger.error(err);
+                        }
                         break;
 
                     case "Stats":
@@ -400,11 +380,11 @@ client.on("interactionCreate", async (interaction) => {
             })
         }
 
-        function replaceDescription(data) {
-			if (matchedAgent === "soukaku") { return `>${(data.data.title).replace(/\n/i, " ")}` }
-			else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-			else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
-		}
+        function replaceDescription(lastAgentData, data) {
+            if (lastAgentData === "soukaku") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
+            else if (lastAgentData === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
+            else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
+        }
 
         function selectAgentRow() {
             const row = new ActionRowBuilder().addComponents(

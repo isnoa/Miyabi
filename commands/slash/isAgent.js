@@ -62,30 +62,13 @@ module.exports = {
 				)
 				.setFooter({ text: text.UIPleaseKnowThat })
 				.setThumbnail(data.data.archive.avatar)
-			// const filter = i => i.values === 'Info'
-			// const collector = interaction.channel.createMessageComponentCollector({ filter, time: 5000 });
-			// collector.on('collect', async i => {
-			// 	if (i.user.id === interaction.user.id) {
-			// 		await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-			// 		setTimeout(async function setTimeAct() {
-			// 			await i.editReply(`${i.user.id} clicked on the ${i.customId} button.`);
-			// 			clearTimeout(setTimeAct)
-			// 		}, 2000);
-			// 		collector.stop();
-			// 	} else {
-			// 	    i.update({ content: "남의 것을 뺐으면 안 돼" });
-			// 	    collector.stop();
-			// 	}
-			// 	//https://discordjs.guide/interactions/buttons.html#responding-to-buttons
-			// })
-			// collector.on('end', collected => console.log(`Collected ${collected.size} items`));
 			interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 			addHistory(matchedAgent)
 			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		})
 
 		function replaceDescription(data) {
-			if (matchedAgent === "soukaku") { return `>${(data.data.title).replace(/\n/i, " ")}` }
+			if (matchedAgent === "soukaku") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
 			else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
 			else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
 		}
@@ -115,6 +98,12 @@ module.exports = {
 				if (userData) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
 						.catch(err => logger.error(err));
+					if (client.lastagent.has(`lastagent${interaction.user.id}`)) {
+						client.lastagent.clear(`lastagent${interaction.user.id}`)
+						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
+					} else {
+						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
+					}
 				} else {
 					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })
 						.save().catch(err => logger.error(err));
