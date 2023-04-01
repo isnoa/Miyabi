@@ -3,8 +3,7 @@ const client = require("../../miyabi.js");
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     const cmd = client.slashCommands.get(interaction.commandName);
-    if (!cmd)
-      return interaction.reply({ content: "오류가 발생했어." });
+    if (!cmd) return;
 
     const args = [];
 
