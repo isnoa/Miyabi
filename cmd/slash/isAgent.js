@@ -101,8 +101,10 @@ module.exports = {
 					if (client.lastagent.has(`lastagent${interaction.user.id}`)) {
 						client.lastagent.clear(`lastagent${interaction.user.id}`)
 						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
+						// console.log(client.lastagent.get(`lastagent${interaction.user.id}`))
 					} else {
 						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
+						// console.log(client.lastagent.get(`lastagent${interaction.user.id}`))
 					}
 				} else {
 					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })

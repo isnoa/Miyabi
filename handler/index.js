@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const logger = require("../events/core/logger.js");
 
 module.exports = async (client) => {
-  // Slash Commands
-  const slashCommands = await globPromise(`${process.cwd()}/commands/*/*.js`);
+  // SlashCommands
+  const slashCommands = await globPromise(`${process.cwd()}/cmd/*/*.js`);
   const arrayOfSlashCommands = [];
   slashCommands.map((value) => {
     const file = require(value);
@@ -26,13 +26,13 @@ module.exports = async (client) => {
   const eventFiles = await globPromise(`${process.cwd()}/events/*/*.js`);
   eventFiles.map((value) => require(value));
 
-  // Slash Commands Register
+  // SlashCommands Register
   client.on("ready", async () => {
     await client.application.commands.set(arrayOfSlashCommands);
     console.log("All SlashCommands registered.");
   });
 
-  // mongoose database
+  // mongoose DB
   mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGO_DATABASE_URI)
   .then(() => console.log('Connected to MongoDB.'))
