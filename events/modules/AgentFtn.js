@@ -12,399 +12,404 @@ const logger = require("../core/logger.js");
 const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
+    const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect })
+    const lastagent = client.agent
     if (interaction.isStringSelectMenu()) {
-        if (interaction.customId == "selectAgent") {
-            interaction.values.forEach(async (value) => {
-                switch (value) {
-                    case "Info":
-                        try {
-                            const lastagent = client.lastagent
-                            if(lastagent.has(`lastagent${interaction.user.id}`)) {
-                            await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent.get(`lastagent${interaction.user.id}`)}.json`).then(data => {
-                                interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                setTimeout(function setTimeAct() {
-                                    const Embed = new EmbedBuilder()
-                                        .setTitle(data.data.name + " — " + text.UIAgentInfo)
-                                        .setColor(data.data.colour)
-                                        .setDescription(replaceDescription(lastAgentData = lastagent.get(`lastagent${interaction.user.id}`), data))
-                                        .setFields(
-                                            {
-                                                name: "—기본 정보",
-                                                value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
-                                                inline: true
-                                            },
-                                            {
-                                                name: "—전투 정보",
-                                                value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
-                                                inline: true
-                                            },
-                                            {
-                                                name: "—언어별 표기 & 성우",
-                                                value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
-                                                inline: false
-                                            },
-                                            {
-                                                name: "—인터뷰 & 소개",
-                                                value: `${data.data.interview}\n\n${data.data.intro}`,
-                                                inline: false
-                                            }
-                                        )
-                                        .setFooter({ text: text.UIPleaseKnowThat })
-                                        .setThumbnail(data.data.archive.avatar)
-                                    interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                    clearTimeout(setTimeAct)
-                                }, 2000);
+        collector.on("collect", async (i) => {
+            if (interaction.customId == "selectAgent") {
+                interaction.values.forEach(async (value) => {
+                    switch (value) {
+                        case "Info":
+                            try {
+                                await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent.get(`lastagent${interaction.user.id}`)}.json`)
+                                    .catch(err => i.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }))
+                                    .then(async (agent) => {
+                                        await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                        setTimeout(async function setDelayAct() {
+                                            const Embed = new EmbedBuilder()
+                                                .setTitle(agent.data.name + " — " + text.UIAgentInfo)
+                                                .setColor(agent.data.colour)
+                                                .setDescription(replaceDescription(lastAgentData = lastagent.get(`lastagent${interaction.user.id}`), agent))
+                                                .setFields(
+                                                    {
+                                                        name: "—기본 정보",
+                                                        value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
+                                                        inline: true
+                                                    },
+                                                    {
+                                                        name: "—전투 정보",
+                                                        value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
+                                                        inline: true
+                                                    },
+                                                    {
+                                                        name: "—언어별 표기 & 성우",
+                                                        value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${agent.data.cv.japanese}) \n중국: 星见雅 (성우: ${agent.data.cv.chinese})\n\u200B`,
+                                                        inline: false
+                                                    },
+                                                    {
+                                                        name: "—인터뷰 & 소개",
+                                                        value: `${agent.data.interview}\n\n${agent.data.intro}`,
+                                                        inline: false
+                                                    }
+                                                )
+                                                .setFooter({ text: text.UIPleaseKnowThat })
+                                                .setThumbnail(agent.data.archive.avatar)
+
+                                            await i.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                            clearTimeout(clearDelayAct);
+                                            collector.stop();
+                                        }, 3000)
+                                    })
+                            } catch (err) {
+                                i.editReply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                console.error(err);
+                                logger.error(err);
+                            }
+                            break;
+
+                        case "Stats":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentStats)
+                                                    .setColor(agent.data.colour)
+                                                    .setFields(
+                                                        {
+                                                            name: text.UIAgentEXCriteria,
+                                                            value: text.UIAgentMAXLvCriteria,
+                                                            inline: false
+                                                        },
+                                                        {
+                                                            name: text.UIAgentNecessaryArticles,
+                                                            value: ` · ${text.UIAgentMaterial}·${agent.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
+                                                            inline: false
+                                                        },
+                                                        {
+                                                            name: text.UIAgentCompare,
+                                                            value: `${text.FIGHT_PROP_HP}: 462 → 5164\n${text.FIGHT_PROP_ATK}: 101 → 1132\n${text.FIGHT_PROP_DEF}: 48 → 567\n${text.FIGHT_PROP_IMPACT}: 110 → 121\n${text.FIGHT_PROP_CRITICAL_RATE}: 5% → 10%\n${text.FIGHT_PROP_CRITICAL_DMG}: 50% → 50%\n${text.FIGHT_PROP_PENETRATION_RATIO}: 0% → 0%\n${text.FIGHT_PROP_PENETRATION}: 0 → 3%\n${text.FIGHT_PROP_ENERGY_RECOVERY}: 1.8 → 1.86`,
+                                                            inline: false
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [rowLevelCalculator(), selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                }
                             })
-                        }
-                        } catch (err) {
-                            interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            console.error(err);
-                            logger.error(err);
-                        }
-                        break;
+                            break;
 
-                    case "Stats":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentStats)
-                                                .setColor(data.data.colour)
-                                                .setFields(
-                                                    {
-                                                        name: text.UIAgentEXCriteria,
-                                                        value: text.UIAgentMAXLvCriteria,
-                                                        inline: false
-                                                    },
-                                                    {
-                                                        name: text.UIAgentNecessaryArticles,
-                                                        value: ` · ${text.UIAgentMaterial}·${data.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
-                                                        inline: false
-                                                    },
-                                                    {
-                                                        name: text.UIAgentCompare,
-                                                        value: `${text.FIGHT_PROP_HP}: 462 → 5164\n${text.FIGHT_PROP_ATK}: 101 → 1132\n${text.FIGHT_PROP_DEF}: 48 → 567\n${text.FIGHT_PROP_IMPACT}: 110 → 121\n${text.FIGHT_PROP_CRITICAL_RATE}: 5% → 10%\n${text.FIGHT_PROP_CRITICAL_DMG}: 50% → 50%\n${text.FIGHT_PROP_PENETRATION_RATIO}: 0% → 0%\n${text.FIGHT_PROP_PENETRATION}: 0 → 3%\n${text.FIGHT_PROP_ENERGY_RECOVERY}: 1.8 → 1.86`,
-                                                        inline: false
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [rowLevelCalculator(), selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "BasicAttack":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentBasicAttack)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
+                                                    .setFields(
+                                                        {
+                                                            name: "—",
+                                                            value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
+                                                            inline: false
+                                                        },
+                                                        {
+                                                            name: "—",
+                                                            value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
+                                                            inline: false
+                                                        },
+                                                        {
+                                                            name: "—",
+                                                            value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
+                                                            inline: false
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
 
-                    case "BasicAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentBasicAttack)
-                                                .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-                                                .setFields(
-                                                    {
-                                                        name: "—",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: false
-                                                    },
-                                                    {
-                                                        name: "—",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: false
-                                                    },
-                                                    {
-                                                        name: "—",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: false
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "SpecialAttack":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentSpecialAttack)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
+                                                    .setFields(
+                                                        {
+                                                            name: "1st (호소빌)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "2nd (호소코)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "3rd (호소앤)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
+                                                            inline: true
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
 
-                    case "SpecialAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentSpecialAttack)
-                                                .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-                                                .setFields(
-                                                    {
-                                                        name: "1st (호소빌)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "2nd (호소코)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "3rd (호소앤)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: true
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "ComboAttack":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentComboAttack)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
+                                                    .setFields(
+                                                        {
+                                                            name: "1st (호소빌)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "2nd (호소코)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "3rd (호소앤)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
+                                                            inline: true
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
 
-                    case "ComboAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentComboAttack)
-                                                .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-                                                .setFields(
-                                                    {
-                                                        name: "1st (호소빌)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "2nd (호소코)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "3rd (호소앤)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: true
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "Dodge":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentDodge)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
+                                                    .setFields(
+                                                        {
+                                                            name: "1st (호소빌)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "2nd (호소코)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "3rd (호소앤)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
+                                                            inline: true
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
 
-                    case "Dodge":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentDodge)
-                                                .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-                                                .setFields(
-                                                    {
-                                                        name: "1st (호소빌)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "2nd (호소코)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "3rd (호소앤)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: true
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "Talent":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentTalent)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
+                                                    .setFields(
+                                                        {
+                                                            name: "1st (호소빌)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "2nd (호소코)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: "3rd (호소앤)",
+                                                            value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
+                                                            inline: true
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
 
-                    case "Talent":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentTalent)
-                                                .setColor(data.data.colour)
-                                                .setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-                                                .setFields(
-                                                    {
-                                                        name: "1st (호소빌)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "2nd (호소코)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n코린 위크스",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: "3rd (호소앤)",
-                                                        value: "> 호시미 미야비\n소우카쿠\n앤톤 이바노프",
-                                                        inline: true
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
+                        case "PartyRecs":
+                            db.findOne({ user: interaction.user.id }).then(async (userData) => {
+                                if (userData) {
+                                    try {
+                                        await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                            interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
+                                            setTimeout(function setTimeAct() {
+                                                const Embed = new EmbedBuilder()
+                                                    .setTitle(agent.data.name + " — " + text.UIAgentPartyRecs)
+                                                    .setColor(agent.data.colour)
+                                                    .setDescription(text.UIAgentOrderOfTier)
+                                                    .setFields(
+                                                        {
+                                                            name: `${text.UIAgentTierOrder1st} — 호소빌`,
+                                                            value: "> 호시미 미야비\n> 소우카쿠\n> 빌리 키드",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: `${text.UIAgentTierOrder2nd} — 호소코`,
+                                                            value: "> 호시미 미야비\n> 소우카쿠\n> 코린 위크스",
+                                                            inline: true
+                                                        },
+                                                        {
+                                                            name: `${text.UIAgentTierOrder3rd} — 호소앤`,
+                                                            value: "> 호시미 미야비\n> 소우카쿠\n> 앤톤 이바노프",
+                                                            inline: true
+                                                        }
+                                                    )
+                                                    .setFooter({ text: text.UIPleaseKnowThat })
+                                                    .setThumbnail(agent.data.archive.avatar)
+                                                interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                                clearTimeout(setTimeAct)
+                                            }, 2000);
+                                        })
+                                    } catch (err) {
+                                        interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+                                        console.error(err);
+                                        logger.error(err);
+                                    }
+                                } else {
+                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
                                 }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
+                            })
+                            break;
+                    }
+                })
+            }
 
-                    case "PartyRecs":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
-                                try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(data => {
-                                        interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
-                                        setTimeout(function setTimeAct() {
-                                            const Embed = new EmbedBuilder()
-                                                .setTitle(data.data.name + " — " + text.UIAgentPartyRecs)
-                                                .setColor(data.data.colour)
-                                                .setDescription(text.UIAgentOrderOfTier)
-                                                .setFields(
-                                                    {
-                                                        name: `${text.UIAgentTierOrder1st} — 호소빌`,
-                                                        value: "> 호시미 미야비\n> 소우카쿠\n> 빌리 키드",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: `${text.UIAgentTierOrder2nd} — 호소코`,
-                                                        value: "> 호시미 미야비\n> 소우카쿠\n> 코린 위크스",
-                                                        inline: true
-                                                    },
-                                                    {
-                                                        name: `${text.UIAgentTierOrder3rd} — 호소앤`,
-                                                        value: "> 호시미 미야비\n> 소우카쿠\n> 앤톤 이바노프",
-                                                        inline: true
-                                                    }
-                                                )
-                                                .setFooter({ text: text.UIPleaseKnowThat })
-                                                .setThumbnail(data.data.archive.avatar)
-                                            interaction.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(setTimeAct)
-                                        }, 2000);
-                                    })
-                                } catch (err) {
-                                    interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                    console.error(err);
-                                    logger.error(err);
-                                }
-                            } else {
-                                interaction.update({ embeds: [new EmbedBuilder().setTitle("데이터인증 실패").setDescription("'401' 다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                            }
-                        })
-                        break;
-                }
-            })
-        }
+            function replaceDescription(lastAgentData, agent) {
+                if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
+                else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
+                else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
+            }
 
-        function replaceDescription(lastAgentData, data) {
-            if (lastAgentData === "soukaku") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-            else if (lastAgentData === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-            else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
-        }
-
-        function selectAgentRow() {
-            const row = new ActionRowBuilder().addComponents(
-                new StringSelectMenuBuilder()
-                    .setCustomId("selectAgent")
-                    .setPlaceholder(text.UIPlaceholderForAgent)
-                    .setMaxValues(1)
-                    .addOptions([
-                        { label: text.UIAgentInfo, value: "Info" },
-                        { label: text.UIAgentStats, value: "Stats" },
-                        { label: text.UIAgentBasicAttack, value: "BasicAttack" },
-                        { label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
-                        { label: text.UIAgentComboAttack, value: "ComboAttack" },
-                        { label: text.UIAgentDodge, value: "Dodge" },
-                        { label: text.UIAgentTalent, value: "Talent" },
-                        { label: text.UIAgentPartyRecs, value: "PartyRecs" }
-                    ])
-            );
-            return row;
-        }
+            function selectAgentRow() {
+                const row = new ActionRowBuilder().addComponents(
+                    new StringSelectMenuBuilder()
+                        .setCustomId("selectAgent")
+                        .setPlaceholder(text.UIPlaceholderForAgent)
+                        .setMaxValues(1)
+                        .addOptions([
+                            { label: text.UIAgentInfo, value: "Info" },
+                            { label: text.UIAgentStats, value: "Stats" },
+                            { label: text.UIAgentBasicAttack, value: "BasicAttack" },
+                            { label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
+                            { label: text.UIAgentComboAttack, value: "ComboAttack" },
+                            { label: text.UIAgentDodge, value: "Dodge" },
+                            { label: text.UIAgentTalent, value: "Talent" },
+                            { label: text.UIAgentPartyRecs, value: "PartyRecs" }
+                        ])
+                );
+                return row;
+            }
+        })
 
         function rowLevelCalculator() {
             const row = new ActionRowBuilder().addComponents(

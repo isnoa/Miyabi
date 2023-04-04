@@ -98,13 +98,16 @@ module.exports = {
 				if (userData) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
 						.catch(err => logger.error(err));
-					if (client.lastagent.has(`lastagent${interaction.user.id}`)) {
-						client.lastagent.clear(`lastagent${interaction.user.id}`)
-						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
-						// console.log(client.lastagent.get(`lastagent${interaction.user.id}`))
+
+					const agent = client.agent
+					if (agent.has(`lastagent${interaction.user.id}`)) {
+						if (agent.has(`lastagent${interaction.user.id}`) === matchedAgent) {
+							
+						}
+						await agent.clear(`lastagent${interaction.user.id}`)
+						await agent.set(`lastagent${interaction.user.id}`, matchedAgent)
 					} else {
-						client.lastagent.set(`lastagent${interaction.user.id}`, matchedAgent)
-						// console.log(client.lastagent.get(`lastagent${interaction.user.id}`))
+						agent.set(`lastagent${interaction.user.id}`, matchedAgent)
 					}
 				} else {
 					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })

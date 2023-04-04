@@ -32,7 +32,7 @@ const client = new Client({
 });
 
 client.timeout = new Collection();
-client.lastagent = new Collection();
+client.agent = new Collection();
 client.slashCommands = new Collection();
 
 require("./handler")(client);
