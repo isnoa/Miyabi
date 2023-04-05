@@ -12,10 +12,11 @@ const logger = require("../core/logger.js");
 const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
-    const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect })
+    const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 15000 })
     const lastagent = client.agent
     if (interaction.isStringSelectMenu()) {
         collector.on("collect", async (i) => {
+            if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행동이야.", ephemeral: true })
             if (interaction.customId == "selectAgent") {
                 interaction.values.forEach(async (value) => {
                     switch (value) {
@@ -56,9 +57,8 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(agent.data.archive.avatar)
 
                                             await i.editReply({ embeds: [Embed], components: [selectAgentRow()] })
-                                            clearTimeout(clearDelayAct);
-                                            collector.stop();
-                                        }, 3000)
+                                            clearTimeout(setDelayAct)
+                                        }, 3000);
                                     })
                             } catch (err) {
                                 i.editReply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
@@ -383,54 +383,59 @@ client.on("interactionCreate", async (interaction) => {
                     }
                 })
             }
-
-            function replaceDescription(lastAgentData, agent) {
-                if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
-                else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
-                else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
-            }
-
-            function selectAgentRow() {
-                const row = new ActionRowBuilder().addComponents(
-                    new StringSelectMenuBuilder()
-                        .setCustomId("selectAgent")
-                        .setPlaceholder(text.UIPlaceholderForAgent)
-                        .setMaxValues(1)
-                        .addOptions([
-                            { label: text.UIAgentInfo, value: "Info" },
-                            { label: text.UIAgentStats, value: "Stats" },
-                            { label: text.UIAgentBasicAttack, value: "BasicAttack" },
-                            { label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
-                            { label: text.UIAgentComboAttack, value: "ComboAttack" },
-                            { label: text.UIAgentDodge, value: "Dodge" },
-                            { label: text.UIAgentTalent, value: "Talent" },
-                            { label: text.UIAgentPartyRecs, value: "PartyRecs" }
-                        ])
-                );
-                return row;
-            }
         })
 
-        function rowLevelCalculator() {
-            const row = new ActionRowBuilder().addComponents(
-                new StringSelectMenuBuilder()
-                    .setCustomId("selectLevel")
-                    .setPlaceholder(text.UIPlaceholderForStatsCalculator)
-                    .setMaxValues(1)
-                    .addOptions([
-                        { label: "1레벨 — 10레벨", value: "1to10" },
-                        { label: "1레벨 — 20레벨", value: "1to20" },
-                        { label: "1레벨 — 30레벨", value: "1to30" },
-                        { label: "1레벨 — 40레벨", value: "1to40" },
-                        { label: "1레벨 — 50레벨", value: "1to50" },
-                        { label: "1레벨 — 60레벨", value: "1to60" },
-                        { label: "1레벨 — 70레벨", value: "1to70" },
-                        { label: "1레벨 — 80레벨", value: "1to80" },
-                        { label: "1레벨 — 90레벨", value: "1to90" },
-                        { label: "1레벨 — 100레벨", value: "1to100" }
-                    ])
-            );
-            return row;
-        }
+        collector.on('end', collected => {
+            console.log(`Collected ${collected.size} items`)
+            collector.stop();
+        })
     }
 })
+
+function replaceDescription(lastAgentData, agent) {
+    if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
+    else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
+    else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
+}
+
+function selectAgentRow() {
+    const row = new ActionRowBuilder().addComponents(
+        new StringSelectMenuBuilder()
+            .setCustomId("selectAgent")
+            .setPlaceholder(text.UIPlaceholderForAgent)
+            .setMaxValues(1)
+            .addOptions([
+                { label: text.UIAgentInfo, value: "Info" },
+                { label: text.UIAgentStats, value: "Stats" },
+                { label: text.UIAgentBasicAttack, value: "BasicAttack" },
+                { label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
+                { label: text.UIAgentComboAttack, value: "ComboAttack" },
+                { label: text.UIAgentDodge, value: "Dodge" },
+                { label: text.UIAgentTalent, value: "Talent" },
+                { label: text.UIAgentPartyRecs, value: "PartyRecs" }
+            ])
+    );
+    return row;
+}
+
+function rowLevelCalculator() {
+    const row = new ActionRowBuilder().addComponents(
+        new StringSelectMenuBuilder()
+            .setCustomId("selectLevel")
+            .setPlaceholder(text.UIPlaceholderForStatsCalculator)
+            .setMaxValues(1)
+            .addOptions([
+                { label: "1레벨 — 10레벨", value: "1to10" },
+                { label: "1레벨 — 20레벨", value: "1to20" },
+                { label: "1레벨 — 30레벨", value: "1to30" },
+                { label: "1레벨 — 40레벨", value: "1to40" },
+                { label: "1레벨 — 50레벨", value: "1to50" },
+                { label: "1레벨 — 60레벨", value: "1to60" },
+                { label: "1레벨 — 70레벨", value: "1to70" },
+                { label: "1레벨 — 80레벨", value: "1to80" },
+                { label: "1레벨 — 90레벨", value: "1to90" },
+                { label: "1레벨 — 100레벨", value: "1to100" }
+            ])
+    );
+    return row;
+}
