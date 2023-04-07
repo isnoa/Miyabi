@@ -4,6 +4,7 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const axios = require("axios");
+const { MiyabiColor } = require("../../database/color.js");
 const {
 	gentle_camp,
 	unknown_camp,

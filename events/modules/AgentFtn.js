@@ -13,7 +13,6 @@ const text = require("../../database/ko-kr.js");
 
 client.on("interactionCreate", async (interaction) => {
     const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 15000 })
-    const lastagent = client.agent
     if (interaction.isStringSelectMenu()) {
         collector.on("collect", async (i) => {
             if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행동이야.", ephemeral: true })
@@ -22,15 +21,15 @@ client.on("interactionCreate", async (interaction) => {
                     switch (value) {
                         case "Info":
                             try {
-                                await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent.get(`lastagent${interaction.user.id}`)}.json`)
-                                    .catch(err => i.update({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }))
-                                    .then(async (agent) => {
+                                const lastagent = lastagent.get(`lastagent${interaction.user.id}`)
+                                await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent}.json`)
+                                    .catch((err) => { if (err) throw err; }).then(async (agent) => {
                                         await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(async function setDelayAct() {
                                             const Embed = new EmbedBuilder()
                                                 .setTitle(agent.data.name + " — " + text.UIAgentInfo)
                                                 .setColor(agent.data.colour)
-                                                .setDescription(replaceDescription(lastAgentData = lastagent.get(`lastagent${interaction.user.id}`), agent))
+                                                .setDescription(replaceDescription(lastagent, agent))
                                                 .setFields(
                                                     {
                                                         name: "—기본 정보",
@@ -57,16 +56,12 @@ client.on("interactionCreate", async (interaction) => {
                                                 .setThumbnail(agent.data.archive.avatar)
 
                                             await i.editReply({ embeds: [Embed], components: [selectAgentRow()] })
+                                            collector.stop()
                                             clearTimeout(setDelayAct)
                                         }, 3000);
                                     })
-                            } catch (err) {
-                                i.editReply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
-                                console.error(err);
-                                logger.error(err);
-                            }
+                            } catch (err) { i.editReply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
                             break;
-
                         case "Stats":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -110,7 +105,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "BasicAttack":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -155,7 +149,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "SpecialAttack":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -200,7 +193,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "ComboAttack":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -245,7 +237,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "Dodge":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -290,7 +281,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "Talent":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -335,7 +325,6 @@ client.on("interactionCreate", async (interaction) => {
                                 }
                             })
                             break;
-
                         case "PartyRecs":
                             db.findOne({ user: interaction.user.id }).then(async (userData) => {
                                 if (userData) {
@@ -384,17 +373,12 @@ client.on("interactionCreate", async (interaction) => {
                 })
             }
         })
-
-        collector.on('end', collected => {
-            console.log(`Collected ${collected.size} items`)
-            collector.stop();
-        })
     }
 })
 
 function replaceDescription(lastAgentData, agent) {
-    if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
-    else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ")}` }
+    if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/는/i, "는\n>")}` }
+    else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
     else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
 }
 

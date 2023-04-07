@@ -5,7 +5,7 @@ const {
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color.js")
 
-client.on("ready", () => {
+client.once("ready", () => {
   console.log(`${client.user.tag} is ready for battle.`);
   client.user.setPresence({
     activities: [

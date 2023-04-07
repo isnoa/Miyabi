@@ -33,15 +33,15 @@ module.exports = {
 		const name = interaction.options.getString("이름");
 		const matchedAgent = findOneAgent(name)
 		if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
-		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(data => {
+		await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(agent => {
 			const Embed = new EmbedBuilder()
-				.setTitle(data.data.name + " — " + text.UIAgentInfo)
-				.setColor(data.data.colour)
-				.setDescription(replaceDescription(data))
+				.setTitle(agent.data.name + " — " + text.UIAgentInfo)
+				.setColor(agent.data.colour)
+				.setDescription(replaceDescription(agent))
 				.setFields(
 					{
 						name: "—기본 정보",
-						value: `${text.UIAgentName}: ${data.data.name}\n${text.UIAgentGender}: ${data.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${data.data.camp}`,
+						value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
 						inline: true
 					},
 					{
@@ -49,28 +49,28 @@ module.exports = {
 						value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 						inline: true
 					},
-					{
-						name: "—언어별 표기 & 성우",
-						value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${data.data.cv.japanese}) \n중국: 星见雅 (성우: ${data.data.cv.chinese})\n\u200B`,
-						inline: false
-					},
+					// {
+					// 	name: "—언어별 표기 & 성우",
+					// 	value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${agent.data.cv.japanese}) \n중국: 星见雅 (성우: ${agent.data.cv.chinese})\n\u200B`,
+					// 	inline: false
+					// },
 					{
 						name: "—인터뷰 & 소개",
-						value: `${data.data.interview}\n\n${data.data.intro}`,
+						value: `${agent.data.interview}\n\n${agent.data.intro}`,
 						inline: false
 					}
 				)
 				.setFooter({ text: text.UIPleaseKnowThat })
-				.setThumbnail(data.data.archive.avatar)
+				.setThumbnail(agent.data.archive.avatar)
 			interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 			addHistory(matchedAgent)
 			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${name}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		})
 
-		function replaceDescription(data) {
-			if (matchedAgent === "soukaku") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-			else if (matchedAgent === "ben_bigger") { return `> ${(data.data.title).replace(/\n/i, " ")}` }
-			else { return `> ${(data.data.title).replace(/\n/i, "\n> ")}` }
+		function replaceDescription(agent) {
+			if (matchedAgent === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/는/i, "는\n>")}` }
+			else if (matchedAgent === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
+			else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
 		}
 
 		function selectAgentRow() {
