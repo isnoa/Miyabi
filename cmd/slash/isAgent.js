@@ -68,7 +68,7 @@ module.exports = {
 		})
 
 		function replaceDescription(agent) {
-			if (matchedAgent === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/는/i, "는\n>")}` }
+			if (matchedAgent === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}` }
 			else if (matchedAgent === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
 			else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
 		}

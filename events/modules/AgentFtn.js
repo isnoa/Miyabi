@@ -377,7 +377,7 @@ client.on("interactionCreate", async (interaction) => {
 })
 
 function replaceDescription(lastAgentData, agent) {
-    if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/는/i, "는\n>")}` }
+    if (lastAgentData === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}` }
     else if (lastAgentData === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
     else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
 }
