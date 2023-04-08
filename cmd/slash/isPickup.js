@@ -14,7 +14,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
-    run: async (client, interaction, args) => {
+    run: async (client, interaction) => {
         const StartTime = "4월 24일"
         const EndTime = "5월 24일"
 

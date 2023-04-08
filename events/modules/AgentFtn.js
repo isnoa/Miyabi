@@ -64,10 +64,10 @@ client.on("interactionCreate", async (interaction) => {
                         } catch (err) { i.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
                         break;
                     case "Stats":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -107,10 +107,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "BasicAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -151,10 +151,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "SpecialAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -195,10 +195,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "ComboAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -239,10 +239,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "Dodge":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -283,10 +283,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "Talent":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -327,10 +327,10 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "PartyRecs":
-                        db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                            if (userData) {
+                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                            if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${userData.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()

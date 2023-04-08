@@ -16,41 +16,39 @@ module.exports = {
      * 
      * @param {Client} client 
      * @param {ContextMenuCommandInteraction} interaction 
-     * @param {String[]} args 
      */
-    run: async (client, interaction, args) => {
-        const userMatch = interaction.user.id == interaction.targetId
-        if (userMatch) {
-            db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                if (userData) {
+    run: async (client, interaction) => {
+        if (interaction.user.id == interaction.targetId) {
+            db.findOne({ user: interaction.user.id }).then(async (user) => {
+                if (user) {
                     const Embed = new EmbedBuilder()
-                        .setDescription(userData.introduce ?? "—")
+                        .setDescription("—")
                         .setFields(
                             {
                                 name: text.UIProfileRegist,
-                                value: `<t:${parseInt(userData.timestamp / 1000)}:R>`,
+                                value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
                                 inline: true
                             },
                             {
                                 name: text.UIProfileRSA,
-                                value: text[userData.lastagent ?? "none"],
+                                value: text[user.lastagent ?? "none"],
                                 inline: true
                             },
                             {
                                 name: text.UIProfileZZZConnect,
-                                value: text[!!userData.zzzconnect ?? "false"],
+                                value: text[!!user.zzzconnect ?? "false"],
                                 inline: true
                             },
                             {
                                 name: text.UIProfileDailyCheckIn,
-                                value: text[userData.dailycheckin ?? "false"],
+                                value: text[user.dailycheckin ?? "false"],
                                 inline: true
                             }
                         )
                         .setThumbnail(interaction.user.avatarURL({ dynamic: true, size: 2048 }))
                         .setColor(MiyabiColor)
-                    if (userData.uid) {
-                        Embed.setTitle(interaction.user.tag + `(${userData.uid})`)
+                    if (user.uid) {
+                        Embed.setTitle(interaction.user.tag + `(${user.uid})`)
                     } else {
                         Embed.setTitle(interaction.user.tag)
                     }
@@ -62,7 +60,7 @@ module.exports = {
                         Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                         Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
                     }
-                    if (userData.viewprofile === true) {
+                    if (user.viewprofile === true) {
                         interaction.reply({ embeds: [Embed] })
                         logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     } else {
@@ -76,52 +74,52 @@ module.exports = {
 				if (err) throw err;
 			})
         } else {
-            const user = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: user.id }).then(async (userData) => {
-                if (userData) {
-                    if (userData.viewprofile === true) {
+            const target = await client.users.fetch(interaction.targetId);
+            db.findOne({ user: target.id }).then(async (user) => {
+                if (user) {
+                    if (user.viewprofile === true) {
                         const Embed = new EmbedBuilder()
-                            .setTitle(user.tag)
-                            .setDescription(userData.introduce ?? "-")
+                            .setTitle(target.tag)
+                            .setDescription(target.introduce ?? "-")
                             .setFields(
                                 {
                                     name: text.UIProfileRegist,
-                                    value: `<t:${parseInt(userData.timestamp / 1000)}:R>`,
+                                    value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileRSA,
-                                    value: text[userData.lastagent ?? "none"],
+                                    value: text[user.lastagent ?? "none"],
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileZZZConnect,
-                                    value: text[!!userData.zzzconnect ?? "false"],
+                                    value: text[!!user.zzzconnect ?? "false"],
                                     inline: true
                                 },
                                 {
                                     name: text.UIProfileDailyCheckIn,
-                                    value: text[userData.dailycheckin ?? "false"],
+                                    value: text[user.dailycheckin ?? "false"],
                                     inline: true
                                 }
                             )
-                            .setThumbnail(user.avatarURL({ dynamic: true, size: 2048 }))
+                            .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
                             .setColor(MiyabiColor)
-                        if (["1010159742104113162"].includes(user.id)) {
+                        if (["1010159742104113162"].includes(target.id)) {
                             Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                             Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070787654620291152/100477646_p0.jpg")
                         }
-                        if (["893424082945720351"].includes(user.id)) {
+                        if (["893424082945720351"].includes(target.id)) {
                             Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                             Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
                         }
                         interaction.reply({ embeds: [Embed] })
                         logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     } else {
-                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData ?? text.UIMismatchData]).setColor(MiyabiColor)] })
+                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + [text.failedToCheckData ?? text.UIMismatchData]).setColor(MiyabiColor)] })
                     }
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             }).catch((err) => {
 				if (err) throw err;

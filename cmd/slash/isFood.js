@@ -22,7 +22,7 @@ module.exports = {
 	 * @param {CommandInteraction} interaction
 	 * @param {String[]} args
 	 */
-	run: async (client, interaction, args) => {
+	run: async (client, interaction) => {
 		try {
 			const name = interaction.options.getString('이름');
 			const response = await axios.get('https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json')

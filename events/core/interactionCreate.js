@@ -21,14 +21,14 @@ client.on("interactionCreate", async (interaction) => {
       if (cmd.cooldown) {
         if (client.cooldown.has(`${cmd.name}${interaction.user.id}`))
           return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
-        cmd.run(client, interaction, args);
+        cmd.run(client, interaction);
         client.cooldown.set(`${cmd.name}${interaction.user.id}`, Date.now() + cmd.cooldown)
         setTimeout(() => {
           client.cooldown.delete(`${cmd.name}${interaction.user.id}`)
         }, cmd.cooldown)
       }
     }
-    // cmd.run(client, interaction, args);
+    // cmd.run(client, interaction);
   }
 
   if (interaction.isContextMenuCommand()) {

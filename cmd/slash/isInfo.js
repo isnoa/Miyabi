@@ -15,7 +15,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
-    run: async (client, interaction, args) => {
+    run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
             .setTitle("MIYABI에 대해")
             .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다.\n<@1010159742104113162>가 상식개변(돈과 미야비를 등가교환) 시켜서 로프꾼 여러분과 함께하고 있습니다!")

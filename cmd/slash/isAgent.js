@@ -29,7 +29,7 @@ module.exports = {
 	 * @param {CommandInteraction} interaction
 	 * @param {String[]} args
 	 */
-	run: async (client, interaction, args) => {
+	run: async (client, interaction) => {
 		try {
 			const name = interaction.options.getString("이름");
 			const matchedAgent = findOneAgent(name)
@@ -101,8 +101,8 @@ module.exports = {
 		 * @return Stored in database and collection
 		 */
 		function addHistory(matchedAgent) {
-			db.findOne({ user: interaction.user.id }).then(async (userData) => {
-				if (userData) {
+			db.findOne({ user: interaction.user.id }).then(async (user) => {
+				if (user) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
 						.catch(err => logger.error(err));
 

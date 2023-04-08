@@ -18,7 +18,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {String[]} args
      */
-    run: async (client, interaction, args) => {
+    run: async (client, interaction) => {
         const row = new ActionRowBuilder().setComponents(
             new ButtonBuilder()
                 // .setCustomId("cookieWeb")

@@ -25,7 +25,7 @@ module.exports = {
 	 * @param {CommandInteraction} interaction
 	 * @param {String[]} args
 	 */
-	run: async (client, interaction, args) => {
+	run: async (client, interaction) => {
 		try {
 			const name = interaction.options.getString("이름");
 			const matchedCamp = findOneCamp(name)

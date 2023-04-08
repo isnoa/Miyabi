@@ -110,16 +110,12 @@ client.on("interactionCreate", async (interaction) => {
             logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
             function addCookieData(encryptedCookie, uid) {
-                let date = new Date();
-                let year = date.getFullYear();
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
-                db.findOne({ user: interaction.user.id }).then(async (userData) => {
-                    if (userData) {
-                        db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 } })
+                db.findOne({ user: interaction.user.id }).then(async (user) => {
+                    if (user) {
+                        db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false } })
                             .catch(err => logger.error(err));
                     } else {
-                        new db({ timestamp: Date.now(), user: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 })
+                        new db({ timestamp: new Date().getTime(), user: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false })
                             .save().catch(err => logger.error(err));
                     }
                 }).catch((err) => {
