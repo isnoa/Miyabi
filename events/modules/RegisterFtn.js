@@ -34,7 +34,7 @@ client.on("interactionCreate", async (interaction) => {
             const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
             ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
             await interaction.showModal(ZZZConnectModal);
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
         }
     }
     if (interaction.isModalSubmit()) {
@@ -90,25 +90,23 @@ client.on("interactionCreate", async (interaction) => {
                 return undefined;
             }
 
-            const algorithm = 'aes-256-cbc';
+            const algorithm = process.env.ALGORITHM;
             const key = process.env.SECRET_KEY;
             const iv = process.env.SECRET_VI;
 
             const cipher = crypto.createCipheriv(algorithm, key, iv);
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
-            // console.log('암호화:', encryptedCookie);
 
             const decipher = crypto.createDecipheriv(algorithm, key, iv);
             let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
             result2 += decipher.final('utf8');
-            // console.log('복호화:', result2);
             
             const uid = profile.data.list[0].game_uid
 
             addCookieData(encryptedCookie, uid);
             interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
 
 

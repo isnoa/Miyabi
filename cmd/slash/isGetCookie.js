@@ -11,7 +11,7 @@ const logger = require("../../events/core/logger.js");
 module.exports = {
     name: "쿠키얻기",
     description: "계정을 연동하기 위해 어떻게 쿠키 값을 얻는지 알려줄게.",
-    timeout: 5000,
+    cooldown: 5000,
     /**
      *
      * @param {Client} client
@@ -37,6 +37,6 @@ module.exports = {
             .setColor(MiyabiColor)
             .setFooter({ text: "MIYABI: ... 잠만 이거 내 뒷담화 아니지?" })
         interaction.reply({ embeds: [Embed], components: [row] })
-        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

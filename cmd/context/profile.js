@@ -11,13 +11,14 @@ const logger = require("../../events/core/logger.js");
 module.exports = {
     name: "프로필",
     type: ApplicationCommandType.User,
+    cooldown: 5000,
     /**
      * 
      * @param {Client} client 
      * @param {ContextMenuCommandInteraction} interaction 
      * @param {String[]} args 
      */
-    run: async (client, interaction) => {
+    run: async (client, interaction, args) => {
         const userMatch = interaction.user.id == interaction.targetId
         if (userMatch) {
             db.findOne({ user: interaction.user.id }).then(async(userData) => {
@@ -63,10 +64,10 @@ module.exports = {
                     }
                     if (userData.viewprofile === true) {
                         interaction.reply({ embeds: [Embed] })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     } else {
                         interaction.reply({ embeds: [Embed], ephemeral: true })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     }
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(interaction.user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
@@ -115,7 +116,7 @@ module.exports = {
                             Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
                         }
                         interaction.reply({ embeds: [Embed] })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                     } else {
                         interaction.reply({ embeds: [new EmbedBuilder().setDescription(user.username + "," + [text.failedToCheckData ?? text.UIMismatchData]).setColor(MiyabiColor)] })
                     }

@@ -31,7 +31,7 @@ const client = new Client({
   // ws: { properties: { browser: 'Discord iOS' } },
 });
 
-client.timeout = new Collection();
+client.cooldown = new Collection();
 client.agent = new Collection();
 client.slashCommands = new Collection();
 

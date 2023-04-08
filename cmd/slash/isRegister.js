@@ -11,7 +11,7 @@ const logger = require("../../events/core/logger.js");
 module.exports = {
     name: "가입",
     description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할 수 있도록 가입을 하는걸 도와줄게.",
-    timeout: 5000,
+    cooldown: 5000,
     /**
      *
      * @param {Client} client
@@ -31,6 +31,6 @@ module.exports = {
                     .setStyle(ButtonStyle.Success),
             );
         interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
-        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

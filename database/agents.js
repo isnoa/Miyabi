@@ -14,30 +14,33 @@ const {
 } = require("./ko-kr.js");
 
 const findOneAgent = (name) => {
-    if (name === anby_demara) {
-        return "anby_demara";
-    } else if (name === nicole_demara) {
-        return "nicole_demara";
-    } else if (name === billy_kid) {
-        return "billy_kid";
-    } else if (name === nekomiya_mana) {
-        return "nekomiya_mana";
-    } else if (name === soldier_11) {
-        return "soldier_11";
-    } else if (name === corin_wickes) {
-        return "corin_wickes";
-    } else if (name === von_lycaon) {
-        return "von_lycaon";
-    } else if (name === anton_ivanov) {
-        return "anton_ivanov";
-    } else if (name === koleda_belobog) {
-        return "koleda_belobog";
-    } else if (name === ben_bigger) {
-        return "ben_bigger";
-    } else if (name === soukaku) {
-        return "soukaku";
-    } else if (name === hoshimi_miyabi) {
-        return "hoshimi_miyabi";
+    switch (name) {
+        case anby_demara:
+            return "anby_demara";
+        case nicole_demara:
+            return "nicole_demara";
+        case billy_kid:
+            return "billy_kid";
+        case nekomiya_mana:
+            return "nekomiya_mana";
+        case soldier_11:
+            return "soldier_11";
+        case corin_wickes:
+            return "corin_wickes";
+        case von_lycaon:
+            return "von_lycaon";
+        case anton_ivanov:
+            return "anton_ivanov";
+        case koleda_belobog:
+            return "koleda_belobog";
+        case ben_bigger:
+            return "ben_bigger";
+        case soukaku:
+            return "soukaku";
+        case hoshimi_miyabi:
+            return "hoshimi_miyabi";
+        default:
+            return undefined;
     }
 }
 

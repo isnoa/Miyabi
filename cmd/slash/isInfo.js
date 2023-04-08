@@ -8,7 +8,7 @@ const { MiyabiColor } = require("../../database/color.js");
 module.exports = {
     name: "정보",
     description: "나에 대해 알려줄게.",
-    timeout: 5000,
+    cooldown: 5000,
     /**
      *
      * @param {Client} client
@@ -18,7 +18,7 @@ module.exports = {
     run: async (client, interaction, args) => {
         const Embed = new EmbedBuilder()
             .setTitle("MIYABI에 대해")
-            .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다.\n<@1010159742104113162>가 MIYABI를 상식개변(돈과 미야비를 등가교환) 시켜서 로프꾼 여러분과 함께하고 있습니다!")
+            .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다.\n<@1010159742104113162>가 상식개변(돈과 미야비를 등가교환) 시켜서 로프꾼 여러분과 함께하고 있습니다!")
             .setFields(
                 {
                     name: "—이용 및 통계",
@@ -36,21 +36,20 @@ module.exports = {
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
             .setColor(MiyabiColor)
         interaction.reply({ embeds: [Embed], ephemeral: true })
-        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     
         /**
          * Create a text progress bar
          * @param {Number} minValue - The min value to fill the bar
          * @param {Number} maxValue - The max value of the bar
          * @param {Number} size - The text bar size
-         * @return {String} - The text bar
+         * @return {String} The text bar
          */
         function progressBar(minValue, maxValue, size) {
-            const progressText = '▇'.repeat(Math.round((size * (minValue / maxValue)))); // Repeat is creating a string with progress * caracters in it
-            const emptyProgressText = '—'.repeat(size - (Math.round((size * (minValue / maxValue))))); // Repeat is creating a string with empty progress * caracters in it
-            const percentageText = Math.round((minValue / maxValue) * 100) + '%'; // Displaying the percentage of the bar
-        
-            const bar = '```목표치 중 [' + progressText + emptyProgressText + ']' + percentageText + ' 달성```'; // Creating the bar
+            const progressText = '▇'.repeat(Math.round((size * (minValue / maxValue))))
+            const emptyProgressText = '—'.repeat(size - (Math.round((size * (minValue / maxValue)))))
+            const percentageText = Math.round((minValue / maxValue) * 100) + '%'
+            const bar = '```목표치 중 [' + progressText + emptyProgressText + ']' + percentageText + ' 달성```'
             return bar;
         }
     }
