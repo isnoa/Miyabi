@@ -98,24 +98,23 @@ client.on("interactionCreate", async (interaction) => {
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
 
-            const decipher = crypto.createDecipheriv(algorithm, key, iv);
-            let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
-            result2 += decipher.final('utf8');
+            /** 복호화 */
+            // const decipher = crypto.createDecipheriv(algorithm, key, iv);
+            // let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
+            // result2 += decipher.final('utf8');
             
             const uid = profile.data.list[0].game_uid
 
-            addCookieData(encryptedCookie, uid);
+            addCookieData(encryptedCookie, uid)
             interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
             logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-
-
 
             function addCookieData(encryptedCookie, uid) {
                 let date = new Date();
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
                 let day = date.getDate();
-                db.findOne({ user: interaction.user.id }).then(async(userData) => {
+                db.findOne({ user: interaction.user.id }).then(async (userData) => {
                     if (userData) {
                         db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: `${year}-${month}-${day}`, zzzlevel: 99 } })
                             .catch(err => logger.error(err));
@@ -135,7 +134,7 @@ client.on("interactionCreate", async (interaction) => {
                 const data = `salt=${DS_SALT}&t=${time}&r=${randomChar}`;
                 const hash = crypto.createHash('md5').update(data).digest('hex');
                 return `${time},${randomChar},${hash}`;
-            };
+            }
 
             function randomString(len = 6, an) {
                 an = an && an.toLowerCase();
@@ -148,7 +147,7 @@ client.on("interactionCreate", async (interaction) => {
                     str += String.fromCharCode(r += r > 9 ? r < 36 ? 55 : 61 : 48);
                 }
                 return str;
-            };
+            }
         }
     }
 })

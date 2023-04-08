@@ -21,10 +21,10 @@ module.exports = {
     run: async (client, interaction, args) => {
         const userMatch = interaction.user.id == interaction.targetId
         if (userMatch) {
-            db.findOne({ user: interaction.user.id }).then(async(userData) => {
+            db.findOne({ user: interaction.user.id }).then(async (userData) => {
                 if (userData) {
                     const Embed = new EmbedBuilder()
-                        .setDescription(userData.introduce ?? "-")
+                        .setDescription(userData.introduce ?? "—")
                         .setFields(
                             {
                                 name: text.UIProfileRegist,
@@ -77,7 +77,7 @@ module.exports = {
 			})
         } else {
             const user = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: user.id }).then(async(userData) => {
+            db.findOne({ user: user.id }).then(async (userData) => {
                 if (userData) {
                     if (userData.viewprofile === true) {
                         const Embed = new EmbedBuilder()

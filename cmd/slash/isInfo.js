@@ -30,7 +30,7 @@ module.exports = {
                 },
                 {
                     name: "—후원금",
-                    value: `정신력이 강한 탓에 굴복 시킬려면 큰 힘이 필요합니다 개발자를 도와주세요!\n${progressBar(10, 100, 10)}`
+                    value: `정신력이 강한 탓에 굴복 시킬려면 큰 힘이 필요합니다 개발자를 도와주세요!\n${progressBar(0, 100, 10)}`
                 }
             )
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
