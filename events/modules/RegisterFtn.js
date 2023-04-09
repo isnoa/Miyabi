@@ -113,10 +113,10 @@ client.on("interactionCreate", async (interaction) => {
                 db.findOne({ user: interaction.user.id }).then(async (user) => {
                     if (user) {
                         db.updateOne({ user: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false } })
-                            .catch(err => logger.error(err));
+                            .catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
                         new db({ timestamp: new Date().getTime(), user: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false })
-                            .save().catch(err => logger.error(err));
+                            .save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {
                     if (err) throw err;

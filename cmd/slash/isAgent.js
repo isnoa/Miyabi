@@ -104,7 +104,7 @@ module.exports = {
 			db.findOne({ user: interaction.user.id }).then(async (user) => {
 				if (user) {
 					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
-						.catch(err => logger.error(err));
+						.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 
 					const agent = client.agent
 					if (agent.has(`lastagent${interaction.user.id}`)) {
@@ -117,7 +117,7 @@ module.exports = {
 					}
 				} else {
 					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })
-						.save().catch(err => logger.error(err));
+						.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 				}
 			}).catch((err) => {
 				if (err) throw err;
