@@ -34,7 +34,7 @@ client.on("interactionCreate", async (interaction) => {
             const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
             ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
             await interaction.showModal(ZZZConnectModal);
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [none] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
         }
     }
     if (interaction.isModalSubmit()) {
@@ -107,7 +107,7 @@ client.on("interactionCreate", async (interaction) => {
 
             addCookieData(encryptedCookie, uid)
             interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${profile.message}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ user: interaction.user.id }).then(async (user) => {

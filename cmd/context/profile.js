@@ -74,7 +74,7 @@ module.exports = {
                 }
             }
 
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${target.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
         } catch (err) {
             logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
         }
