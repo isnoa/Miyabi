@@ -18,112 +18,65 @@ module.exports = {
      * @param {ContextMenuCommandInteraction} interaction 
      */
     run: async (client, interaction) => {
-        if (interaction.user.id == interaction.targetId) {
-            db.findOne({ user: interaction.user.id }).then(async (user) => {
-                if (user) {
-                    const Embed = new EmbedBuilder()
-                        .setDescription("—")
-                        .setFields(
-                            {
-                                name: text.UIProfileRegist,
-                                value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
-                                inline: true
-                            },
-                            {
-                                name: text.UIProfileRSA,
-                                value: text[user.lastagent ?? "none"],
-                                inline: true
-                            },
-                            {
-                                name: text.UIProfileZZZConnect,
-                                value: text[!!user.zzzconnect ?? "false"],
-                                inline: true
-                            },
-                            {
-                                name: text.UIProfileDailyCheckIn,
-                                value: text[user.dailycheckin ?? "false"],
-                                inline: true
-                            }
-                        )
-                        .setThumbnail(interaction.user.avatarURL({ dynamic: true, size: 2048 }))
-                        .setColor(MiyabiColor)
-                    if (user.uid) {
-                        Embed.setTitle(interaction.user.tag + `(${user.uid})`)
-                    } else {
-                        Embed.setTitle(interaction.user.tag)
+        const target = await client.users.fetch(interaction.targetId);
+
+        try {
+            const user = await db.findOne({ user: target.id });
+            if (!user) {
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+            }
+
+            const Embed = new EmbedBuilder()
+                .setTitle(`${user.uid ? `${target.tag}(${user.uid})` : target.tag}`)
+                .setDescription("-")
+                .setFields(
+                    {
+                        name: text.UIProfileRegist,
+                        value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
+                        inline: true
+                    },
+                    {
+                        name: text.UIProfileRSA,
+                        value: text[user.lastagent ?? "none"],
+                        inline: true
+                    },
+                    {
+                        name: text.UIProfileZZZConnect,
+                        value: text[!!user.zzzconnect ?? "false"],
+                        inline: true
+                    },
+                    {
+                        name: text.UIProfileDailyCheckIn,
+                        value: text[user.dailycheckin ?? "false"],
+                        inline: true
                     }
-                    if (["1010159742104113162"].includes(interaction.user.id)) {
-                        Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                        Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1076696736900333659/71ed8c758171edce1937ae9fb8a7a2c5_4050754917781907821.jpg")
-                    }
-                    if (["893424082945720351"].includes(interaction.user.id)) {
-                        Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                        Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
-                    }
-                    if (user.viewprofile === true) {
-                        interaction.reply({ embeds: [Embed] })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-                    } else {
-                        interaction.reply({ embeds: [Embed], ephemeral: true })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-                    }
-                } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(interaction.user.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
-                }
-            }).catch((err) => {
-				if (err) throw err;
-			})
-        } else {
-            const target = await client.users.fetch(interaction.targetId);
-            db.findOne({ user: target.id }).then(async (user) => {
-                if (user) {
-                    if (user.viewprofile === true) {
-                        const Embed = new EmbedBuilder()
-                            .setTitle(target.tag)
-                            .setDescription(target.introduce ?? "-")
-                            .setFields(
-                                {
-                                    name: text.UIProfileRegist,
-                                    value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
-                                    inline: true
-                                },
-                                {
-                                    name: text.UIProfileRSA,
-                                    value: text[user.lastagent ?? "none"],
-                                    inline: true
-                                },
-                                {
-                                    name: text.UIProfileZZZConnect,
-                                    value: text[!!user.zzzconnect ?? "false"],
-                                    inline: true
-                                },
-                                {
-                                    name: text.UIProfileDailyCheckIn,
-                                    value: text[user.dailycheckin ?? "false"],
-                                    inline: true
-                                }
-                            )
-                            .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
-                            .setColor(MiyabiColor)
-                        if (["1010159742104113162"].includes(target.id)) {
-                            Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                            Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070787654620291152/100477646_p0.jpg")
-                        }
-                        if (["893424082945720351"].includes(target.id)) {
-                            Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                            Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
-                        }
-                        interaction.reply({ embeds: [Embed] })
-                        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-                    } else {
-                        interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + [text.failedToCheckData ?? text.UIMismatchData]).setColor(MiyabiColor)] })
-                    }
+                )
+                .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
+                .setColor(MiyabiColor)
+
+            if (["1010159742104113162"].includes(target.id)) {
+                Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
+                Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1076696736900333659/71ed8c758171edce1937ae9fb8a7a2c5_4050754917781907821.jpg")
+            }
+            if (["893424082945720351"].includes(target.id)) {
+                Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
+                Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
+            }
+            // 지분지신
+            if (user.user === interaction.user.id) {
+                interaction.reply({ embeds: [Embed], ephemeral: !user.viewprofile })
+            } else {
+                // 호카노히토
+                if (user.viewprofile === true) {
+                    interaction.reply({ embeds: [Embed] })
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
-            }).catch((err) => {
-				if (err) throw err;
-			})
+            }
+
+            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Request Values: [${interaction.targetId}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
+        } catch (err) {
+            logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Error: ${err.message}`);
         }
     }
-}
+} 
