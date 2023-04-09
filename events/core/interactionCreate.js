@@ -28,12 +28,23 @@ client.on("interactionCreate", async (interaction) => {
         }, cmd.cooldown)
       }
     }
-    // cmd.run(client, interaction);
   }
 
   if (interaction.isContextMenuCommand()) {
     const command = client.slashCommands.get(interaction.commandName);
-    if (command) command.run(client, interaction);
+    if (!command) return;
+
+    if (command) {
+      if (command.cooldown) {
+        if (client.cooldown.has(`${command.name}${interaction.user.id}`))
+          return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
+        command.run(client, interaction);
+        client.cooldown.set(`${command.name}${interaction.user.id}`, Date.now() + command.cooldown)
+        setTimeout(() => {
+          client.cooldown.delete(`${command.name}${interaction.user.id}`)
+        }, command.cooldown)
+      }
+    }
   }
 });
 //https://sourceb.in/9H9ZUUbPhL
