@@ -17,7 +17,7 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, interaction) => {
-        db.findOne({ user: interaction.user.id }).then(async (user) => {
+        db.findOne({ userId: interaction.user.id }).then(async (user) => {
             if (user.zzzconnect && user.data && user.zzzlevel && user.uid && user.dailycheckin) {
                 const Embed = new EmbedBuilder()
                 .setTitle("탈퇴를 완료했어.")
@@ -25,7 +25,7 @@ module.exports = {
                 .setColor(MiyabiColor)
                 interaction.reply({ embeds: [Embed] })
                 logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-                db.updateOne({ user: interaction.user.id },
+                db.updateOne({ userId: interaction.user.id },
                     { $unset: { zzzconnect: 1, zzzdata: 1, zzzlevel: 1, uid: 1, dailycheckin: 1 }
                 }).catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
             } else {

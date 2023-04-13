@@ -64,7 +64,7 @@ client.on("interactionCreate", async (interaction) => {
                         } catch (err) { i.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
                         break;
                     case "Stats":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -107,7 +107,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "BasicAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -151,7 +151,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "SpecialAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -195,7 +195,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "ComboAttack":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -239,7 +239,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "Dodge":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -283,7 +283,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "Talent":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
@@ -327,7 +327,7 @@ client.on("interactionCreate", async (interaction) => {
                         })
                         break;
                     case "PartyRecs":
-                        db.findOne({ user: interaction.user.id }).then(async (user) => {
+                        db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
                                     await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {

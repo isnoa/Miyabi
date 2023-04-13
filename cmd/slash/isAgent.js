@@ -101,9 +101,9 @@ module.exports = {
 		 * @return Stored in database and collection
 		 */
 		function addHistory(matchedAgent) {
-			db.findOne({ user: interaction.user.id }).then(async (user) => {
+			db.findOne({ userId: interaction.user.id }).then(async (user) => {
 				if (user) {
-					db.updateOne({ user: interaction.user.id }, { $set: { lastagent: matchedAgent } })
+					db.updateOne({ userId: interaction.user.id }, { $set: { lastagent: matchedAgent } })
 						.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 
 					const agent = client.agent
@@ -116,7 +116,7 @@ module.exports = {
 						}
 					}
 				} else {
-					new db({ user: interaction.user.id, lastagent: matchedAgent })
+					new db({ userId: interaction.user.id, lastagent: matchedAgent })
 						.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 				}
 			}).catch((err) => {

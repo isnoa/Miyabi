@@ -21,7 +21,7 @@ module.exports = {
         const target = await client.users.fetch(interaction.targetId);
 
         try {
-            const user = await db.findOne({ user: target.id });
+            const user = await db.findOne({ userId: target.id });
             if (!user) {
                 interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
             }
@@ -63,7 +63,7 @@ module.exports = {
                 Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
             }
             // 지분지신
-            if (user.user === interaction.user.id) {
+            if (user.userId === interaction.user.id) {
                 interaction.reply({ embeds: [Embed], ephemeral: !user.viewprofile })
             } else {
                 // 호카노히토
