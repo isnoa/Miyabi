@@ -116,7 +116,7 @@ module.exports = {
 						}
 					}
 				} else {
-					new db({ timestamp: Date.now(), user: interaction.user.id, lastagent: matchedAgent })
+					new db({ user: interaction.user.id, lastagent: matchedAgent })
 						.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 				}
 			}).catch((err) => {

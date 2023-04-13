@@ -32,7 +32,7 @@ module.exports = {
                 .setFields(
                     {
                         name: text.UIProfileRegist,
-                        value: `<t:${Math.floor(user.timestamp / 1000)}:R>`,
+                        value: `<t:${Math.floor(new Date(user.zzzdate).getTime() / 1000)}:R>`,
                         inline: true
                     },
                     {
@@ -73,7 +73,6 @@ module.exports = {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             }
-
             logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
         } catch (err) {
             logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)

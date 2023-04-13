@@ -57,7 +57,7 @@ module.exports = {
     none: "없음",
     true: "사용중",
     false: "사용안함",
-    UIPleaseKnowThat: "해당 기능은 PC 혹은 화면이 넓은 디바이스에서 잘 보이게 되어있어",
+    // UIPleaseKnowThat: "해당 기능은 PC 혹은 화면이 넓은 디바이스에서 잘 보이게 되어있어",
     UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
     UIMismatchData: "데이터를 확인할 수 없어.",
 
