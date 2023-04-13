@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
-    user : String,
+    userId : String,
     lastagent : String,
     viewprofile : Boolean,
     introduce : String,
