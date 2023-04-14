@@ -1,23 +1,23 @@
 const {
-    gentleCamp,
-	unknownCamp,
-	victoriaCamp,
-	belobogCamp,
-    sectionCamp
-} = require("../database/links.js");
+    gentle,
+    unknown,
+    victoria,
+    belobog,
+    section
+} = require("../database/ko-kr.js");
 
 const findOneCamp = (name) => {
     switch (name) {
-        case gentleCamp.name:
-            return gentleCamp.link;
-        case unknownCamp.name:
-            return unknownCamp.link;
-        case victoriaCamp.name:
-            return victoriaCamp.link;
-        case belobogCamp.name:
-            return belobogCamp.link;
-        case sectionCamp.name:
-            return sectionCamp.link;
+        case gentle:
+            return "gentle";
+        case unknown:
+            return "unknown";
+        case victoria:
+            return "victoria";
+        case belobog:
+            return "belobog";
+        case section:
+            return "section";
         default:
             return undefined;
     }

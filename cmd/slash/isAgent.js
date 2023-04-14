@@ -27,7 +27,6 @@ module.exports = {
 	 *
 	 * @param {Client} client
 	 * @param {CommandInteraction} interaction
-	 * @param {String[]} args
 	 */
 	run: async (client, interaction) => {
 		try {

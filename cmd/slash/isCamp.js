@@ -23,14 +23,13 @@ module.exports = {
 	 *
 	 * @param {Client} client
 	 * @param {CommandInteraction} interaction
-	 * @param {String[]} args
 	 */
 	run: async (client, interaction) => {
 		try {
 			const name = interaction.options.getString("이름");
 			const matchedCamp = findOneCamp(name)
 			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
-			await axios.get(matchedCamp).then(camp => {
+			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.json`).then(camp => {
 				const Embed = new EmbedBuilder()
 					.setTitle(camp.data.ZZZCamp.camp_info[0].camp_name)
 					.setImage(camp.data.ZZZCamp.camp_info[0].camp_banner)

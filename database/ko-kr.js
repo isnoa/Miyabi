@@ -61,6 +61,13 @@ module.exports = {
     UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
     UIMismatchData: "데이터를 확인할 수 없어.",
 
+    /** Camps */
+    gentle: "교활한 토끼굴",
+    unknown: "소속 불명",
+    victoria: "빅토리아 하우스키핑",
+    belobog: "벨로보그 중공업",
+    section: "대공동 6과",
+
     /** Agents */
     anby_demara: "엔비 데마라",
     nicole_demara: "니콜 데마라",

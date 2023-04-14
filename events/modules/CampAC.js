@@ -7,11 +7,11 @@ client.on("interactionCreate", async (interaction) => {
         if (interaction.commandName === '소속') {
             const focusedValue = interaction.options.getFocused();
             const choices = [
-                '교활한 토끼굴',
-                '소속 불명',
-                '빅토리아 홈서비스',
-                '벨로보그 중공업',
-                '대공동 6과'
+                text.gentle,
+                text.unknown,
+                text.victoria,
+                text.belobog,
+                text.section
             ];
             const filtered = choices.filter(choice => choice.startsWith(focusedValue));
             await interaction.respond(

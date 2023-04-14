@@ -14,7 +14,6 @@ module.exports = {
      *
      * @param {Client} client
      * @param {CommandInteraction} interaction
-     * @param {String[]} args
      */
     run: async (client, interaction) => {
         db.findOne({ userId: interaction.user.id }).then(async (user) => {
