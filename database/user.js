@@ -1,15 +1,15 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Schema = new mongoose.Schema({
-    userId : String,
-    lastagent : String,
-    viewprofile : Boolean,
-    introduce : String,
-    zzzconnect : String,
-    uid : Number,
-    zzzdate: String,
-    zzzlevel: Number,
-    dailycheckin : Boolean
-}, { versionKey: false })
+const userSchema = new mongoose.Schema({
+    userId: { type: String },
+    lastAgent: { type: String },
+    viewProfile: { type: Boolean },
+    introduce: { type: String },
+    zzzConnect: { type: String },
+    uid: { type: Number },
+    zzzLevel: { type: Number },
+    zzzDate: { type: String },
+    dailyCheckIn: { type: Boolean }
+}, { versionKey: false });
 
-module.exports = mongoose.model('user', Schema)
+module.exports = mongoose.model('user', userSchema);

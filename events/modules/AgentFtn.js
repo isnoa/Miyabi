@@ -376,11 +376,16 @@ client.on("interactionCreate", async (interaction) => {
     }
 })
 
-function replaceDescription(lastagent, agent) {
-    if (lastagent === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}` }
-    else if (lastagent === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
-    else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
-}
+function replaceDescription(matchedAgent, agent) {
+    switch (matchedAgent) {
+      case "soukaku":
+        return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
+      case "ben_bigger":
+        return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
+      default:
+        return `> ${(agent.data.title).replace(/\n/i, "\n> ")}`;
+    }
+  }  
 
 function selectAgentRow() {
     const row = new ActionRowBuilder().addComponents(

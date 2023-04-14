@@ -23,7 +23,7 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			const name = interaction.options.getString('이름');
+			let name = interaction.options.getString('이름');
 			const response = await axios.get('https://zenlessdata.web.app/upload/community/data/noodle/fried_bbq_noodles/ramen.json')
 			const Embed = new EmbedBuilder()
 				.setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/1082596238404354058.webp?size=48&quality=lossless", name: response.data.ZZZRamen.name })
@@ -49,6 +49,8 @@ module.exports = {
 				.setThumbnail(response.data.ZZZRamen.info.foods_image)
 			interaction.reply({ embeds: [Embed] })
 			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-		} catch (err) { interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
+		} catch (err) {
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+		}
 	}
 }

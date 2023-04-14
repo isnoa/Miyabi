@@ -31,8 +31,8 @@ const client = new Client({
   // ws: { properties: { browser: 'Discord iOS' } },
 });
 
-client.cooldown = new Collection();
 client.agent = new Collection();
+client.cooldown = new Collection();
 client.slashCommands = new Collection();
 
 require("./handler")(client);

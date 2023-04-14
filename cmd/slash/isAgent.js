@@ -30,8 +30,8 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			const name = interaction.options.getString("이름");
-			const matchedAgent = findOneAgent(name)
+			let name = interaction.options.getString("이름");
+			let matchedAgent = findOneAgent(name)
 			if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
 				const Embed = new EmbedBuilder()
@@ -66,12 +66,19 @@ module.exports = {
 				addHistory(matchedAgent)
 				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
-		} catch (err) { interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
+		} catch (err) {
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+		}
 
 		function replaceDescription(matchedAgent, agent) {
-			if (matchedAgent === "soukaku") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}` }
-			else if (matchedAgent === "ben_bigger") { return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}` }
-			else { return `> ${(agent.data.title).replace(/\n/i, "\n> ")}` }
+			switch (matchedAgent) {
+				case "soukaku":
+					return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
+				case "ben_bigger":
+					return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
+				default:
+					return `> ${(agent.data.title).replace(/\n/i, "\n> ")}`;
+			}
 		}
 
 		function selectAgentRow() {

@@ -26,8 +26,8 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			const name = interaction.options.getString("이름");
-			const matchedCamp = findOneCamp(name)
+			let name = interaction.options.getString("이름");
+			let matchedCamp = findOneCamp(name)
 			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
 			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.json`).then(camp => {
 				const Embed = new EmbedBuilder()
@@ -40,6 +40,8 @@ module.exports = {
 				interaction.reply({ embeds: [Embed] })
 				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
-		} catch (err) { interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] }) }
+		} catch (err) {
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+		}
 	}
 }
