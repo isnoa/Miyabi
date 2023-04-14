@@ -27,7 +27,7 @@ module.exports = async (client) => {
   eventFiles.map((value) => require(value));
 
   // SlashCommands Register
-  client.on("ready", async () => {
+  client.once("ready", async () => {
     await client.application.commands.set(arrayOfSlashCommands);
     console.log("All SlashCommands registered.");
   });

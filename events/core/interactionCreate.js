@@ -4,6 +4,7 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand()) {
     const cmd = client.slashCommands.get(interaction.commandName);
     if (!cmd) return;
+    if (interaction.user.bot) return;
 
     const args = [];
 
