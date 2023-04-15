@@ -1,3 +1,4 @@
+'use strict';
 const {
 	CommandInteraction,
 	ApplicationCommandOptionType,
@@ -28,8 +29,8 @@ module.exports = {
 		try {
 			let name = interaction.options.getString("이름");
 			let matchedCamp = findOneCamp(name)
-			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)] });
-			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.json`).then(camp => {
+			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
+			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.json`).then(async (camp) => {
 				const Embed = new EmbedBuilder()
 					.setTitle(camp.data.ZZZCamp.camp_info[0].camp_name)
 					.setImage(camp.data.ZZZCamp.camp_info[0].camp_banner)
@@ -37,11 +38,11 @@ module.exports = {
 					.setDescription('> ' + camp.data.ZZZCamp.camp_info[0].camp_desc)
 					.setColor(camp.data.ZZZCamp.camp_info[0].camp_original_color)
 					.setFields({ name: "소속된 에이전트", value: camp.data.ZZZCamp.camp_info[1].camp_character.map(c => `— ${c}`).join('\n') })
-				interaction.reply({ embeds: [Embed] })
+				await interaction.reply({ embeds: [Embed] })
 				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
 	}
 }

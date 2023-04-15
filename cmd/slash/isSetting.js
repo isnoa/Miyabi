@@ -1,3 +1,4 @@
+'use strict';
 const {
 	CommandInteraction,
 	ApplicationCommandOptionType,
@@ -69,13 +70,13 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			let profile = interaction.options.getString("프로필공개");
-			let profileToAdmin = interaction.options.getString("관리자프로필공개");
-			let uid = interaction.options.getString("UID공개");
-			
-			
+			let publicProfile = interaction.options.getString("공개프로필");
+			let privateProfile = interaction.options.getString("비공계프로필");
+			let uid = interaction.options.getString("uid");
+
+			await interaction.reply({ content: "농ㅋㅋ" })
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아").setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
 	}
 }

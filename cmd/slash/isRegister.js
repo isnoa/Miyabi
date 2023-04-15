@@ -1,5 +1,6 @@
+'use strict';
 const {
-    CommandInteraction,
+	CommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
@@ -29,7 +30,7 @@ module.exports = {
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Success),
             );
-        interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
+        await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
         logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }
