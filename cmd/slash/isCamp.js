@@ -37,7 +37,7 @@ module.exports = {
 					.setThumbnail(camp.data.ZZZCamp.camp_info[0].camp_logo)
 					.setDescription('> ' + camp.data.ZZZCamp.camp_info[0].camp_desc)
 					.setColor(camp.data.ZZZCamp.camp_info[0].camp_original_color)
-					.setFields({ name: "소속된 에이전트", value: camp.data.ZZZCamp.camp_info[1].camp_character.map(c => `— ${c}`).join('\n') })
+					.setFields({ name: "소속된 에이전트", value: camp.data.ZZZCamp.camp_info[1].camp_character.map(agents => `— ${agents}`).join('\n') })
 				await interaction.reply({ embeds: [Embed] })
 				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
