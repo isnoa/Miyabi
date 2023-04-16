@@ -60,7 +60,7 @@ module.exports = {
     // UIPleaseKnowThat: "해당 기능은 PC 혹은 화면이 넓은 디바이스에서 잘 보이게 되어있어",
     UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
     UIMismatchData: "데이터를 확인할 수 없어.",
-    UISrcIssue: "다시 시도해보거나 개발자한테 물어보는게 좋을것 같아",
+    UISrcIssue: "다시 시도해 보거나 개발자한테 물어보는게 좋을 것 같아",
 
     /** Camps */
     gentle: "교활한 토끼굴",
