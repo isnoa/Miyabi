@@ -25,7 +25,7 @@ module.exports = {
         try {
             const user = await db.findOne({ userId: target.id });
             if (!user) {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
             }
 
             const Embed = new EmbedBuilder()
@@ -39,7 +39,7 @@ module.exports = {
                     },
                     {
                         name: text.UIProfileRSA,
-                        value: text[user.lastagent ?? "none"],
+                        value: text[user.lastAgent ?? "none"],
                         inline: true
                     },
                     {
@@ -65,14 +65,14 @@ module.exports = {
                 Embed.setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1070782029047799808/f1d877681aeed2f1da2cd7cd4acb996111c9655f22ea19b5332ae3c2bdee34f1.png")
             }
             // 지분지신
-            if (user.userId === interaction.user.id) {
+            if (target.id === interaction.user.id) {
                 interaction.reply({ embeds: [Embed], ephemeral: !user.viewProfile })
             } else {
                 // 호카노히토
                 if (user.viewProfile === true) {
                     interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             }
             logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)

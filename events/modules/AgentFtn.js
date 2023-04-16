@@ -67,7 +67,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -110,7 +110,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -154,7 +154,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -198,7 +198,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -242,7 +242,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -286,7 +286,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
@@ -330,7 +330,7 @@ client.on("interactionCreate", async (interaction) => {
                         db.findOne({ userId: interaction.user.id }).then(async (user) => {
                             if (user) {
                                 try {
-                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastagent}.json`).then(agent => {
+                                    await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${user.lastAgent}.json`).then(agent => {
                                         interaction.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
                                         setTimeout(function setTimeAct() {
                                             const Embed = new EmbedBuilder()
