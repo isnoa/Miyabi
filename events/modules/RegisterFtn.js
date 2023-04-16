@@ -112,10 +112,10 @@ client.on("interactionCreate", async (interaction) => {
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ userId: interaction.user.id }).then(async (user) => {
                     if (user) {
-                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false } })
+                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailycheckin: false } })
                             .catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
-                        new db({ userId: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzlevel: 99, dailycheckin: false })
+                        new db({ userId: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailycheckin: false })
                             .save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {

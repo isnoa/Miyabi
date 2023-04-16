@@ -41,11 +41,11 @@ client.on("interactionCreate", async (interaction) => {
                                                         value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
                                                         inline: true
                                                     },
-                                                    {
-                                                        name: "—언어별 표기 & 성우",
-                                                        value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${agent.data.cv.japanese}) \n중국: 星见雅 (성우: ${agent.data.cv.chinese})\n\u200B`,
-                                                        inline: false
-                                                    },
+                                                    // {
+                                                    //     name: "—언어별 표기 & 성우",
+                                                    //     value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${agent.data.cv.japanese}) \n중국: 星见雅 (성우: ${agent.data.cv.chinese})\n\u200B`,
+                                                    //     inline: false
+                                                    // },
                                                     {
                                                         name: "—인터뷰 & 소개",
                                                         value: `${agent.data.interview}\n\n${agent.data.intro}`,

@@ -2,7 +2,8 @@
 const {
     ContextMenuCommandInteraction,
     ApplicationCommandType,
-    EmbedBuilder
+    EmbedBuilder,
+    userMention
 } = require("discord.js");
 const db = require("../../database/user.js");
 const { MiyabiColor } = require("../../database/color.js");
@@ -19,12 +20,12 @@ module.exports = {
      * @param {ContextMenuCommandInteraction} interaction 
      */
     run: async (client, interaction) => {
-        const target = await client.users.fetch(interaction.targetId);
+        let target = await client.users.fetch(interaction.targetId);
 
         try {
             const user = await db.findOne({ userId: target.id });
             if (!user) {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "," + text.UIMismatchData).setColor(MiyabiColor)] })
             }
 
             const Embed = new EmbedBuilder()
@@ -33,7 +34,7 @@ module.exports = {
                 .setFields(
                     {
                         name: text.UIProfileRegist,
-                        value: `<t:${Math.floor(new Date(user.zzzdate).getTime() / 1000)}:R>`,
+                        value: `<t:${Math.floor(new Date(user.zzzDate).getTime() / 1000)}:R>`,
                         inline: true
                     },
                     {
@@ -43,12 +44,12 @@ module.exports = {
                     },
                     {
                         name: text.UIProfileZZZConnect,
-                        value: text[!!user.zzzconnect ?? "false"],
+                        value: text[!!user.zzzConnect ?? "false"],
                         inline: true
                     },
                     {
                         name: text.UIProfileDailyCheckIn,
-                        value: text[user.dailycheckin ?? "false"],
+                        value: text[user.dailyCheckIn ?? "false"],
                         inline: true
                     }
                 )
@@ -65,13 +66,13 @@ module.exports = {
             }
             // 지분지신
             if (user.userId === interaction.user.id) {
-                interaction.reply({ embeds: [Embed], ephemeral: !user.viewprofile })
+                interaction.reply({ embeds: [Embed], ephemeral: !user.viewProfile })
             } else {
                 // 호카노히토
-                if (user.viewprofile === true) {
+                if (user.viewProfile === true) {
                     interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(target.username + "," + text.UIMismatchData).setColor(MiyabiColor)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "," + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             }
             logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
