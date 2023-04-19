@@ -41,23 +41,23 @@ module.exports = client;
 
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {
-    logger.error("[CRUSH] Error from DiscordAPI :" + err);
+    logger.error('[CRUSH] :: Error from DiscordAPI / ' + err);
     process.exit();
   })
 
 const logger = require("./events/core/logger.js");
 process.on('unhandledRejection', (reason, p) => {
-  console.log(' [antiCrash] :: Unhandled Rejection/Catch');
+  console.log('[antiCrash] :: Unhandled Rejection/Catch');
   logger.error(reason, p);
   console.warn(reason, p);
 });
 process.on("uncaughtException", (err, origin) => {
-  console.log(' [antiCrash] :: Uncaught Exception/Catch');
+  console.log('[antiCrash] :: Uncaught Exception/Catch');
   logger.error(err, origin);
   console.log(err, origin);
 })
 process.on('uncaughtExceptionMonitor', (err, origin) => {
-  console.log(' [antiCrash] :: Uncaught Exception/Catch (MONITOR)');
+  console.log('[antiCrash] :: Uncaught Exception/Catch (MONITOR)');
   logger.error(err, origin);
   console.log(err, origin);
 });

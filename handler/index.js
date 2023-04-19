@@ -36,5 +36,5 @@ module.exports = async (client) => {
   mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGO_DATABASE_URI)
   .then(() => console.log('Connected to MongoDB.'))
-  .catch((err) => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+  .catch((err) => logger.error(`File Director: (${__filename}) || Reason: ${err.message}`));
 };

@@ -90,14 +90,14 @@ client.on("interactionCreate", async (interaction) => {
                 return undefined;
             }
 
-            const algorithm = process.env.ALGORITHM;
+            const algorithm = process.env.SECRET_ALGORITHM;
             const key = process.env.SECRET_KEY;
             const iv = process.env.SECRET_VI;
 
             const cipher = crypto.createCipheriv(algorithm, key, iv);
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
-
+            
             /** 복호화 */
             // const decipher = crypto.createDecipheriv(algorithm, key, iv);
             // let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
@@ -112,10 +112,10 @@ client.on("interactionCreate", async (interaction) => {
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ userId: interaction.user.id }).then(async (user) => {
                     if (user) {
-                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailycheckin: false } })
+                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzConnect: encryptedCookie, uid: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false } })
                             .catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
-                        new db({ userId: interaction.user.id, zzzconnect: encryptedCookie, uid: uid, zzzdate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailycheckin: false })
+                        new db({ userId: interaction.user.id, zzzConnect: encryptedCookie, uid: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false })
                             .save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {

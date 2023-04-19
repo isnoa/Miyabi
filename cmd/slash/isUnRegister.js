@@ -27,7 +27,7 @@ module.exports = {
                 logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                 db.updateOne({ userId: interaction.user.id },
                     {
-                        $unset: { zzzconnect: 1, zzzdata: 1, zzzLevel: 1, uid: 1, dailycheckin: 1 }
+                        $unset: { zzzConnect: 1, zzzData: 1, zzzLevel: 1, uid: 1, dailyCheckIn: 1 }
                     }).catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
             } else {
                 interaction.reply({ content: "가입 이력이 없어서 탈퇴를 못 해줘." })

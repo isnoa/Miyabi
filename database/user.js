@@ -4,7 +4,6 @@ const userSchema = new mongoose.Schema({
     userId: { type: String },
     lastAgent: { type: String },
     viewProfile: { type: Boolean },
-    introduce: { type: String },
     zzzConnect: { type: String },
     uid: { type: Number },
     zzzLevel: { type: Number },
