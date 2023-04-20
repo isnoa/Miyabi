@@ -70,9 +70,41 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			let publicProfile = interaction.options.getString("공개프로필");
-			let privateProfile = interaction.options.getString("비공계프로필");
-			let uid = interaction.options.getString("uid");
+			let publicProfileVal = interaction.options.getString("공개프로필");
+			let privateProfileVal = interaction.options.getString("비공개프로필");
+			let uidShowVal = interaction.options.getString("uid");
+
+			const user = await db.findOne({ userId: interaction.user.id });
+			if (!user) {
+				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
+			}
+
+			// publicProfileVal
+			if (publicProfileVal) {
+				db.updateOne({ userId: interaction.user.id }, { $set: { publicProfile: publicProfileVal } })
+					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			} else {
+				new db({ userId: interaction.user.id, publicProfile: publicProfileVal })
+					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			}
+
+			// privateProfileVal
+			if (privateProfileVal) {
+				db.updateOne({ userId: interaction.user.id }, { $set: { privateProfile: privateProfileVal } })
+					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			} else {
+				new db({ userId: interaction.user.id, privateProfile: privateProfileVal })
+					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			}
+
+			// uidShowVal
+			if (uidShowVal) {
+				db.updateOne({ userId: interaction.user.id }, { $set: { uidShow: uidShowVal } })
+					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			} else {
+				new db({ userId: interaction.user.id, uidShow: uidShowVal })
+					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+			}
 
 			await interaction.reply({ content: "농ㅋㅋ" })
 		} catch (err) {
