@@ -20,9 +20,9 @@ module.exports = {
      * @param {ContextMenuCommandInteraction} interaction 
      */
     run: async (client, interaction) => {
-        let target = await client.users.fetch(interaction.targetId);
-
         try {
+            let target = await client.users.fetch(interaction.targetId);
+            
             const user = await db.findOne({ userId: target.id });
             if (!user) {
                 interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
@@ -66,10 +66,10 @@ module.exports = {
             }
             // 지분지신
             if (target.id === interaction.user.id) {
-                interaction.reply({ embeds: [Embed], ephemeral: !user.viewProfile })
+                interaction.reply({ embeds: [Embed], ephemeral: !user.publicProfile })
             } else {
                 // 호카노히토
-                if (user.viewProfile === true) {
+                if (user.publicProfile === true) {
                     interaction.reply({ embeds: [Embed] })
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
