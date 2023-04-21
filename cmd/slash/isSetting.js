@@ -99,10 +99,10 @@ module.exports = {
 
 			// uidShowVal
 			if (uidShowVal) {
-				db.updateOne({ userId: interaction.user.id }, { $set: { uidShow: uidShowVal } })
+				db.updateOne({ userId: interaction.user.id }, { $set: { showUID: uidShowVal } })
 					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else {
-				new db({ userId: interaction.user.id, uidShow: uidShowVal })
+				new db({ userId: interaction.user.id, showUID: uidShowVal })
 					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
 			setTimeout(async() => {

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     dailyCheckIn: { type: Boolean },
     publicProfile: { type: Boolean },
     privateProfile: { type: Boolean },
-    uidShow: { type: Boolean }
+    showUID: { type: Boolean }
 }, { versionKey: false }, { timestamps: true });
 
 module.exports = mongoose.model('user', userSchema);
