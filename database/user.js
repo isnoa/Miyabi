@@ -12,6 +12,6 @@ const userSchema = new mongoose.Schema({
     publicProfile: { type: Boolean },
     privateProfile: { type: Boolean },
     uidShow: { type: Boolean }
-}, { versionKey: false });
+}, { versionKey: false }, { timestamps: true });
 
 module.exports = mongoose.model('user', userSchema);
