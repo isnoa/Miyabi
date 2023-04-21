@@ -105,8 +105,9 @@ module.exports = {
 				new db({ userId: interaction.user.id, uidShow: uidShowVal })
 					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
-
-			await interaction.reply({ content: "농ㅋㅋ" })
+			setTimeout(async() => {
+				await interaction.reply({ content: "농ㅋㅋ" })
+			}, 3000);
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
