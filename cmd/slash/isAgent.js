@@ -4,7 +4,8 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder,
 	StringSelectMenuBuilder,
-	ActionRowBuilder
+	ActionRowBuilder,
+	ComponentType
 } = require("discord.js");
 const axios = require("axios");
 const db = require("../../database/user.js");
@@ -50,27 +51,78 @@ module.exports = {
 							value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
-						// {
-						// 	name: "—언어별 표기 & 성우",
-						// 	value: `미국: Hoshimi Miyabi\n일본: 星見雅 (성우: ${agent.data.cv.japanese}) \n중국: 星见雅 (성우: ${agent.data.cv.chinese})\n\u200B`,
-						// 	inline: false
-						// },
 						{
 							name: "—인터뷰 & 소개",
 							value: `${agent.data.interview}\n\n${agent.data.intro}`,
 							inline: false
 						}
 					)
-					// .setFooter({ text: text.UIPleaseKnowThat })
 					.setThumbnail(agent.data.archive.avatar)
-				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
-				addHistory(matchedAgent)
-				logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+
+				interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
+
+
+
+
+
+				/////////////////////////////////////////////////////
+				// INTERACTION COLLECTOR ////////////////////////////
+				/////////////////////////////////////////////////////
+				const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30_000 });
+
+				collector.on('collect', async (i) => {
+					if(!(i.user.id === interaction.user.id)) return;
+					let lastagent = client.agent.get(`lastagent${i.user.id}`)
+					let option = i.values[0];
+
+					if (option === 'Info') {
+						await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
+							const Embed = new EmbedBuilder()
+								.setTitle(agent.data.name + " — " + text.UIAgentInfo)
+								.setColor(agent.data.colour)
+								.setDescription(replaceDescription(matchedAgent = lastagent, agent))
+								.setFields(
+									{
+										name: "—기본 정보",
+										value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
+										inline: true
+									},
+									{
+										name: "—전투 정보",
+										value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
+										inline: true
+									},
+									{
+										name: "—인터뷰 & 소개",
+										value: `${agent.data.interview}\n\n${agent.data.intro}`,
+										inline: false
+									}
+								)
+								.setThumbnail(agent.data.archive.avatar)
+							await i.update({ embeds: [Embed], components: [selectAgentRow()] })
+						})
+					}
+					collector.on('end', collected => {
+						i.editReply({ components: [] })	
+					})
+				})
 			})
+
+			addHistory(matchedAgent)
+			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
+			console.log(err)
+			// interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
 
+
+
+
+
+		/////////////////////////////////////////////////////
+		// ADDITIONAL FUNCTIONS /////////////////////////////
+		/////////////////////////////////////////////////////
 		function replaceDescription(matchedAgent, agent) {
 			switch (matchedAgent) {
 				case "soukaku":
