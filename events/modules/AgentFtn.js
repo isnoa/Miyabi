@@ -27,7 +27,7 @@
 //                                         await i.update({ embeds: [new EmbedBuilder().setColor(MiyabiColor).setTitle("데이터 확인중…").setDescription("이 과정은 시간을 소요할 수 있어")], components: [] })
 //                                         setTimeout(async function setDelayAct() {
 //                                             const Embed = new EmbedBuilder()
-//                                                 .setTitle(agent.data.name + " — " + text.UIAgentInfo)
+//                                                 .setTitle(text.UIAgentInfo)
 //                                                 .setColor(agent.data.colour)
 //                                                 .setDescription(replaceDescription(lastagent, agent))
 //                                                 .setFields(

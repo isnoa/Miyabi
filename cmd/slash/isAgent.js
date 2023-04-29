@@ -37,7 +37,7 @@ module.exports = {
 			if (matchedAgent === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
 				const Embed = new EmbedBuilder()
-					.setTitle(agent.data.name + " — " + text.UIAgentInfo)
+					.setTitle(text.UIAgentInfo)
 					.setColor(agent.data.colour)
 					.setDescription(replaceDescription(matchedAgent, agent))
 					.setFields(
@@ -52,7 +52,7 @@ module.exports = {
 							inline: true
 						},
 						{
-							name: "—인터뷰 & 소개",
+							name: text.UIAgentInterviewAndIntroduction,
 							value: `${agent.data.interview}\n\n${agent.data.intro}`,
 							inline: false
 						}
@@ -71,14 +71,13 @@ module.exports = {
 				const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30_000 });
 
 				collector.on('collect', async (i) => {
-					if(!(i.user.id === interaction.user.id)) return;
+					if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행동이야.", ephemeral: true })
 					let lastagent = client.agent.get(`lastagent${i.user.id}`)
 					let option = i.values[0];
-
-					if (option === 'Info') {
-						await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
+					await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
+						if (option === 'Info') {
 							const Embed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentInfo)
+								.setTitle(text.UIAgentInfo)
 								.setColor(agent.data.colour)
 								.setDescription(replaceDescription(matchedAgent = lastagent, agent))
 								.setFields(
@@ -100,11 +99,9 @@ module.exports = {
 								)
 								.setThumbnail(agent.data.archive.avatar)
 							await i.update({ embeds: [Embed], components: [selectAgentRow()] })
-						})
-					}
-					collector.on('end', collected => {
-						i.editReply({ components: [] })	
+						}
 					})
+					collector.on('end', collected => i.editReply({ components: [] }))
 				})
 			})
 

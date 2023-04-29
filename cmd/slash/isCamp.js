@@ -30,7 +30,7 @@ module.exports = {
 			let name = interaction.options.getString("이름");
 			let matchedCamp = findOneCamp(name)
 			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
-			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.json`).then(async (camp) => {
+			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.js`).then(async (camp) => {
 				const Embed = new EmbedBuilder()
 					.setTitle(camp.data.ZZZCamp.camp_info[0].camp_name)
 					.setImage(camp.data.ZZZCamp.camp_info[0].camp_banner)

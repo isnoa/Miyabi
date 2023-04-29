@@ -22,6 +22,8 @@ module.exports = {
     UIAgentAttackAttribute: "공격 속성",
     // UIAgentAttributeCounterType: "공격 속성 상성",
 
+    "UIAgentInterviewAndIntroduction": "—인터뷰 & 소개",
+
     UIAgentEXCriteria: "예시 기준",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
     UIAgentNecessaryArticles: "필요한 재화",
@@ -38,14 +40,14 @@ module.exports = {
     UIAgentTierOrder2nd: "2nd",
     UIAgentTierOrder3rd: "3rd",
 
-    UIAgentInfo: "정보",
-    UIAgentStats: "스텟",
-    UIAgentBasicAttack: "기본공격",
-    UIAgentSpecialAttack: "특수공격",
-    UIAgentComboAttack: "연계공격",
-    UIAgentDodge: "회피",
-    UIAgentTalent: "특성",
-    UIAgentPartyRecs: "추천파티",
+    UIAgentInfo: "AGENT INFO",
+    UIAgentStats: "AGENT STATS",
+    UIAgentBasicAttack: "AGENT BASIC-ATTACK",
+    UIAgentSpecialAttack: "AGENT SPECIAL-ATTACK",
+    UIAgentComboAttack: "AGENT COMBO-ATTACK",
+    UIAgentDodge: "AGENT DODGE",
+    UIAgentTalent: "AGENT TALENT",
+    UIAgentPartyRecs: "AGENT PARTY-RECOMMENDS",
 
     /** UIPlaceholder */
     UIPlaceholderForSettingAdd: "추가 옵션을 선택해.",

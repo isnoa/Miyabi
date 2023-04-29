@@ -11,7 +11,7 @@ const {
     ben_bigger,
     soukaku,
     hoshimi_miyabi
-} = require("./ko-kr.js");
+} = require("./ko-kr");
 
 const findOneAgent = (name) => {
     switch (name) {
