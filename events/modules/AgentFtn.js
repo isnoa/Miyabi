@@ -12,7 +12,7 @@
 // const text = require("../../database/ko-kr.js");
 
 // client.on("interactionCreate", async (interaction) => {
-//     const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 15000 })
+//     const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30000 })
 //     const lastagent = client.agent.get(`lastagent${interaction.user.id}`)
 //     if (interaction.isStringSelectMenu()) {
 //         if (interaction.customId == "selectAgent") {
