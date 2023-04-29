@@ -42,12 +42,12 @@ module.exports = {
 					.setDescription(replaceDescription(matchedAgent, agent))
 					.setFields(
 						{
-							name: "—기본 정보",
+							name: text.UIAgentNomalInfo,
 							value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
 							inline: true
 						},
 						{
-							name: "—전투 정보",
+							name: text.UIAgentBattleInfo,
 							value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
