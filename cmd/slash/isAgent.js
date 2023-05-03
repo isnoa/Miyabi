@@ -31,6 +31,7 @@ module.exports = {
 	 * @param {CommandInteraction} interaction
 	 */
 	run: async (client, interaction) => {
+		let req = 123;
 		try {
 			let name = interaction.options.getString("이름");
 			let matchedAgent = findOneAgent(name)
@@ -43,17 +44,17 @@ module.exports = {
 					.setDescription(replaceDescription(matchedAgent, agent))
 					.setFields(
 						{
-							name: text.UIAgentNomalInfo,
+							name: text.UIAgentNomalInfo + UIAgentGoSite(agent, req),
 							value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
 							inline: true
 						},
 						{
-							name: text.UIAgentBattleInfo,
+							name: text.UIAgentBattleInfo + UIAgentGoSite(agent, req),
 							value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
 						{
-							name: text.UIAgentInterviewAndIntroduction,
+							name: text.UIAgentInterviewAndIntroduction + UIAgentGoSite(agent, req),
 							value: `${agent.data.interview}\n\n${agent.data.intro}`,
 							inline: false
 						}
@@ -88,23 +89,22 @@ module.exports = {
 							.setDescription(replaceDescription(matchedAgent = lastagent, agent))
 							.setFields(
 								{
-									name: text.UIAgentNomalInfo,
+									name: text.UIAgentNomalInfo + UIAgentGoSite(agent, req),
 									value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
 									inline: true
 								},
 								{
-									name: text.UIAgentBattleInfo,
+									name: text.UIAgentBattleInfo + UIAgentGoSite(agent, req),
 									value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
 									inline: true
 								},
 								{
-									name: text.UIAgentInterviewAndIntroduction,
+									name: text.UIAgentInterviewAndIntroduction + UIAgentGoSite(agent, req),
 									value: `${agent.data.interview}\n\n${agent.data.intro}`,
 									inline: false
 								}
 							)
 							.setThumbnail(agent.data.archive.avatar)
-							.setFooter({ text: "더 자세히 알아보러 가기[*](https://www.youtube.com/watch?v=dQw4w9WgXcQ 'hovertext')" })
 						await i.update({ embeds: [Embed], components: [selectAgentRow()] })
 					}
 				})
@@ -112,13 +112,10 @@ module.exports = {
 					console.log(`Collected ${collected.size}, ${reason} items`);
 				});
 			})
-
-
 			logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
 		} catch (err) {
-			console.log(err)
-			// interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
 
 
@@ -137,6 +134,11 @@ module.exports = {
 				default:
 					return `> ${(agent.data.title).replace(/\n/i, "\n> ")}`;
 			}
+		}
+
+		function UIAgentGoSite(agent, req) {
+			let response = `https://randomplay.miray.me/character/datail/${agent.data.detail_id}/#${req}`
+			return `**[*](${response} '더 자세히 알아보기')**`;
 		}
 
 		function selectAgentRow() {

@@ -22,9 +22,9 @@ module.exports = {
     UIAgentAttackAttribute: "공격 속성",
     // UIAgentAttributeCounterType: "공격 속성 상성",
 
-    "UIAgentNomalInfo": "—기본 정보",
-    "UIAgentBattleInfo": "—전투 정보",
-    "UIAgentInterviewAndIntroduction": "—인터뷰 & 소개",
+    UIAgentNomalInfo: "—기본 정보",
+    UIAgentBattleInfo: "—전투 정보",
+    UIAgentInterviewAndIntroduction: "—인터뷰 & 소개",
 
     UIAgentEXCriteria: "예시 기준",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
