@@ -45,7 +45,6 @@ client.login(process.env.CLIENT_TOKEN)
     process.exit();
   })
 
-const logger = require("./events/core/consolejs");
 process.on('unhandledRejection', (reason, p) => {
   console.log('[antiCrash] :: Unhandled Rejection/Catch');
   console.error(reason, p);
