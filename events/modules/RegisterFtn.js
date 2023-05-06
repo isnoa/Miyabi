@@ -10,7 +10,6 @@ const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
 const db = require("../../database/user.js");
-const logger = require("../../events/core/logger.js");
 const { DangerColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 
@@ -34,7 +33,7 @@ client.on("interactionCreate", async (interaction) => {
             const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
             ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
             await interaction.showModal(ZZZConnectModal);
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
         }
     }
     if (interaction.isModalSubmit()) {
@@ -107,16 +106,16 @@ client.on("interactionCreate", async (interaction) => {
 
             addCookieData(encryptedCookie, uid)
             interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ userId: interaction.user.id }).then(async (user) => {
                     if (user) {
                         db.updateOne({ userId: interaction.user.id }, { $set: { zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false } })
-                            .catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+                            .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
                         new db({ userId: interaction.user.id, zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false })
-                            .save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+                            .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {
                     if (err) throw err;

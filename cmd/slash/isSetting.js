@@ -5,7 +5,6 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const db = require("../../database/user.js");
-const logger = require("../../events/core/logger.js");
 const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 
@@ -82,28 +81,28 @@ module.exports = {
 			// publicProfileVal
 			if (publicProfileVal) {
 				db.updateOne({ userId: interaction.user.id }, { $set: { publicProfile: publicProfileVal } })
-					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else {
 				new db({ userId: interaction.user.id, publicProfile: publicProfileVal })
-					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
 
 			// privateProfileVal
 			if (privateProfileVal) {
 				db.updateOne({ userId: interaction.user.id }, { $set: { privateProfile: privateProfileVal } })
-					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else {
 				new db({ userId: interaction.user.id, privateProfile: privateProfileVal })
-					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
 
 			// uidShowVal
 			if (uidShowVal) {
 				db.updateOne({ userId: interaction.user.id }, { $set: { showUID: uidShowVal } })
-					.catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else {
 				new db({ userId: interaction.user.id, showUID: uidShowVal })
-					.save().catch(err => logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+					.save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
 			setTimeout(async() => {
 				await interaction.reply({ content: "농ㅋㅋ" })

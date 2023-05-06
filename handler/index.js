@@ -2,7 +2,7 @@ const { glob } = require("glob");
 const { promisify } = require("util");
 const globPromise = promisify(glob);
 const mongoose = require("mongoose");
-const logger = require("../events/core/logger.js");
+const logger = require("../events/core/consolejs");
 
 module.exports = async (client) => {
   // SlashCommands
@@ -36,5 +36,5 @@ module.exports = async (client) => {
   mongoose.set("strictQuery", false);
   mongoose.connect(process.env.MONGO_DATABASE_URI)
   .then(() => console.log('Connected to MongoDB.'))
-  .catch((err) => logger.error(`File Director: (${__filename}) || Reason: ${err.message}`));
+  .catch((err) => console.error(`File Director: (${__filename}) || Reason: ${err.message}`));
 };

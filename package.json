@@ -18,9 +18,9 @@
     "dotenv": "^16.0.3",
     "glob": "^7.2.3",
     "mongoose": "^7.0.2",
-    "uuid": "^9.0.0",
-    "winston": "^3.8.2",
-    "winston-daily-rotate-file": "^4.7.1"
+    "mysql2": "^3.3.0",
+    "sequelize": "^6.31.1",
+    "uuid": "^9.0.0"
   },
   "repository": "https://github.com/isnoa/Miyabi",
   "author": "NOA <isnoa3166@gmail.com>",

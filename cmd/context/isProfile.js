@@ -8,7 +8,6 @@ const {
 const db = require("../../database/user.js");
 const { MiyabiColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
-const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "프로필",
@@ -77,9 +76,9 @@ module.exports = {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
                 }
             }
-            logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
+            consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
         } catch (err) {
-            logger.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
+            console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
         }
     }
 } 

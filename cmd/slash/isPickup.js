@@ -3,7 +3,6 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "픽업",
@@ -27,6 +26,6 @@ module.exports = {
                     inline: false
                 })
         await interaction.reply({ embeds: [Embed] })
-        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

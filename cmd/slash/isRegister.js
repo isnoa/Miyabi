@@ -7,7 +7,6 @@ const {
     ButtonStyle
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color.js");
-const logger = require("../../events/core/logger.js");
 
 module.exports = {
     name: "가입",
@@ -31,6 +30,6 @@ module.exports = {
                     .setStyle(ButtonStyle.Success),
             );
         await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
-        logger.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }
