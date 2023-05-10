@@ -77,15 +77,15 @@ module.exports = {
 
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
-				let lastagent = client.agent.get(`lastagent${i.user.id}`)
+				let matchedAgent = client.agent.get(`lastagent${i.user.id}`)
 				let option = i.values[0];
-				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${lastagent}.json`).then(async (agent) => {
+				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
 					switch (option) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
 								.setTitle(text.UIAgentInfo)
 								.setColor(agent.data.colour)
-								.setDescription(replaceDescription(matchedAgent = lastagent, agent))
+								.setDescription(replaceDescription(matchedAgent, agent))
 								.setFields(
 									{
 										name: text.UIAgentNomalInfo,

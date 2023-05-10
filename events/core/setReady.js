@@ -17,7 +17,7 @@ client.once("ready", () => {
   });
 })
 
-client.on("guildCreate", async (guild) => {
+client.on("guildCreate", guild => {
   let found = 0;
   guild.channels.cache.map((channel) => {
     if (found === 0) {

@@ -2,7 +2,6 @@ const { glob } = require("glob");
 const { promisify } = require("util");
 const globPromise = promisify(glob);
 const mongoose = require("mongoose");
-const logger = require("../events/core/consolejs");
 
 module.exports = async (client) => {
   // SlashCommands
