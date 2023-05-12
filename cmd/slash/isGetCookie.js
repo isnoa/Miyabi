@@ -36,6 +36,6 @@ module.exports = {
             .setColor(MiyabiColor)
             .setFooter({ text: "MIYABI: ... 잠만 이거 내 뒷담화 아니지?" })
         await interaction.reply({ embeds: [Embed], components: [row] })
-        consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

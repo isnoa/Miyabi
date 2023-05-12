@@ -30,6 +30,6 @@ module.exports = {
                     .setStyle(ButtonStyle.Success),
             );
         await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
-        consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

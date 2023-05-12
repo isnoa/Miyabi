@@ -51,6 +51,15 @@ module.exports = {
     UIAgentTalent: "AGENT TALENT",
     UIAgentPartyRecs: "AGENT PARTY-RECOMMENDS",
 
+    UIAgentSelectInfo: "정보",
+    UIAgentSelectStats: "스텟",
+    UIAgentSelectBasicAttack: "기본공격",
+    UIAgentSelectSpecialAttack: "특수공격",
+    UIAgentSelectComboAttack: "연계공격",
+    UIAgentSelectDodge: "회피",
+    UIAgentSelectTalent: "특성",
+    UIAgentSelectPartyRecs: "추천파티",
+
     /** UIPlaceholder */
     UIPlaceholderForSettingAdd: "추가 옵션을 선택해.",
     UIPlaceholderForSettingAdd: "제거 옵션을 선택해.",

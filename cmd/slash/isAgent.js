@@ -61,7 +61,7 @@ module.exports = {
 				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 					.then(setTimeout(() => {
 						interaction.editReply({ components: [] })
-						collector.stop("I'd care. this act's reason")
+						collector.stop()
 					}, 30000));
 			})
 
@@ -73,14 +73,13 @@ module.exports = {
 			/////////////////////////////////////////////////////
 			// INTERACTION COLLECTOR ////////////////////////////
 			/////////////////////////////////////////////////////
-			const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 31000 });
+			const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30000 });
 
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
 				let matchedAgent = client.agent.get(`lastagent${i.user.id}`)
-				let option = i.values[0];
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
-					switch (option) {
+					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
 								.setTitle(text.UIAgentInfo)
@@ -282,12 +281,8 @@ module.exports = {
 							break;
 					}
 				})
-				collector.on('end', (collected, reason) => {
-					console.log(`Collected ${collected.size}, ${reason} items`);
-				});
 			})
-			consoleinfo(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-
+			console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
 		}
@@ -322,14 +317,14 @@ module.exports = {
 					.setPlaceholder(text.UIPlaceholderForAgent)
 					.setMaxValues(1)
 					.addOptions([
-						{ label: text.UIAgentInfo, value: "Info" },
-						{ label: text.UIAgentStats, value: "Stats" },
-						{ label: text.UIAgentBasicAttack, value: "BasicAttack" },
-						{ label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
-						{ label: text.UIAgentComboAttack, value: "ComboAttack" },
-						{ label: text.UIAgentDodge, value: "Dodge" },
-						{ label: text.UIAgentTalent, value: "Talent" },
-						{ label: text.UIAgentPartyRecs, value: "PartyRecs" }
+						{ label: text.UIAgentSelectInfo, value: "Info" },
+						{ label: text.UIAgentSelectStats, value: "Stats" },
+						{ label: text.UIAgentSelectBasicAttack, value: "BasicAttack" },
+						{ label: text.UIAgentSelectSpecialAttack, value: "SpecialAttack" },
+						{ label: text.UIAgentSelectComboAttack, value: "ComboAttack" },
+						{ label: text.UIAgentSelectDodge, value: "Dodge" },
+						{ label: text.UIAgentSelectTalent, value: "Talent" },
+						{ label: text.UIAgentSelectPartyRecs, value: "PartyRecs" }
 					])
 			);
 			return row;
