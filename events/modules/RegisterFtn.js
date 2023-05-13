@@ -4,7 +4,8 @@ const {
     ModalBuilder,
     TextInputBuilder,
     TextInputStyle,
-    EmbedBuilder
+    EmbedBuilder,
+    // StringSelectMenuBuilder
 } = require("discord.js");
 const axios = require("axios");
 const uuid = require("uuid");
@@ -19,6 +20,15 @@ client.on("interactionCreate", async (interaction) => {
             const ZZZConnectModal = new ModalBuilder()
                 .setCustomId('setZZZConnectModal')
                 .setTitle(text.UISettingZZZConnect)
+            // const zzzConnectRegionInput = new StringSelectMenuBuilder()
+            //     .setCustomId('zzzConnectRegionInput')
+            //     .setMaxValues(1)
+            //     .setOptions(
+            //         { label: "미국", value: "os_usa" },
+            //         { label: "아시아", value: "os_asia" },
+            //         { label: "유럽", value: "os_euro" },
+            //         { label: "중국", value: "os_cht" },
+            //     )
             const zzzConnectLtokenInput = new TextInputBuilder()
                 .setCustomId('zzzConnectLtokenInput')
                 .setLabel(`${text.UISettingREQValue}: ltoken`)
@@ -29,8 +39,10 @@ client.on("interactionCreate", async (interaction) => {
                 .setLabel(`${text.UISettingREQValue}: ltuid`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
+            // const zzzConnectRegionRow = new ActionRowBuilder().addComponents(zzzConnectRegionInput)
             const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
             const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
+            // ZZZConnectModal.addComponents(zzzConnectRegionRow, zzzConnectLtokenRow, zzzConnectLtuidRow)
             ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
             await interaction.showModal(ZZZConnectModal);
             console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
@@ -96,12 +108,12 @@ client.on("interactionCreate", async (interaction) => {
             const cipher = crypto.createCipheriv(algorithm, key, iv);
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
-            
+
             /** 복호화 */
             // const decipher = crypto.createDecipheriv(algorithm, key, iv);
             // let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
             // result2 += decipher.final('utf8');
-            
+
             const uid = profile.data.list[0].game_uid
 
             addCookieData(encryptedCookie, uid)
