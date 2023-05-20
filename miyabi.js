@@ -29,7 +29,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
   ],
-  // ws: { properties: { browser: 'Discord iOS' } },
+  ws: { properties: { browser: 'Discord iOS' } },
 });
 
 client.agent = new Collection();

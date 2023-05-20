@@ -1,10 +1,11 @@
 'use strict';
 const {
-	CommandInteraction,
+    CommandInteraction,
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder,
-    ButtonStyle
+    ButtonStyle,
+    ComponentType
 } = require("discord.js");
 const { MiyabiColor } = require("../../database/color.js");
 
@@ -19,7 +20,7 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription("**음? 가입을 하고 싶다고? 좋아 그럼 아래 설명을 잘 읽어봐.**\n디바이스에 맞게 영상을 시청 후에 아래에 있는 `가입하기 버튼`을 눌러서 `ltoken`과 `ltuid`의 값을 입력해주면 돼.\n만약에 궁금한게 생기면 [이 서버](/:discord)로 와서 문의를 하도록 해.\n**[[PC로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]** **|** **[[모바일로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러가기')]**")
+            .setDescription("**음? 가입을 하고 싶다고? 좋아 그럼 설명을 잘 읽어봐.**\n디바이스에 맞게 영상을 시청 후, 값들을 서 순에 맞게 입력해서 주면 돼.\n만약에 궁금한 게 생기면 [이 서버](/:discord)로 와서 문의하도록 해.\n**[[PC로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러 가기')]** **|** **[[모바일로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러 가기')]**")
             .setColor(MiyabiColor)
 
         const row = new ActionRowBuilder()
@@ -27,7 +28,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId('RegistrationButton')
                     .setLabel('가입하기')
-                    .setStyle(ButtonStyle.Success),
+                    .setStyle(ButtonStyle.Primary),
             );
         await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
         console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
