@@ -6,7 +6,6 @@ const {
 } = require("discord.js");
 const axios = require("axios");
 const { MiyabiColor } = require("../../modules/color.js");
-const { findOneCamp } = require("../../modules/camps.js");
 
 module.exports = {
 	name: '소속',
@@ -27,9 +26,8 @@ module.exports = {
 	run: async (client, interaction) => {
 		try {
 			let name = interaction.options.getString("이름");
-			let matchedCamp = findOneCamp(name)
-			if (matchedCamp === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
-			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${matchedCamp}/camp/ko-kr.js`).then(async (camp) => {
+			if (name === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
+			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${name}/camp/ko-kr.js`).then(async (camp) => {
 				const Embed = new EmbedBuilder()
 					.setTitle(camp.data.ZZZCamp.camp_info[0].camp_name)
 					.setImage(camp.data.ZZZCamp.camp_info[0].camp_banner)

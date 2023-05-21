@@ -78,7 +78,7 @@ module.exports = {
 
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
-				let agentName = client.agentData.get(`lastagent${i.user.id}`)
+				let agentName = client.agent.get(`lastagent${i.user.id}`)
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {
 						case 'Info':
@@ -342,12 +342,12 @@ module.exports = {
 					db.updateOne({ userId: interaction.user.id }, { $set: { lastAgent: agentName } })
 						.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 
-					const agentData = client.agentData
-					if (agentData.has(`lastagent${interaction.user.id}`)) {
-						await agentData.clear(`lastagent${interaction.user.id}`)
-						await agentData.set(`lastagent${interaction.user.id}`, agentName)
+					const agent = client.agent
+					if (agent.has(`lastagent${interaction.user.id}`)) {
+						await agent.clear(`lastagent${interaction.user.id}`)
+						await agent.set(`lastagent${interaction.user.id}`, agentName)
 					} else {
-						await agentData.set(`lastagent${interaction.user.id}`, agentName)
+						await agent.set(`lastagent${interaction.user.id}`, agentName)
 					}
 				} else {
 					new db({ userId: interaction.user.id, lastAgent: agentName })
