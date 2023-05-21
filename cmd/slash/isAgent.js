@@ -32,7 +32,7 @@ module.exports = {
 		try {
 			let agentName = interaction.options.getString("이름");
 			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
-			await addHistory(agentName)
+
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 				const Embed = new EmbedBuilder()
 					.setTitle(text.UIAgentInfo)
@@ -55,13 +55,16 @@ module.exports = {
 							inline: false
 						}
 					)
-					.setThumbnail(agentData.data.archive.avatar)
+					.setThumbnail(agentData.data.archive.avatar);
+
+				await addHistory(agentName);
 				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 					.then(setTimeout(() => {
-						interaction.editReply({ components: [] })
-						collector.stop()
+						interaction.editReply({ components: [] });
+						collector.stop();
 					}, 30000));
-			})
+			});
+
 
 
 
