@@ -77,7 +77,7 @@ client.on("interactionCreate", async (interaction) => {
                 return config;
             });
             dataMachine.interceptors.response.use((res) => {
-                // console.log(`[DEBUG] DS Header: ${res.config.headers.DS}`);
+                console.log(`[DEBUG] DS Header: ${res.config.headers.DS}`);
                 return res;
             });
 
@@ -85,18 +85,18 @@ client.on("interactionCreate", async (interaction) => {
             const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?=hk4e_global&region=${region}`).then(res => res.data);
             if (profile.retcode !== 0) {
                 const embedError = new EmbedBuilder()
-                    .setDescription(text.UIRetcodeZero + "\n에러 내용:" `\`${profile.message}\``)
+                    .setDescription(text.UIRetcodeZero + "\n에러 내용: " + `\`${profile.message}\``)
                     .setFields(
                         {
-                            name: "1",
-                            value: `[1](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
+                            name: "해결 방법 [1]",
+                            value: `[[이동]](https://www.hoyolab.com/article/5840049) 해결 가이드를 통해 알아보는 방법이 있어.`,
                             inline: false
                         },
                         {
-                            name: "2",
-                            value: `[2](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
+                            name: "해결 방법 [2]",
+                            value: `[[이동]](://discord) 개발자에게 물어보는 방법이 있어.`,
                             inline: false
-                        }
+                        },
                     )
                     .setColor(DangerColor)
                 interaction.editReply({ embeds: [embedError], ephemeral: true })
@@ -137,23 +137,19 @@ client.on("interactionCreate", async (interaction) => {
             }
 
             function generateDSToken() {
-                const time = Math.floor(Date.now() / 1000);
+                const time = Math.floor(Date.now() * 0.001);
                 const DS_SALT = '6cqshh5dhw73bzxn20oexa9k516chk7s';
-                const randomChar = randomString(6);
-                const data = `salt=${DS_SALT}&t=${time}&r=${randomChar}`;
-                const hash = crypto.createHash('md5').update(data).digest('hex');
-                return `${time},${randomChar},${hash}`;
+                const randomChar = generateRandomString(6);
+                const dataString = `salt=${DS_SALT}&t=${time}&r=${randomChar}`;
+                const hashedData = crypto.createHash('md5').update(dataString).digest('hex');
+                return `${time},${randomChar},${hashedData}`;
             }
 
-            function randomString(len = 6, an) {
-                an = an && an.toLowerCase();
+            function generateRandomString(len) {
+                const charSet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 let str = '';
-                let i = 0;
-                let min = an === 'a' ? 10 : 0;
-                let max = an === 'n' ? 10 : 62;
-                for (; i++ < len;) {
-                    let r = Math.random() * (max - min) + min << 0;
-                    str += String.fromCharCode(r += r > 9 ? r < 36 ? 55 : 61 : 48);
+                for (let i = 0; i < len; i++) {
+                    str += charSet[Math.floor(Math.random() * charSet.length)]
                 }
                 return str;
             }
