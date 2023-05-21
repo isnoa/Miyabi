@@ -11,7 +11,6 @@ const axios = require("axios");
 const db = require("../../modules/user.js");
 const { MiyabiColor } = require("../../modules/color.js");
 const text = require("../../modules/ko-kr.js");
-const { findOneAgent } = require("../../modules/agents.js");
 
 module.exports = {
 	name: "에이전트",
@@ -31,19 +30,18 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			let name = interaction.options.getString("이름");
-			let matchedAgent = findOneAgent(name)
-			if (!matchedAgent) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("데이터매치 실패").setDescription(`\`\`\`${name}라는 이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
-			await addHistory(matchedAgent)
-			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
+			let agentName = interaction.options.getString("이름");
+			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
+			await addHistory(agentName)
+			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 				const Embed = new EmbedBuilder()
 					.setTitle(text.UIAgentInfo)
-					.setColor(agent.data.colour)
-					.setDescription(replaceDescription(matchedAgent, agent))
+					.setColor(agentData.data.colour)
+					.setDescription(replaceDescription(agentName, agentData))
 					.setFields(
 						{
 							name: text.UIAgentNomalInfo,
-							value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
+							value: `${text.UIAgentName}: ${agentData.data.name}\n${text.UIAgentGender}: ${agentData.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agentData.data.camp}`,
 							inline: true
 						},
 						{
@@ -53,11 +51,11 @@ module.exports = {
 						},
 						{
 							name: text.UIAgentInterviewAndIntroduction,
-							value: `${agent.data.interview}\n\n${agent.data.intro}`,
+							value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 							inline: false
 						}
 					)
-					.setThumbnail(agent.data.archive.avatar)
+					.setThumbnail(agentData.data.archive.avatar)
 				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 					.then(setTimeout(() => {
 						interaction.editReply({ components: [] })
@@ -77,18 +75,18 @@ module.exports = {
 
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
-				let matchedAgent = client.agent.get(`lastagent${i.user.id}`)
-				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${matchedAgent}.json`).then(async (agent) => {
+				let agentName = client.agentData.get(`lastagent${i.user.id}`)
+				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
 								.setTitle(text.UIAgentInfo)
-								.setColor(agent.data.colour)
-								.setDescription(replaceDescription(matchedAgent, agent))
+								.setColor(agentData.data.colour)
+								.setDescription(replaceDescription(agentName, agentData))
 								.setFields(
 									{
 										name: text.UIAgentNomalInfo,
-										value: `${text.UIAgentName}: ${agent.data.name}\n${text.UIAgentGender}: ${agent.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agent.data.camp}`,
+										value: `${text.UIAgentName}: ${agentData.data.name}\n${text.UIAgentGender}: ${agentData.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agentData.data.camp}`,
 										inline: true
 									},
 									{
@@ -98,17 +96,17 @@ module.exports = {
 									},
 									{
 										name: text.UIAgentInterviewAndIntroduction,
-										value: `${agent.data.interview}\n\n${agent.data.intro}`,
+										value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 										inline: false
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [InfoEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Stats':
 							const StatsEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentStats)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentStats)
+								.setColor(agentData.data.colour)
 								.setFields(
 									{
 										name: text.UIAgentEXCriteria,
@@ -117,7 +115,7 @@ module.exports = {
 									},
 									{
 										name: text.UIAgentNecessaryArticles,
-										value: ` · ${text.UIAgentMaterial}·${agent.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
+										value: ` · ${text.UIAgentMaterial}·${agentData.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
 										inline: false
 									},
 									{
@@ -126,13 +124,13 @@ module.exports = {
 										inline: false
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [StatsEmbed], components: [selectAgentRow()] })
 							break;
 						case 'BasicAttack':
 							const Embed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentBasicAttack)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentBasicAttack)
+								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
 									{
@@ -151,13 +149,13 @@ module.exports = {
 										inline: false
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [Embed], components: [selectAgentRow()] })
 							break;
 						case 'SpecialAttack':
 							const SpecialAttackEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentDodge)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
 									{
@@ -176,13 +174,13 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [SpecialAttackEmbed], components: [selectAgentRow()] })
 							break;
 						case 'ComboAttack':
 							const ComboAttackEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentDodge)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
 									{
@@ -201,13 +199,13 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [ComboAttackEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Dodge':
 							const DodgeEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentDodge)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
 									{
@@ -226,13 +224,13 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							await i.update({ embeds: [DodgeEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Talent':
 							const TalentEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentTalent)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentTalent)
+								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
 									{
@@ -251,13 +249,13 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							interaction.update({ embeds: [TalentEmbed], components: [selectAgentRow()] })
 							break;
 						case 'PartyRecs':
 							const PartyRecsEmbed = new EmbedBuilder()
-								.setTitle(agent.data.name + " — " + text.UIAgentPartyRecs)
-								.setColor(agent.data.colour)
+								.setTitle(agentData.data.name + " — " + text.UIAgentPartyRecs)
+								.setColor(agentData.data.colour)
 								.setDescription(text.UIAgentOrderOfTier)
 								.setFields(
 									{
@@ -276,7 +274,7 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agent.data.archive.avatar)
+								.setThumbnail(agentData.data.archive.avatar)
 							interaction.update({ embeds: [PartyRecsEmbed], components: [selectAgentRow()] })
 							break;
 					}
@@ -294,19 +292,19 @@ module.exports = {
 		/////////////////////////////////////////////////////
 		// ADDITIONAL FUNCTIONS /////////////////////////////
 		/////////////////////////////////////////////////////
-		function replaceDescription(matchedAgent, agent) {
-			switch (matchedAgent) {
+		function replaceDescription(agentName, agentData) {
+			switch (agentName) {
 				case "soukaku":
-					return `> ${(agent.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
+					return `> ${(agentData.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
 				case "ben_bigger":
-					return `> ${(agent.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
+					return `> ${(agentData.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
 				default:
-					return `> ${(agent.data.title).replace(/\n/i, "\n> ")}`;
+					return `> ${(agentData.data.title).replace(/\n/i, "\n> ")}`;
 			}
 		}
 
-		function UIAgentGoSite(agent, req) {
-			let response = `https://randomplay.miray.me/character/datail/${agent.data.detail_id}/#${req}`
+		function UIAgentGoSite(agentData, req) {
+			let response = `https://randomplay.miray.me/character/datail/${agentData.data.detail_id}/#${req}`
 			return `**[*](${response} '더 자세히 알아보기')**`;
 		}
 
@@ -332,24 +330,24 @@ module.exports = {
 
 		/**
 		 * Saving Agent Request History
-		 * @param {String} matchedAgent Get matchedAgent Value
+		 * @param {String} agentName Get agentName Value
 		 * @return Stored in database and collection
 		 */
-		async function addHistory(matchedAgent) {
+		async function addHistory(agentName) {
 			db.findOne({ userId: interaction.user.id }).then(async (user) => {
 				if (user) {
-					db.updateOne({ userId: interaction.user.id }, { $set: { lastAgent: matchedAgent } })
+					db.updateOne({ userId: interaction.user.id }, { $set: { lastAgent: agentName } })
 						.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 
-					const agent = client.agent
-					if (agent.has(`lastagent${interaction.user.id}`)) {
-						await agent.clear(`lastagent${interaction.user.id}`)
-						await agent.set(`lastagent${interaction.user.id}`, matchedAgent)
+					const agentData = client.agentData
+					if (agentData.has(`lastagent${interaction.user.id}`)) {
+						await agentData.clear(`lastagent${interaction.user.id}`)
+						await agentData.set(`lastagent${interaction.user.id}`, agentName)
 					} else {
-						await agent.set(`lastagent${interaction.user.id}`, matchedAgent)
+						await agentData.set(`lastagent${interaction.user.id}`, agentName)
 					}
 				} else {
-					new db({ userId: interaction.user.id, lastAgent: matchedAgent })
+					new db({ userId: interaction.user.id, lastAgent: agentName })
 						.save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 				}
 			}).catch((err) => {
