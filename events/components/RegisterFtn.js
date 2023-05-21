@@ -67,21 +67,17 @@ client.on("interactionCreate", async (interaction) => {
                     'x-rpc-language': 'ko-kr',
                     'x-rpc-client_type': '4',
                     'x-rpc-app_version': '1.5.0',
-                    'x-rpc-device_id': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', ''),
+                    'x-rpc-device_id': uuid.v3(uuid.v3.URL),
                     'x-rpc-show-translated': 'false',
                     DS: '',
                 }
             });
+
             dataMachine.interceptors.request.use((config) => {
                 config.headers.DS = generateDSToken();
                 return config;
             });
-            dataMachine.interceptors.response.use((res) => {
-                console.log(`[DEBUG] DS Header: ${res.config.headers.DS}`);
-                return res;
-            });
-
-
+            
             const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?=hk4e_global&region=${region}`).then(res => res.data);
             if (profile.retcode !== 0) {
                 const embedError = new EmbedBuilder()
