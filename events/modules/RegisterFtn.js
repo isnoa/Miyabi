@@ -14,6 +14,8 @@ const db = require("../../database/user.js");
 const { DangerColor } = require("../../database/color.js");
 const text = require("../../database/ko-kr.js");
 
+let region = "os_asia"
+
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isButton()) {
         if (interaction.customId === 'RegistrationButton') {
@@ -80,24 +82,24 @@ client.on("interactionCreate", async (interaction) => {
             });
 
 
-            const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=bh3_global`).then(res => res.data);
+            const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?=hk4e_global&region=${region}`).then(res => res.data);
             if (profile.retcode !== 0) {
                 const embedError = new EmbedBuilder()
-                    .setDescription(text.UIRetcodeZero)
+                    .setDescription(text.UIRetcodeZero + "\n에러 내용:" `\`${profile.message}\``)
                     .setFields(
                         {
-                            name: "캐릭터 HoYoLAB과 연동하는 방법",
-                            value: `[여기](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
+                            name: "1",
+                            value: `[1](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
                             inline: false
                         },
                         {
-                            name: "HoYoLAB 가입하는 방법",
-                            value: `[여기](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
+                            name: "2",
+                            value: `[2](https://www.hoyolab.com/article/5840049)를 클릭해서 알아봐.`,
                             inline: false
                         }
                     )
                     .setColor(DangerColor)
-                interaction.editReply({ content: `${profile.message}`, embeds: [embedError], ephemeral: true })
+                interaction.editReply({ embeds: [embedError], ephemeral: true })
                 return undefined;
             }
 
