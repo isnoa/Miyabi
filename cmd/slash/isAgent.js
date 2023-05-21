@@ -8,10 +8,10 @@ const {
 	ComponentType
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../database/user.js");
-const { MiyabiColor } = require("../../database/color.js");
-const text = require("../../database/ko-kr.js");
-const { findOneAgent } = require("../../database/agents.js");
+const db = require("../../modules/user.js");
+const { MiyabiColor } = require("../../modules/color.js");
+const text = require("../../modules/ko-kr.js");
+const { findOneAgent } = require("../../modules/agents.js");
 
 module.exports = {
 	name: "에이전트",

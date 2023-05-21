@@ -4,9 +4,9 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder
 } = require("discord.js");
-const db = require("../../database/user.js");
-const { MiyabiColor } = require("../../database/color.js");
-const text = require("../../database/ko-kr.js");
+const db = require("../../modules/user.js");
+const { MiyabiColor } = require("../../modules/color.js");
+const text = require("../../modules/ko-kr.js");
 
 module.exports = {
 	name: "설정",

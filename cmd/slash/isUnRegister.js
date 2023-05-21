@@ -3,8 +3,8 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const db = require("../../database/user.js");
-const { MiyabiColor } = require("../../database/color.js");
+const db = require("../../modules/user.js");
+const { MiyabiColor } = require("../../modules/color.js");
 
 module.exports = {
     name: "탈퇴",

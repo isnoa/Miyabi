@@ -3,7 +3,7 @@ const {
   EmbedBuilder,
   ActivityType
 } = require("discord.js");
-const { MiyabiColor } = require("../../database/color.js")
+const { MiyabiColor } = require("../../modules/color.js")
 
 client.once("ready", () => {
   console.log(`${client.user.tag} is ready for battle.`);

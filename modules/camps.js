@@ -4,7 +4,7 @@ const {
     victoria,
     belobog,
     section
-} = require("../database/ko-kr.js");
+} = require("../modules/ko-kr.js");
 
 const findOneCamp = (name) => {
     switch (name) {

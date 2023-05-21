@@ -5,8 +5,8 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const axios = require("axios");
-const { MiyabiColor } = require("../../database/color.js");
-const text = require("../../database/ko-kr.js");
+const { MiyabiColor } = require("../../modules/color.js");
+const text = require("../../modules/ko-kr.js");
 
 module.exports = {
 	name: '음식',

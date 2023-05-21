@@ -5,8 +5,8 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const axios = require("axios");
-const { MiyabiColor } = require("../../database/color.js");
-const { findOneCamp } = require("../../database/camps.js");
+const { MiyabiColor } = require("../../modules/color.js");
+const { findOneCamp } = require("../../modules/camps.js");
 
 module.exports = {
 	name: '소속',

@@ -7,7 +7,7 @@ const {
     ButtonStyle,
     ComponentType
 } = require("discord.js");
-const { MiyabiColor } = require("../../database/color.js");
+const { MiyabiColor } = require("../../modules/color.js");
 
 module.exports = {
     name: "가입",
