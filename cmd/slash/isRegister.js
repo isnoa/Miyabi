@@ -20,17 +20,42 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription("**음? 가입을 하고 싶다고? 좋아 그럼 설명을 잘 읽어봐.**\n디바이스에 맞게 영상을 시청 후, 값들을 서 순에 맞게 입력해서 주면 돼.\n만약에 궁금한 게 생기면 [이 서버](/:discord)로 와서 문의하도록 해.\n**[[PC로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러 가기')]** **|** **[[모바일로 가입하기](https://youtu.be/L_QoItnWSa0, '영상 보러 가기')]**")
+            .setDescription([
+                "**흠? 가입을 하고 싶다고? 좋아, 그럼 설명을 잘 읽어봐.**",
+                "디바이스에 맞게 영상을 시청 후, 값들을 서 순에 맞게 입력해서 주면 돼.",
+                "만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.",
+            ].join('\n'))
             .setColor(MiyabiColor)
 
-        const row = new ActionRowBuilder()
+        const topRow = new ActionRowBuilder()
+            .addComponents(
+                new ButtonBuilder()
+                    .setLabel("PC(macOS, Windows)")
+                    .setStyle(ButtonStyle.Link)
+                    .setURL("discord://"),
+                new ButtonBuilder()
+                    .setLabel("Mobile(iOS, android)")
+                    .setStyle(ButtonStyle.Link)
+                    .setURL("discord://"),
+            );
+
+        const underRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId('RegistrationButton')
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Primary),
+                new ButtonBuilder()
+                    .setCustomId("qna")
+                    .setLabel("자주 묻는 질문")
+                    .setStyle(ButtonStyle.Danger),
+                new ButtonBuilder()
+                    .setLabel("서포터 서버")
+                    .setStyle(ButtonStyle.Link)
+                    .setURL("discord://"),
             );
-        await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
+
+        await interaction.reply({ embeds: [Embed], components: [topRow, underRow], ephemeral: true })
         console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }
