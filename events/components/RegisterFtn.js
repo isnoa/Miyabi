@@ -93,7 +93,7 @@ client.on("interactionCreate", async (interaction) => {
                     'x-rpc-language': 'ko-kr',
                     'x-rpc-client_type': '4',
                     'x-rpc-app_version': '1.5.0',
-                    'x-rpc-device_id': uuid.v3(uuid.v3.URL),
+                    'x-rpc-device_id': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', ''),
                     'x-rpc-show-translated': 'false',
                     DS: '',
                 }
