@@ -22,8 +22,8 @@ module.exports = {
         const Embed = new EmbedBuilder()
             .setDescription([
                 "**흠? 가입을 하고 싶다고? 좋아, 그럼 설명을 잘 읽어봐.**",
-                "디바이스에 맞게 영상을 시청 후, 값들을 서 순에 맞게 입력해서 주면 돼.",
-                "만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.",
+                "**디바이스에 맞게 영상을 시청 후, 값들을 알맞게 입력해서 주면 돼.**",
+                "**만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.**",
             ].join('\n'))
             .setColor(MiyabiColor)
 
@@ -42,17 +42,20 @@ module.exports = {
         const underRow = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId('RegistrationButton')
-                    .setLabel('가입하기')
+                    .setCustomId('OverviewButton')
+                    .setEmoji("<:Overview:1110886494786302083>")
+                    .setLabel('개요')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId("qna")
-                    .setLabel("자주 묻는 질문")
-                    .setStyle(ButtonStyle.Danger),
+                    .setCustomId('RegistrationButton')
+                    .setEmoji("<:Registration:1110886801150857256>")
+                    .setLabel('가입하기')
+                    .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
-                    .setLabel("서포터 서버")
-                    .setStyle(ButtonStyle.Link)
-                    .setURL("discord://"),
+                    .setCustomId("QnAButton")
+                    .setEmoji("<:QnA:1086276872658223165>")
+                    .setLabel("자주 묻는 질문")
+                    .setStyle(ButtonStyle.Danger)
             );
 
         await interaction.reply({ embeds: [Embed], components: [topRow, underRow], ephemeral: true })
