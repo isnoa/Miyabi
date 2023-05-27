@@ -82,7 +82,7 @@ client.on("interactionCreate", async (interaction) => {
             const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
             await interaction.deferReply();
 
-            const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid}; mi18nLang=ko-kr; _MHYUUID=${uuid.v4()};`;
+            const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
 
             const dataMachine = axios.create({
                 headers: {
