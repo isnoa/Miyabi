@@ -48,26 +48,24 @@ client.login(process.env.CLIENT_TOKEN)
 process.on('unhandledRejection', (reason, p) => {
   console.log('[antiCrash] :: Unhandled Rejection/Catch');
   console.error(reason, p);
-  console.warn(reason, p);
 });
 process.on("uncaughtException", (err, origin) => {
   console.log('[antiCrash] :: Uncaught Exception/Catch');
   console.error(err, origin);
-  console.log(err, origin);
 })
 process.on('uncaughtExceptionMonitor', (err, origin) => {
   console.log('[antiCrash] :: Uncaught Exception/Catch (MONITOR)');
   console.error(err, origin);
-  console.log(err, origin);
 });
-process.on('warning', (warn) => {
-  console.warn(warn);
-  consolewarn(warn);
-});
-if (process.env.NODE_ENV) {
-  client.on('debug', console.log);
-}
+
 // process.on('multipleResolves', (type, promise) => {
 //   console.log(' [antiCrash] :: Multiple Resolves');
 //   console.log(type, promise);
 // });
+process.on('warning', (warn) => {
+  console.warn(warn);
+});
+if (process.env.NODE_ENV) {
+  client.on('debug', console.log);
+}
+

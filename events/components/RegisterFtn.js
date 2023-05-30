@@ -78,12 +78,11 @@ client.on("interactionCreate", async (interaction) => {
     }
     if (interaction.isModalSubmit()) {
         if (interaction.customId === 'setZZZConnectModal') {
-            const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '')
-            const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '')
-            await interaction.deferReply();
-
+            const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '');
+            const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
-
+            await interaction.deferReply();
+            
             const dataMachine = axios.create({
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
