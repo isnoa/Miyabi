@@ -8,9 +8,8 @@ const {
 	ComponentType
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../modules/user.js");
-const { MiyabiColor } = require("../../modules/color.js");
-const text = require("../../modules/ko-kr.js");
+const db = require("../../events/core/user.js");
+const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
 	name: "에이전트",
@@ -31,7 +30,7 @@ module.exports = {
 	run: async (client, interaction) => {
 		try {
 			let agentName = interaction.options.getString("이름");
-			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)] });
+			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(text.MiyabiColor)] });
 
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 				const Embed = new EmbedBuilder()
@@ -285,7 +284,7 @@ module.exports = {
 			})
 			console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.MiyabiColor)], components: [] })
 		}
 
 

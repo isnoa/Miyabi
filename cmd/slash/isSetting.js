@@ -4,9 +4,8 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder
 } = require("discord.js");
-const db = require("../../modules/user.js");
-const { MiyabiColor } = require("../../modules/color.js");
-const text = require("../../modules/ko-kr.js");
+const db = require("../../events/core/user.js");
+const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
 	name: "설정",
@@ -75,7 +74,7 @@ module.exports = {
 
 			const user = await db.findOne({ userId: interaction.user.id });
 			if (!user) {
-				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(MiyabiColor)] })
+				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.MiyabiColor)] })
 			}
 
 			// publicProfileVal
@@ -108,7 +107,7 @@ module.exports = {
 				await interaction.reply({ content: "농ㅋㅋ" })
 			}, 3000);
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.MiyabiColor)], components: [] })
 		}
 	}
 }

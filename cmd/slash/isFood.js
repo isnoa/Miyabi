@@ -5,8 +5,7 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const axios = require("axios");
-const { MiyabiColor } = require("../../modules/color.js");
-const text = require("../../modules/ko-kr.js");
+const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
 	name: '음식',
@@ -54,7 +53,7 @@ module.exports = {
 				console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(MiyabiColor)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.MiyabiColor)], components: [] })
 		}
 	}
 }

@@ -1,4 +1,8 @@
 module.exports = {
+    /** UIColours */
+    UIColourMiyabi: "#4ba3ad",
+    UIColourDanger: "#ff5d5d",
+
     /** UIProfiles */
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",

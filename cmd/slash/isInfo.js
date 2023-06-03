@@ -3,7 +3,7 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const { MiyabiColor } = require("../../modules/color.js");
+const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
     name: "정보",
@@ -33,7 +33,7 @@ module.exports = {
                 }
             )
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
-            .setColor(MiyabiColor)
+            .setColor(text.MiyabiColor)
         await interaction.reply({ embeds: [Embed], ephemeral: true })
         console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     

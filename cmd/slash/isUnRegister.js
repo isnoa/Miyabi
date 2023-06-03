@@ -3,8 +3,8 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const db = require("../../modules/user.js");
-const { MiyabiColor } = require("../../modules/color.js");
+const db = require("../../events/core/user.js");
+const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
     name: "탈퇴",
@@ -21,7 +21,7 @@ module.exports = {
                 const Embed = new EmbedBuilder()
                     .setTitle("탈퇴를 완료했어.")
                     .setDescription("탈퇴는 완료 했지만 쿠키(Cookie) & UID만 제거를 한 것일뿐 명령어를 처음 쓴 일자 및 최근에 검색해본 에이전트, 프로필 공개 여부, 로그 등은 지속될거야.")
-                    .setColor(MiyabiColor)
+                    .setColor(text.MiyabiColor)
                 await interaction.reply({ embeds: [Embed] })
                 console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
                 db.updateOne({ userId: interaction.user.id },
