@@ -23,7 +23,7 @@ module.exports = {
             
             const user = await db.findOne({ userId: target.id });
             if (!user) {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.MiyabiColor)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.UIColourMiyabi)] })
             }
 
             const Embed = new EmbedBuilder()
@@ -52,7 +52,7 @@ module.exports = {
                     }
                 )
                 .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
-                .setColor(text.MiyabiColor)
+                .setColor(text.UIColourMiyabi)
 
             if (["1010159742104113162"].includes(target.id)) {
                 Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
@@ -72,7 +72,7 @@ module.exports = {
                 if (user.publicProfile === true) {
                     interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.MiyabiColor)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.UIColourMiyabi)] })
                 }
             }
             console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)

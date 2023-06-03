@@ -24,7 +24,7 @@ module.exports = {
                 "**디바이스에 맞게 영상을 시청 후, 값들을 알맞게 입력해서 주면 돼.**",
                 "**만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.**",
             ].join('\n'))
-            .setColor(text.MiyabiColor)
+            .setColor(text.UIColourMiyabi)
 
         const topRow = new ActionRowBuilder()
             .addComponents(
