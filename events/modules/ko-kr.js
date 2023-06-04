@@ -3,6 +3,14 @@ module.exports = {
     UIColourMiyabi: "#4ba3ad",
     UIColourDanger: "#ff5d5d",
 
+    /** UIIcons */
+    UIIconBangBu: "<:_:1086580894447435826>",
+    UIIconQuestionMark: "<:_:1086276872658223165>",
+    UIIconExclamationMarkBlue: "<:_:1086276874138832969>",
+    UIIconExclamationMarkRed: "<:_:1086276876818976821>",
+    UIIconMic: "<:_:1081553033835597854>",
+    UIIconDanger: "<:_:1086276880031817760>",
+
     /** UIProfiles */
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
