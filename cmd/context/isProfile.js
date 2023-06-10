@@ -27,27 +27,22 @@ module.exports = {
             }
 
             const Embed = new EmbedBuilder()
-                .setTitle(`${user.uid ? `${target.tag}(${user.uid})` : target.tag}`)
+                .setTitle(`${user.uid ? `${target.username}(${user.uid})` : target.username}`)
                 .setDescription("-")
                 .setFields(
                     {
                         name: text.UIProfileRegist,
-                        value: `<t:${Math.floor(new Date(user.zzzDate).getTime() / 1000)}:R>`,
-                        inline: true
-                    },
-                    {
-                        name: text.UIProfileRSA,
-                        value: text[user.lastAgent ?? "none"],
+                        value: `<t:${Math.floor(new Date(user.zzzDate).getTime() / 1000)}:D>`,
                         inline: true
                     },
                     {
                         name: text.UIProfileZZZConnect,
-                        value: text[!!user.zzzConnect ?? "false"],
+                        value: text[!!user.zzzConnect ?? false],
                         inline: true
                     },
                     {
                         name: text.UIProfileDailyCheckIn,
-                        value: text[user.dailyCheckIn ?? "false"],
+                        value: text[user.dailyCheckIn ?? false],
                         inline: true
                     }
                 )

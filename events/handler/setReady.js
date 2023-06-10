@@ -6,7 +6,7 @@ const {
 const text = require("../../events/modules/ko-kr.js")
 
 client.once("ready", () => {
-  console.log(`${client.user.tag} is ready for battle.`);
+  console.log(`${client.user.username} is ready for battle.`);
   client.user.setPresence({
     activities: [
       {
