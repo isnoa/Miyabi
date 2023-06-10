@@ -23,7 +23,7 @@ module.exports = {
             
             const user = await db.findOne({ userId: target.id });
             if (!user) {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
+                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
             }
 
             const Embed = new EmbedBuilder()

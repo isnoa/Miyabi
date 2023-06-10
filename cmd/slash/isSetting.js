@@ -68,8 +68,7 @@ module.exports = {
 
 			const user = await db.findOne({ userId: interaction.user.id });
 			if (!user) {
-				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] });
-				return;
+				return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] });
 			}
 
 			let booleanSelection = selection === "off" ? false : true;
