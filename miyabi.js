@@ -32,7 +32,7 @@ const client = new Client({
   ws: { properties: { browser: 'Discord iOS' } },
 });
 
-client.agent = new Collection();
+client.agentName = new Collection();
 client.cooldown = new Collection();
 client.slashCommands = new Collection();
 
@@ -41,7 +41,7 @@ module.exports = client;
 
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {
-    console.error('[CRUSH] :: Error from DiscordAPI / ' + err);
+    console.error('[CRUSH] :: Error from DiscordAPI: ' + err);
     process.exit();
   })
 
@@ -57,7 +57,6 @@ process.on('uncaughtExceptionMonitor', (err, origin) => {
   console.log('[antiCrash] :: Uncaught Exception/Catch (MONITOR)');
   console.error(err, origin);
 });
-
 // process.on('multipleResolves', (type, promise) => {
 //   console.log(' [antiCrash] :: Multiple Resolves');
 //   console.log(type, promise);
