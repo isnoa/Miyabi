@@ -56,7 +56,6 @@ module.exports = {
 					)
 					.setThumbnail(agentData.data.archive.avatar);
 
-				await addHistory(agentName);
 				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 					.then(setTimeout(() => {
 						interaction.editReply({ components: [] });
@@ -305,11 +304,6 @@ module.exports = {
 			}
 		}
 
-		function UIAgentGoSite(agentData, req) {
-			let response = `https://randomplay.miray.me/character/datail/${agentData.data.detail_id}/#${req}`
-			return `**[*](${response} '더 자세히 알아보기')**`;
-		}
-
 		function selectAgentRow() {
 			const row = new ActionRowBuilder().addComponents(
 				new StringSelectMenuBuilder()
@@ -328,33 +322,6 @@ module.exports = {
 					])
 			);
 			return row;
-		}
-
-		/**
-		 * Saving Agent Request History
-		 * @param {String} agentName Get agentName Value
-		 * @return Stored in database and collection
-		 */
-		async function addHistory(agentName) {
-			db.findOne({ userId: interaction.user.id }).then(async (user) => {
-				if (user) {
-					db.updateOne({ userId: interaction.user.id }, { $set: { lastAgent: agentName } })
-						.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-
-					const agent = client.agent
-					if (agent.has(`lastagent${interaction.user.id}`)) {
-						await agent.clear(`lastagent${interaction.user.id}`)
-						await agent.set(`lastagent${interaction.user.id}`, agentName)
-					} else {
-						await agent.set(`lastagent${interaction.user.id}`, agentName)
-					}
-				} else {
-					new db({ userId: interaction.user.id, lastAgent: agentName })
-						.save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-				}
-			}).catch((err) => {
-				if (err) throw err;
-			})
 		}
 	}
 }

@@ -5,10 +5,12 @@
   "description": "MIYABI'S LOVER",
   "main": "miyabi.js",
   "scripts": {
+    "start": "node miyabi.js",
     "dev": "nodemon miyabi.js"
   },
   "keywords": [
     "Zenless Zone Zero",
+    "ZZZero",
     "ZZZ"
   ],
   "license": "ISC",
