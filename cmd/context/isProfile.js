@@ -23,7 +23,7 @@ module.exports = {
             
             const user = await db.findOne({ userId: target.id });
             if (!user) {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.UIColourMiyabi)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
             }
 
             const Embed = new EmbedBuilder()
@@ -70,7 +70,7 @@ module.exports = {
                 if (user.publicProfile === true) {
                     interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.UIColourMiyabi)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
                 }
             }
             console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)

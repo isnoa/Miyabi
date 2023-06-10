@@ -68,7 +68,7 @@ module.exports = {
 
 			const user = await db.findOne({ userId: interaction.user.id });
 			if (!user) {
-				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMismatchData).setColor(text.UIColourMiyabi)] });
+				interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] });
 				return;
 			}
 
@@ -84,6 +84,8 @@ module.exports = {
 				db.updateOne({ userId: interaction.user.id }, { $set: { showUID: booleanSelection } })
 					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
+
+			interaction.reply()
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.UIColourMiyabi)], components: [] });
 		}
