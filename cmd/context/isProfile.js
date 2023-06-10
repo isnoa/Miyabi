@@ -5,7 +5,7 @@ const {
     EmbedBuilder,
     userMention
 } = require("discord.js");
-const db = require("../../events/core/user.js");
+const db = require("../../events/handler/user.js");
 const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {

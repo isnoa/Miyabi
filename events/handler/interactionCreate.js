@@ -21,7 +21,7 @@ client.on("interactionCreate", async (interaction) => {
     if (cmd) {
       if (cmd.cooldown) {
         if (client.cooldown.has(`${cmd.name}${interaction.user.id}`))
-          return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
+          return interaction.reply({ content: "진정해, 나도 페이스 유지할 시간이 필요하다고." })
         cmd.run(client, interaction);
         client.cooldown.set(`${cmd.name}${interaction.user.id}`, Date.now() + cmd.cooldown)
         setTimeout(() => {
@@ -38,7 +38,7 @@ client.on("interactionCreate", async (interaction) => {
     if (command) {
       if (command.cooldown) {
         if (client.cooldown.has(`${command.name}${interaction.user.id}`))
-          return interaction.reply({ content: "진정해, 페이스 유지가 최선이야" })
+          return interaction.reply({ content: "진정해, 나도 페이스 유지할 시간이 필요하다고." })
         command.run(client, interaction);
         client.cooldown.set(`${command.name}${interaction.user.id}`, Date.now() + command.cooldown)
         setTimeout(() => {
@@ -48,4 +48,3 @@ client.on("interactionCreate", async (interaction) => {
     }
   }
 });
-//https://sourceb.in/9H9ZUUbPhL

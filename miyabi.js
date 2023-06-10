@@ -36,7 +36,7 @@ client.agent = new Collection();
 client.cooldown = new Collection();
 client.slashCommands = new Collection();
 
-require("./handler")(client);
+require("./events/handler")(client);
 module.exports = client;
 
 client.login(process.env.CLIENT_TOKEN)
