@@ -3,7 +3,7 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const db = require("../../events/handler/user.js");
+const db = require("../../events/modules/user.js");
 const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {

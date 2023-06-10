@@ -10,7 +10,7 @@ const {
 const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
-const db = require("../../events/handler/user.js");
+const db = require("../../events/modules/user.js");
 const text = require("../../events/modules/ko-kr.js");
 
 let region = "os_asia"

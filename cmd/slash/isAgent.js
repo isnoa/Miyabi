@@ -8,7 +8,7 @@ const {
 	ComponentType
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../events/handler/user.js");
+const db = require("../../events/modules/user.js");
 const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
