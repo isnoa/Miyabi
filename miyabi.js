@@ -33,7 +33,7 @@ const client = new Client({
 });
 
 client.agentName = new Collection();
-client.cooldown = new Collection();
+client.coolDown = new Collection();
 client.slashCommands = new Collection();
 
 require("./events/handler")(client);
