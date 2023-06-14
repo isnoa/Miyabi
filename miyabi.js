@@ -64,7 +64,7 @@ process.on('uncaughtExceptionMonitor', (err, origin) => {
 process.on('warning', (warn) => {
   console.warn(warn);
 });
-if (process.env.NODE_ENV) {
+if (process.env.NODE_ENV === "production") {
   client.on('debug', console.log);
 }
 
