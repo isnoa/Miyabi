@@ -15,13 +15,12 @@ module.exports = {
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
     UIProfileRegist: "서비스 가입",
-    UIProfileRSA: "최근 검색한 에이전트",
     UIProfileZZZConnect: "ZZZ 연동",
     UIProfileDailyCheckIn: "출석체크",
 
     /** UISettings */
     UISettingZZZConnect: "ZZZ 연동",
-    UISettingREQValue: "필요한 값",
+    UISettingReqValue: "필요한 값",
     UISettingIntroUrself: "프로필 설정 : 소개",
     UISettingIntroValue: "너에 대해 소개해봐.",
 
@@ -30,15 +29,14 @@ module.exports = {
     UIAgentGender: "성별",
     UIAgentBirthDay: "생일",
     UIAgentCamp: "소속",
-    UIAgentDamageAttribute: "속성 피해",
-    UIAgentAttackAttribute: "공격 속성",
-    // UIAgentAttributeCounterType: "공격 속성 상성",
+    UIAgentPropDamage: "공격 속성",
+    UIAgentPropAttack: "공격 피해",
 
     UIAgentNomalInfo: "—기본 정보",
     UIAgentBattleInfo: "—전투 정보",
-    UIAgentInterviewAndIntroduction: "—인터뷰 & 소개",
+    UIAgentIAIInfo: "—인터뷰 & 소개 정보",
 
-    UIAgentEXCriteria: "예시 기준",
+    UIAgentEXIndicator: "예시 지표",
     UIAgentMAXLvCriteria: "캐릭터 레벨: 100(만랩)",
     UIAgentNecessaryArticles: "필요한 재화",
     UIAgentAgentArchive: "에이전트 파일",

@@ -8,7 +8,6 @@ const {
 	ComponentType
 } = require("discord.js");
 const axios = require("axios");
-const db = require("../../events/modules/user.js");
 const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
@@ -45,11 +44,11 @@ module.exports = {
 						},
 						{
 							name: text.UIAgentBattleInfo,
-							value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
+							value: `${text.UIAgentPropDamage}: 얼음\n${text.UIAgentPropAttack}: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
 						{
-							name: text.UIAgentInterviewAndIntroduction,
+							name: text.UIAgentIAIInfo,
 							value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 							inline: false
 						}
@@ -92,11 +91,11 @@ module.exports = {
 									},
 									{
 										name: text.UIAgentBattleInfo,
-										value: `${text.UIAgentDamageAttribute}: 얼음\n${text.UIAgentAttackAttribute}: 베기\n→ *에테리얼류(상성)*`,
+										value: `${text.UIAgentPropDamage}: 얼음\n${text.UIAgentPropAttack}: 베기\n→ *에테리얼류(상성)*`,
 										inline: true
 									},
 									{
-										name: text.UIAgentInterviewAndIntroduction,
+										name: text.UIAgentIAIInfo,
 										value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 										inline: false
 									}
@@ -110,7 +109,7 @@ module.exports = {
 								.setColor(agentData.data.colour)
 								.setFields(
 									{
-										name: text.UIAgentEXCriteria,
+										name: text.UIAgentEXIndicator,
 										value: text.UIAgentMAXLvCriteria,
 										inline: false
 									},
