@@ -28,7 +28,7 @@ module.exports = async (client) => {
   // SlashCommands Register
   client.once("ready", async () => {
     await client.application.commands.set(arrayOfSlashCommands);
-    console.log("All SlashCommands registered.");
+    console.log("ALL SlashCommands registered.");
   });
 
   // mongoose DB
