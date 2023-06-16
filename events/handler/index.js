@@ -32,7 +32,7 @@ module.exports = async (client) => {
   });
 
   // mongoose DB
-  mongoose.set("strictQuery", false);
+  mongoose.set("strictQuery", true);
   mongoose.connect(process.env.MONGO_DATABASE_URI)
   .then(() => console.log('Connected to MongoDB.'))
   .catch((err) => console.error(`File Director: (${__filename}) || Reason: ${err.message}`));
