@@ -133,8 +133,8 @@ client.on("interactionCreate", async (interaction) => {
 
             /****복호화 */
             // const decipher = crypto.createDecipheriv(algorithm, key, iv);
-            // let result2 = decipher.update(encryptedCookie, 'base64', 'utf8');
-            // result2 += decipher.final('utf8');
+            // let result = decipher.update(encryptedCookie, 'base64', 'utf8');
+            // result += decipher.final('utf8');
 
             const uid = profile.data.list[0].game_uid
 
@@ -145,10 +145,10 @@ client.on("interactionCreate", async (interaction) => {
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ userId: interaction.user.id }).then(async (user) => {
                     if (user) {
-                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false } })
+                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
                             .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
-                        new db({ userId: interaction.user.id, zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), zzzLevel: 99, dailyCheckIn: false })
+                        new db({ userId: interaction.user.id, zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
                             .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {

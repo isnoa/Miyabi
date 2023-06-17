@@ -9,7 +9,6 @@ const userSchema = new mongoose.Schema(
         showUID: { type: Boolean, default: null },
         zzzConnect: { type: String, default: null },
         zzzDate: { type: String, default: null },
-        zzzLevel: { type: Number, default: null },
         zzzUID: { type: Number, default: null }
     },
     { versionKey: false, timestamps: true }

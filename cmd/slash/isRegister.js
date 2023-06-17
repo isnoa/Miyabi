@@ -42,17 +42,17 @@ module.exports = {
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId('OverviewButton')
-                    .setEmoji("<:Overview:1110886494786302083>")
+                    .setEmoji("1110886494786302083")
                     .setLabel('개요')
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
                     .setCustomId('RegistrationButton')
-                    .setEmoji("<:Registration:1110886801150857256>")
+                    .setEmoji("1110886801150857256")
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
                     .setCustomId("QnAButton")
-                    .setEmoji("<:QnA:1086276872658223165>")
+                    .setEmoji("1086276872658223165")
                     .setLabel("자주 묻는 질문")
                     .setStyle(ButtonStyle.Danger)
             );
