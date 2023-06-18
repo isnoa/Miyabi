@@ -16,32 +16,6 @@ let region = "os_asia"
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isButton()) {
-        if (interaction.customId === 'OverviewButton') {
-            const Embed = new EmbedBuilder()
-                .setDescription([
-                    "**흠? 가입을 하고 싶다고? 좋아, 그럼 설명을 잘 읽어봐.**",
-                    "**디바이스에 맞게 영상을 시청 후, 값들을 알맞게 입력해서 주면 돼.**",
-                    "**만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.**",
-                ].join('\n'))
-                .setColor(text.UIColourMiyabi)
-            interaction.update({ embeds: [Embed] })
-        }
-
-        if (interaction.customId === 'QnAButton') {
-            const Embed = new EmbedBuilder()
-                .setTitle("쿠키에 관한 QnA")
-                .setDescription([
-                    "**흠? 가입을 하고 싶다고?\n좋아, 플랫폼에 맞게 영상을 시청하고 값들을 알맞게 입력해서 주면 돼.\n만약에 궁금한 게 생기면 아래에 링크된 서포터 서버로 가서 문의하도록 해.**\n",
-                    "**아 맞아. 쿠키에 대해 알고 있어? 마침 나한테 쿠키 사용에 대한 서류가 있는데 다 읽어보는 게 좋을 거야. 꽤나 중요한 내용이거든.**\n",
-                    "**```\n1. 쿠키란 무엇인가요?\n```** **쿠키란 웹사이트 접속 시 로프꾼(사용자)의 디바이스와 웹사이트 이용 정보를 수집 및 저장되는 것입니다.**\n",
-                    "**```\n2. Miyabi는 제 쿠키를 필요로 하는 이유가 무엇인가요?\n```** **Miyabi는 HoYoLAB을 통해 연동(게임 내 정보 불러오기), 자동 출석 체크 같은 간편 기능을 제공하기 위함입니다.**\n",
-                    "**```\n3. 제 쿠키를 악용할 수도 있지 않나요?\n```** **로프꾼 분들이 조금이라도 더 안전하고 편하시도록 최소한의 정보만 수집하는 방식을 선호하고 있으며, Miyabi에게 쿠키값을 줄지는 여러분들의 믿음에 따라 다르겠지만, 개발에 수 백시간을 넘게 들였으며, 쿠키로 뭔가 딱히 할 게 없습니다. 이익을 위해 쿠키값을 넘기거나 발설하거나 사적으로, 테스트로 등의 이유로 사용하지 않으며, 정보 확인 외엔 일절 사용되지 않으며 정보를 확인할 수 있는 사람은 개발자 한 명뿐입니다.**\n",
-                    "**```\n가입 이후에 계정이 해킹 당하시거나 계정과 관련한 무언가 문제가 발생하는 경우는 불법 프로그램, 레지스트리(클라이언트 변조), 개인 디바이스의 보안 이슈 등으로 인한 것이며, Miyabi와 아무런 관련이 없으며, 책임이 없는 점을 안내해 드립니다.\n```**"
-                ].join('\n'))
-                .setColor(text.UIColourMiyabi)
-            interaction.update({ embeds: [Embed] })
-        }
-
         if (interaction.customId === 'RegistrationButton') {
             const ZZZConnectModal = new ModalBuilder()
                 .setCustomId('setZZZConnectModal')
