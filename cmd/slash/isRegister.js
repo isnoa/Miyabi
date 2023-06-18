@@ -22,7 +22,7 @@ module.exports = {
             .setDescription(text.UISettingUnknownDocument.join('\n'))
             .setColor(text.UIColourMiyabi)
 
-        const row = new ActionRowBuilder()
+        const Row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId('RegistrationButton')
@@ -39,7 +39,7 @@ module.exports = {
                     .setURL("discord://"),
             );
 
-        await interaction.reply({ embeds: [Embed], components: [row], ephemeral: true })
+        await interaction.reply({ embeds: [Embed], components: [Row], ephemeral: true })
         console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     }
 }

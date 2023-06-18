@@ -304,7 +304,7 @@ module.exports = {
 		}
 
 		function selectAgentRow() {
-			const row = new ActionRowBuilder().addComponents(
+			const Row = new ActionRowBuilder().addComponents(
 				new StringSelectMenuBuilder()
 					.setCustomId("selectAgent")
 					.setPlaceholder(text.UIPlaceholderForAgent)
@@ -320,7 +320,7 @@ module.exports = {
 						{ label: text.UIAgentSelectPartyRecs, value: "PartyRecs" }
 					])
 			);
-			return row;
+			return Row;
 		}
 	}
 }
