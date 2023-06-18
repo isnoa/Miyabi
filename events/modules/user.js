@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
     {
-        userId: { required: true, type: String },
+        userId: { type: String, required: true },
         dailyCheckIn: { type: Boolean, default: null },
         privateProfile: { type: Boolean, default: null },
         publicProfile: { type: Boolean, default: null },
