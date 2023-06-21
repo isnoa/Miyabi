@@ -1,4 +1,3 @@
-'use strict';
 require("dotenv").config();
 console.clear();
 
@@ -11,7 +10,6 @@ const {
 
 const client = new Client({
   fetchAllMembers: false,
-  // shards: "auto",
   allowedMentions: {
     parse: ["roles", "users", "everyone"],
     repliedUser: false,

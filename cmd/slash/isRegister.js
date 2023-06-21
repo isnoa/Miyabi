@@ -1,4 +1,3 @@
-'use strict';
 const {
     CommandInteraction,
     EmbedBuilder,
@@ -30,11 +29,11 @@ module.exports = {
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
-                    .setLabel("PC(macOS, Windows)")
+                    .setLabel("PC (macOS, Windows)")
                     .setStyle(ButtonStyle.Link)
                     .setURL("discord://"),
                 new ButtonBuilder()
-                    .setLabel("Mobile(iOS, android)")
+                    .setLabel("Mobile (iOS, android)")
                     .setStyle(ButtonStyle.Link)
                     .setURL("discord://"),
             );
