@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
         privateProfile: { type: Boolean, default: null },
         publicProfile: { type: Boolean, default: null },
         showUID: { type: Boolean, default: null },
-        zzzConnect: { type: String, default: null },
+        zzzAuth: { type: String, default: null },
         zzzDate: { type: String, default: null },
         zzzUID: { type: Number, default: null }
     },

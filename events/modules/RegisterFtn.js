@@ -17,11 +17,11 @@ let region = "os_asia"
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isButton()) {
         if (interaction.customId === 'RegistrationButton') {
-            const ZZZConnectModal = new ModalBuilder()
-                .setCustomId('setZZZConnectModal')
-                .setTitle(text.UISettingZZZConnect)
-            // const zzzConnectRegionInput = new StringSelectMenuBuilder()
-            //     .setCustomId('zzzConnectRegionInput')
+            const zzzAuthModal = new ModalBuilder()
+                .setCustomId('setzzzAuthModal')
+                .setTitle(text.UISettingzzzAuth)
+            // const zzzAuthRegionInput = new StringSelectMenuBuilder()
+            //     .setCustomId('zzzAuthRegionInput')
             //     .setMaxValues(1)
             //     .setOptions(
             //         { label: "미국", value: "os_usa" },
@@ -29,29 +29,29 @@ client.on("interactionCreate", async (interaction) => {
             //         { label: "유럽", value: "os_euro" },
             //         { label: "중국", value: "os_cht" },
             //     )
-            const zzzConnectLtokenInput = new TextInputBuilder()
-                .setCustomId('zzzConnectLtokenInput')
+            const zzzAuthLtokenInput = new TextInputBuilder()
+                .setCustomId('zzzAuthLtokenInput')
                 .setLabel(`${text.UISettingReqValue}: ltoken`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
-            const zzzConnectLtuidInput = new TextInputBuilder()
-                .setCustomId('zzzConnectLtuidInput')
+            const zzzAuthLtuidInput = new TextInputBuilder()
+                .setCustomId('zzzAuthLtuidInput')
                 .setLabel(`${text.UISettingReqValue}: ltuid`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
-            // const zzzConnectRegionRow = new ActionRowBuilder().addComponents(zzzConnectRegionInput)
-            const zzzConnectLtokenRow = new ActionRowBuilder().addComponents(zzzConnectLtokenInput)
-            const zzzConnectLtuidRow = new ActionRowBuilder().addComponents(zzzConnectLtuidInput)
-            // ZZZConnectModal.addComponents(zzzConnectRegionRow, zzzConnectLtokenRow, zzzConnectLtuidRow)
-            ZZZConnectModal.addComponents(zzzConnectLtokenRow, zzzConnectLtuidRow)
-            await interaction.showModal(ZZZConnectModal);
+            // const zzzAuthRegionRow = new ActionRowBuilder().addComponents(zzzAuthRegionInput)
+            const zzzAuthLtokenRow = new ActionRowBuilder().addComponents(zzzAuthLtokenInput)
+            const zzzAuthLtuidRow = new ActionRowBuilder().addComponents(zzzAuthLtuidInput)
+            // zzzAuthModal.addComponents(zzzAuthRegionRow, zzzAuthLtokenRow, zzzAuthLtuidRow)
+            zzzAuthModal.addComponents(zzzAuthLtokenRow, zzzAuthLtuidRow)
+            await interaction.showModal(zzzAuthModal);
             console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
         }
     }
     if (interaction.isModalSubmit()) {
-        if (interaction.customId === 'setZZZConnectModal') {
-            const Ltoken = interaction.fields.getTextInputValue('zzzConnectLtokenInput').replace(/\s+/g, '');
-            const Ltuid = interaction.fields.getTextInputValue('zzzConnectLtuidInput').replace(/\s+/g, '');
+        if (interaction.customId === 'setzzzAuthModal') {
+            const Ltoken = interaction.fields.getTextInputValue('zzzAuthLtokenInput').replace(/\s+/g, '');
+            const Ltuid = interaction.fields.getTextInputValue('zzzAuthLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
             await interaction.deferReply();
 
@@ -100,10 +100,10 @@ client.on("interactionCreate", async (interaction) => {
             function addCookieData(encryptedCookie, uid) {
                 db.findOne({ userId: interaction.user.id }).then(async (user) => {
                     if (user) {
-                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
+                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
                             .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     } else {
-                        new db({ userId: interaction.user.id, zzzConnect: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
+                        new db({ userId: interaction.user.id, zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
                             .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
                     }
                 }).catch((err) => {

@@ -8,7 +8,7 @@ const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
 	name: "설정",
-	description: "너에 관한 정보를 수정할 수 있어",
+	description: "너에 관한 정보를 수정할 수 있어.",
 	cooldown: 5000,
 	options: [
 		{

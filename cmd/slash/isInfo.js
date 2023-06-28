@@ -6,7 +6,7 @@ const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
     name: "정보",
-    description: "나에 대해 알려줄게.",
+    description: "「나」에 대해 알려줄게.",
     cooldown: 5000,
     /**
      *

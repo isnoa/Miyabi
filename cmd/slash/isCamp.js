@@ -8,11 +8,11 @@ const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
 	name: '소속',
-	description: '캐릭터가 소속된 모든 소속을 알려줄게',
+	description: '캐릭터가 소속된 모든 소속을 알려줄게.',
 	cooldown: 5000,
 	options: [{
 		name: '이름',
-		description: '알아볼 소속의 이름을 입력해',
+		description: '알아볼 소속의 이름을 입력해.',
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true

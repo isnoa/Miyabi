@@ -10,12 +10,12 @@ const axios = require("axios");
 const text = require("../../events/modules/ko-kr.js");
 
 module.exports = {
-	name: "에이전트",
-	description: "캐릭터의 모든 정보를 알려줄게",
+	name: "요원",
+	description: "요원의 모든 정보를 알려줄게.",
 	cooldown: 30000,
 	options: [{
 		name: "이름",
-		description: "에이전트 이름을 입력해",
+		description: "알아볼 요원의 이름을 입력해.",
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true
@@ -73,7 +73,10 @@ module.exports = {
 			const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30000 });
 
 			collector.on('collect', async (i) => {
-				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
+
+				if (!(i.user.id === interaction.user.id))
+				return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
+
 				let agentName = client.agentName.get(`lastagent${i.user.id}`)
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {

@@ -35,8 +35,8 @@ module.exports = {
                         inline: true
                     },
                     {
-                        name: text.UIProfileZZZConnect,
-                        value: text[!!user.zzzConnect ?? false],
+                        name: text.UIProfilezzzAuth,
+                        value: text[!!user.zzzAuth ?? false],
                         inline: true
                     },
                     {
