@@ -7,6 +7,7 @@ module.exports = async (client) => {
   // SlashCommands
   const slashCommands = await globPromise(`${process.cwd()}/cmd/*/*.js`);
   const arrayOfSlashCommands = [];
+  
   slashCommands.map((value) => {
     const file = require(value);
     const splitted = value.split("/");
