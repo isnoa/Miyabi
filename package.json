@@ -23,6 +23,5 @@
     "uuid": "^9.0.0"
   },
   "repository": "https://github.com/isnoa/Miyabi",
-  "author": "NOA <isnoa3166@gmail.com>",
-  "packageManager": "yarn@3.5.0"
+  "author": "NOA <isnoa3166@gmail.com>"
 }

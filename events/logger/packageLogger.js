@@ -4,7 +4,6 @@ const fetch = require('axios');
 const { version: axios } = require('axios/package.json');
 const { version: discordjs } = require('discord.js/package.json');
 const { version: dotenv } = require('dotenv/package.json');
-const { version: glob } = require('glob/package.json');
 const { version: mongoose } = require('mongoose/package.json');
 const { version: uuid } = require('uuid/package.json');
 
@@ -45,7 +44,9 @@ const checkPackageVersion = async (packageName, currentVersion) => {
 };
 
 const sendWebhookMessage = async (updates) => {
-  const webhook = new WebhookClient({ url: "https://canary.discord.com/api/webhooks/1123985218475393206/4yla0DXLp8UneLBkFLsk-wFUYPyr_sp3N-HbtlrRfey4fwQaWxWXW04y5Q7xvJ5k8iHQ" });
+  const webhook = new WebhookClient({
+    url: "https://discord.com/api/webhooks/1123985218475393206/4yla0DXLp8UneLBkFLsk-wFUYPyr_sp3N-HbtlrRfey4fwQaWxWXW04y5Q7xvJ5k8iHQ"
+  });
 
   // 업데이트가 필요한 패키지만 필터링하여 메시지 생성
   const message = updates
@@ -66,7 +67,6 @@ const runVersionChecks = async () => {
       checkPackageVersion('axios', axios),
       checkPackageVersion('discord.js', discordjs),
       checkPackageVersion('dotenv', dotenv),
-      checkPackageVersion('glob', glob),
       checkPackageVersion('mongoose', mongoose),
       checkPackageVersion('uuid', uuid)
     ]);
