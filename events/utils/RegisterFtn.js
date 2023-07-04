@@ -8,7 +8,7 @@ const {
     EmbedBuilder
 } = require("discord.js");
 const crypto = require('crypto');
-const db = require("./user.js");
+const db = require("../models/user.js");
 const text = require("./ko-kr.js");
 const { createDataMachine } = require('./dataMachine.js');
 

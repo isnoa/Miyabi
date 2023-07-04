@@ -8,7 +8,7 @@ const {
   GatewayIntentBits,
 } = require("discord.js");
 
-const connectMongoDB = require("./events/utils/connectMongoDB.js")
+const connectMongoDB = require("./events/handler/connectMongoDB.js")
 
 const client = new Client({
   fetchAllMembers: false,
