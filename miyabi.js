@@ -1,22 +1,14 @@
 require("dotenv").config();
 console.clear();
 
-// const ZZZ = require("./events/modules/zzz");
-// const zzz = new ZZZ({
-//   cookie: "ltoken=FfzAgAn2yVsFY4DNQk8EE9yV2Zjchkl2cp2oqsPL; ltuid=147312914;",
-//   lang: "ko-kr"
-// });
-
-// console.log(zzz.getGameRecordCard().then(profile => {
-//   console.log(profile);
-// }))
-
 const {
   Client,
   Collection,
   Partials,
   GatewayIntentBits,
 } = require("discord.js");
+
+const connectMongoDB = require("./events/utils/connectMongoDB.js")
 
 const client = new Client({
   fetchAllMembers: false,
@@ -46,6 +38,8 @@ client.slashCommands = new Collection();
 
 require("./events/handler")(client);
 module.exports = client;
+
+connectMongoDB();
 
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {

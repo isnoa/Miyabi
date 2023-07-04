@@ -2,7 +2,7 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const text = require("../../events/modules/ko-kr.js");
+const text = require("../../events/utils/ko-kr.js");
 
 module.exports = {
     name: "정보",

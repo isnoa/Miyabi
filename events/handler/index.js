@@ -1,7 +1,6 @@
 const { glob } = require("glob");
 const { promisify } = require("util");
 const globPromise = promisify(glob);
-const mongoose = require("mongoose");
 
 module.exports = async (client) => {
   // SlashCommands
@@ -31,10 +30,4 @@ module.exports = async (client) => {
     await client.application.commands.set(arrayOfSlashCommands);
     console.log("ALL SlashCommands registered.");
   });
-
-  // mongoose DB
-  mongoose.set("strictQuery", true);
-  mongoose.connect(process.env.MONGO_DATABASE_URI)
-  .then(() => console.log('Connected to MongoDB.'))
-  .catch((err) => console.error(`File Director: (${__filename}) || Reason: ${err.message}`));
 };

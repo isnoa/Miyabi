@@ -3,8 +3,8 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder
 } = require("discord.js");
-const db = require("../../events/modules/user.js");
-const text = require("../../events/modules/ko-kr.js");
+const db = require("../../events/utils/user.js");
+const text = require("../../events/utils/ko-kr.js");
 
 module.exports = {
 	name: "설정",

@@ -3,7 +3,7 @@ const {
   EmbedBuilder,
   ActivityType
 } = require("discord.js");
-const text = require("../../events/modules/ko-kr.js")
+const text = require("../../events/utils/ko-kr.js")
 
 client.once("ready", () => {
   console.log(`${client.user.username} is ready for battle.`);
