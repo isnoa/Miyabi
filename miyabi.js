@@ -10,6 +10,23 @@ const {
 
 const connectMongoDB = require("./events/handler/connectMongoDB.js")
 
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize('miyabi', process.env.MYSQL_USERNAME, process.env.MYSQL_PASSWORD, {
+  host: 'localhost',
+  port: '3306',
+  dialect: 'mysql',
+});
+
+sequelize
+  .sync()
+  .then(() => {
+    console.log('Connected to the database.');
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database:', error);
+  });
+
 const client = new Client({
   fetchAllMembers: false,
   allowedMentions: {

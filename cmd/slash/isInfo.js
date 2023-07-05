@@ -25,7 +25,7 @@ module.exports = {
                 },
                 {
                     name: "#개발 기간 & 관련 프로젝트",
-                    value: "> 2022/07/17 ~ 현재까지\n> (매일 최소 4시간 [6개])\n- MIYABI 프로젝트\n- Linked-Role 프로젝트\n- DAILY-CHECK-In 프로젝트\n- Twitter Notice 프로젝트\n- zeroArchive API 프로젝트\n- WebSite 프로젝트",
+                    value: "> 2022/07/17 ~ 현재까지\n> (매일 최소 4시간 [6개])\n- MIYABI 프로젝트\n- Linked-Role 프로젝트\n- DAILY-CHECK-In 프로젝트\n- SNS Notice 프로젝트\n- zeroArchive API 프로젝트\n- WebSite 프로젝트",
                     inline: true
                 },
                 {
