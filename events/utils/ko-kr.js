@@ -11,6 +11,12 @@ module.exports = {
     UIIconMic: "<:_:1081553033835597854>",
     UIIconDanger: "<:_:1086276880031817760>",
 
+    /** UIYTNotifie */
+    UIYTNotifie0: "사용 안 함",
+    UIYTNotifie1: "To. 로프꾼, 영상이 올라왔어. 얼른 봐주세... 봐!",
+    UIYTNotifie2: "불러서 미안, 하지만 새로운 영상인데 놓칠 순 없잖아? 안 그래?",
+    UIYTNotifie3: "새로운 업무 브리핑이 업로드됐네요. 영상이요? 이거 업무 브리핑 아니었나요?",
+
     /** UIProfiles */
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
