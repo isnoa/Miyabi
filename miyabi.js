@@ -8,24 +8,11 @@ const {
   GatewayIntentBits,
 } = require("discord.js");
 
-const connectMongoDB = require("./events/handler/connectMongoDB.js")
+const { connectMongoDB } = require("./events/handler/connectMongoDB.js");
+const { connectMysqlDB } = require("./events/handler/connectMysqlDB.js");
 
-const Sequelize = require("sequelize");
-
-const sequelize = new Sequelize('miyabi', process.env.MYSQL_USERNAME, process.env.MYSQL_PASSWORD, {
-  host: 'localhost',
-  port: '3306',
-  dialect: 'mysql',
-});
-
-sequelize
-  .sync()
-  .then(() => {
-    console.log('Connected to the database.');
-  })
-  .catch((error) => {
-    console.error('Unable to connect to the database:', error);
-  });
+connectMongoDB();
+connectMysqlDB();
 
 const client = new Client({
   fetchAllMembers: false,
@@ -55,8 +42,6 @@ client.slashCommands = new Collection();
 
 require("./events/handler")(client);
 module.exports = client;
-
-connectMongoDB();
 
 client.login(process.env.CLIENT_TOKEN)
   .catch((err) => {

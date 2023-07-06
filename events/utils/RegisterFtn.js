@@ -3,12 +3,11 @@ const {
     ActionRowBuilder,
     ModalBuilder,
     TextInputBuilder,
-    // StringSelectMenuBuilder
     TextInputStyle,
     EmbedBuilder
 } = require("discord.js");
 const crypto = require('crypto');
-const db = require("../models/user.js");
+const zzz = require("../models/zzz.js");
 const text = require("./ko-kr.js");
 const { createDataMachine } = require('./dataMachine.js');
 
@@ -20,15 +19,6 @@ client.on("interactionCreate", async (interaction) => {
             const zzzAuthModal = new ModalBuilder()
                 .setCustomId('setzzzAuthModal')
                 .setTitle(text.UISettingzzzAuth)
-            // const zzzAuthRegionInput = new StringSelectMenuBuilder()
-            //     .setCustomId('zzzAuthRegionInput')
-            //     .setMaxValues(1)
-            //     .setOptions(
-            //         { label: "미국", value: "os_usa" },
-            //         { label: "아시아", value: "os_asia" },
-            //         { label: "유럽", value: "os_euro" },
-            //         { label: "중국", value: "os_cht" },
-            //     )
             const zzzAuthLtokenInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtokenInput')
                 .setLabel(`${text.UISettingReqValue}: ltoken`)
@@ -39,10 +29,8 @@ client.on("interactionCreate", async (interaction) => {
                 .setLabel(`${text.UISettingReqValue}: ltuid`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
-            // const zzzAuthRegionRow = new ActionRowBuilder().addComponents(zzzAuthRegionInput)
             const zzzAuthLtokenRow = new ActionRowBuilder().addComponents(zzzAuthLtokenInput)
             const zzzAuthLtuidRow = new ActionRowBuilder().addComponents(zzzAuthLtuidInput)
-            // zzzAuthModal.addComponents(zzzAuthRegionRow, zzzAuthLtokenRow, zzzAuthLtuidRow)
             zzzAuthModal.addComponents(zzzAuthLtokenRow, zzzAuthLtuidRow)
             await interaction.showModal(zzzAuthModal);
             console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
@@ -94,21 +82,39 @@ client.on("interactionCreate", async (interaction) => {
             const uid = profile.data.list[0].game_uid
 
             addCookieData(encryptedCookie, uid)
-            interaction.editReply({ content: profile.message + " 승인.", ephemeral: true });
-            console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+            interaction.editReply({ content: profile.message + " 승인.\n" + encryptedCookie, ephemeral: true });
+
+            // function addCookieData(encryptedCookie, uid) {
+            //     db.findOne({ userId: interaction.user.id }).then(async (user) => {
+            //         if (user) {
+            //             db.updateOne({ userId: interaction.user.id }, { $set: { zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
+            //                 .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+            //         } else {
+            //             new db({ userId: interaction.user.id, zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
+            //                 .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+            //         }
+            //     }).catch((err) => {
+            //         if (err) throw err;
+            //     })
+            // }
 
             function addCookieData(encryptedCookie, uid) {
-                db.findOne({ userId: interaction.user.id }).then(async (user) => {
-                    if (user) {
-                        db.updateOne({ userId: interaction.user.id }, { $set: { zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
-                            .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-                    } else {
-                        new db({ userId: interaction.user.id, zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
-                            .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-                    }
-                }).catch((err) => {
-                    if (err) throw err;
-                })
+                zzz.findOne({ where: { user_id: interaction.user.id } })
+                    .then((foundData) => {
+                        if (foundData) {
+                            zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region }, { where: { user_id: interaction.user.id } })
+                                .catch((error) => {
+                                    console.error(`Failed to update zzzData: ${error}`);
+                                });
+                        } else {
+                            zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
+                                .catch((error) => {
+                                    console.error(`Failed to update zzzData: ${error}`);
+                                });
+                        }
+                    }).catch(err =>
+                        console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
+                    );
             }
         }
     }

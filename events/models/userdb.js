@@ -1,0 +1,33 @@
+// const { DataTypes } = require('sequelize');
+// const { sequelize } = require('../handler/connectMysqlDB.js');
+
+// const user = sequelize.define('user', {
+//     num: {
+//         type: DataTypes.INTEGER,
+//         allowNull: false,
+//         autoIncrement: true,
+//         primaryKey: true
+//     },
+//     user_id: {
+//         type: DataTypes.STRING(24),
+//         allowNull: false
+//     },
+//     is_show_uid: {
+//         type: DataTypes.BOOLEAN,
+//         allowNull: true
+//     },
+//     is_public_profile: {
+//         type: DataTypes.BOOLEAN,
+//         allowNull: true
+//     },
+//     is_private_profile: {
+//         type: DataTypes.BOOLEAN,
+//         allowNull: true
+//     }
+// }, {
+//     tableName: 'user',
+//     timestamps: true,
+//     underscored: true
+// });
+
+// module.exports = user;
