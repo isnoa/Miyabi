@@ -5,6 +5,8 @@ const { version: axios } = require('axios/package.json');
 const { version: discordjs } = require('discord.js/package.json');
 const { version: dotenv } = require('dotenv/package.json');
 const { version: mongoose } = require('mongoose/package.json');
+const { version: mysql2 } = require('mysql2/package.json');
+const { version: sequelize } = require('sequelize/package.json');
 const { version: uuid } = require('uuid/package.json');
 
 const compareVersions = (currentVersion, latestVersion) => {
@@ -58,7 +60,7 @@ const sendWebhookMessage = async (updates) => {
     .join(' ');
 
   // 웹훅을 통해 메시지 전송
-  await webhook.send("# 새로운 패키지 업데이트가 존재함\n\n" + message + "\n\n```bash\nnpm install " + npmInstallCommands + "\n```");
+  await webhook.send("<@1010159742104113162>\n# 새로운 패키지 업데이트가 존재함\n## " + message + "\n\n```bash\nnpm install " + npmInstallCommands + "\n```");
 };
 
 const runVersionChecks = async () => {
@@ -68,6 +70,8 @@ const runVersionChecks = async () => {
       checkPackageVersion('discord.js', discordjs),
       checkPackageVersion('dotenv', dotenv),
       checkPackageVersion('mongoose', mongoose),
+      checkPackageVersion('mysql2', mysql2),
+      checkPackageVersion('sequelize', sequelize),
       checkPackageVersion('uuid', uuid)
     ]);
 

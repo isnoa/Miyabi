@@ -4,9 +4,6 @@ const sequelize = new Sequelize('miyabi', process.env.MYSQL_USERNAME, process.en
     host: 'localhost',
     port: '3306',
     dialect: 'mysql',
-    // logging: (message) => {
-    //     console.log('[Sequelize]:', message);
-    // }
     logging: false
 });
 
