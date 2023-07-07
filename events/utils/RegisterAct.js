@@ -74,14 +74,14 @@ client.on("interactionCreate", async (interaction) => {
             let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
             encryptedCookie += cipher.final('base64');
 
-            /****복호화 */
+            /** 복호화 */
             // const decipher = crypto.createDecipheriv(algorithm, key, iv);
             // let result = decipher.update(encryptedCookie, 'base64', 'utf8');
             // result += decipher.final('utf8');
 
             const uid = profile.data.list[0].game_uid
 
-            addCookieData(encryptedCookie, uid)
+            addCookieData(encryptedCookie, uid);
             interaction.editReply({ content: profile.message + " 승인.\n" + encryptedCookie, ephemeral: true });
 
             // function addCookieData(encryptedCookie, uid) {
@@ -102,15 +102,25 @@ client.on("interactionCreate", async (interaction) => {
                 zzz.findOne({ where: { user_id: interaction.user.id } })
                     .then((foundData) => {
                         if (foundData) {
+                            
+                            if (foundData.is_show_uid === null) {
+                                user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } })
+                            }
+
                             zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region }, { where: { user_id: interaction.user.id } })
                                 .catch((error) => {
                                     console.error(`Failed to update zzzData: ${error}`);
                                 });
                         } else {
-                            zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
-                                .catch((error) => {
-                                    console.error(`Failed to update zzzData: ${error}`);
-                                });
+                            user.create({ user_id: interaction.user.id, is_show_uid: true })
+                                .then(() => {
+                                    zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
+                                        .catch((error) => {
+                                            console.error(`Failed to update zzzData: ${error}`);
+                                        });
+                                }).catch((error) => {
+                                    console.error(`Failed to create userData: ${error}`);
+                                })
                         }
                     }).catch(err =>
                         console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
