@@ -30,4 +30,6 @@ const user = sequelize.define('user', {
     underscored: true
 });
 
+user.hasOne(zzz, { foreignKey: 'user_id' });
+
 module.exports = user;

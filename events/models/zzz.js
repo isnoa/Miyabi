@@ -34,4 +34,6 @@ const zzz = sequelize.define('zzz', {
     underscored: true,
 });
 
+zzz.belongsTo(user, { foreignKey: 'user_id' });
+
 module.exports = zzz;
