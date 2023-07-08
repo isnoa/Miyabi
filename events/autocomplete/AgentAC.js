@@ -19,7 +19,7 @@ const choices = [
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
-        if (interaction.commandName === '에이전트') {
+        if (interaction.commandName === '요원') {
             const focusedValue = interaction.options.getFocused();
             const filtered = choices.filter(choice => choice.name.startsWith(focusedValue));
             interaction.respond(filtered);
