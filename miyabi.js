@@ -71,4 +71,3 @@ process.on('warning', (warn) => {
 if (process.env.NODE_ENV === "production") {
   client.on('debug', console.log);
 }
-
