@@ -29,11 +29,14 @@ const zzz = sequelize.define('zzz', {
         allowNull: true
     }
 }, {
+    modelName: 'zzz',
     tableName: 'zzz',
     timestamps: true,
     underscored: true,
 });
 
-zzz.belongsTo(user, { foreignKey: 'user_id' });
+zzz.associate = function (models) {
+    zzz.belongsTo(models.user, { as: 'user', foreignKey: 'user_id' });
+}
 
 module.exports = zzz;

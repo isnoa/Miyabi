@@ -25,11 +25,14 @@ const user = sequelize.define('user', {
         allowNull: true
     }
 }, {
+    modelName: 'user',
     tableName: 'user',
     timestamps: true,
     underscored: true
 });
 
-user.hasOne(zzz, { foreignKey: 'user_id' });
+user.associate = function (models) {
+    user.belongsTo(models.zzz, { as: 'zzz', foreignKey: 'user_id' });
+}
 
 module.exports = user;

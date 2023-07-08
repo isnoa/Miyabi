@@ -6,7 +6,8 @@ const {
     TextInputStyle,
     EmbedBuilder
 } = require("discord.js");
-const crypto = require('crypto');
+const crypto = require('node:crypto');
+const user = require("../models/userdb.js");
 const zzz = require("../models/zzz.js");
 const text = require("./ko-kr.js");
 const { createDataMachine } = require('./dataMachine.js');
@@ -53,12 +54,12 @@ client.on("interactionCreate", async (interaction) => {
                         {
                             name: "해결 방법 [1]",
                             value: `[[이동]](https://www.hoyolab.com/article/5840049) 해결 가이드를 통해 알아보는 방법이 있어.`,
-                            inline: false
+                            inline: true
                         },
                         {
                             name: "해결 방법 [2]",
                             value: `[[이동]](://discord) 개발자에게 물어보는 방법이 있어.`,
-                            inline: false
+                            inline: true
                         },
                     )
                     .setColor(text.UIColourDanger)
@@ -99,32 +100,42 @@ client.on("interactionCreate", async (interaction) => {
             // }
 
             function addCookieData(encryptedCookie, uid) {
-                zzz.findOne({ where: { user_id: interaction.user.id } })
-                    .then((foundData) => {
-                        if (foundData) {
-                            
-                            if (foundData.is_show_uid === null) {
-                                user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } })
-                            }
-
-                            zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region }, { where: { user_id: interaction.user.id } })
-                                .catch((error) => {
-                                    console.error(`Failed to update zzzData: ${error}`);
-                                });
-                        } else {
-                            user.create({ user_id: interaction.user.id, is_show_uid: true })
-                                .then(() => {
-                                    zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
-                                        .catch((error) => {
-                                            console.error(`Failed to update zzzData: ${error}`);
-                                        });
-                                }).catch((error) => {
-                                    console.error(`Failed to create userData: ${error}`);
-                                })
+                Promise.all([
+                    user.findOne({ where: { user_id: interaction.user.id } }),
+                    zzz.findOne({ where: { user_id: interaction.user.id } })
+                ]).then(([userData, zzzData]) => {
+                    if (userData) {
+                        if (userData.is_show_uid === null) {
+                            user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
                         }
-                    }).catch(err =>
-                        console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
-                    );
+                        if (userData.is_public_profile === null) {
+                            user.update({ is_public_profile: true }, { where: { user_id: interaction.user.id } });
+                        }
+                        if (userData.is_private_profile === null) {
+                            user.update({ is_private_profile: false }, { where: { user_id: interaction.user.id } });
+                        }
+                    } else {
+                        user.create({ user_id: interaction.user.id, is_show_uid: true, is_public_profile: true, is_private_profile: false })
+                            .catch((error) => {
+                                console.error(`Failed to create userData: ${error}`);
+                            });
+                    }
+
+                    if (zzzData) {
+                        zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region }, { where: { user_id: interaction.user.id } })
+                            .catch((error) => {
+                                console.error(`Failed to update zzzData: ${error}`);
+                            });
+                    } else {
+                        zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
+                            .catch((error) => {
+                                console.error(`Failed to create zzzData: ${error}`);
+                            });
+                    }
+                })
+                    .catch(err => {
+                        console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`);
+                    });
             }
         }
     }
