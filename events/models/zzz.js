@@ -14,7 +14,8 @@ const zzz = sequelize.define('zzz', {
     },
     is_authorized: {
         type: DataTypes.BOOLEAN,
-        allowNull: true
+        allowNull: false,
+        defaultValue: false
     },
     authcookie: {
         type: DataTypes.STRING(112),

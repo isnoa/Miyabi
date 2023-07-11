@@ -312,14 +312,14 @@ module.exports = {
 					.setPlaceholder(text.UIPlaceholderForAgent)
 					.setMaxValues(1)
 					.addOptions([
-						{ label: text.UIAgentSelectInfo, value: "Info" },
-						{ label: text.UIAgentSelectStats, value: "Stats" },
-						{ label: text.UIAgentSelectBasicAttack, value: "BasicAttack" },
-						{ label: text.UIAgentSelectSpecialAttack, value: "SpecialAttack" },
-						{ label: text.UIAgentSelectComboAttack, value: "ComboAttack" },
-						{ label: text.UIAgentSelectDodge, value: "Dodge" },
-						{ label: text.UIAgentSelectTalent, value: "Talent" },
-						{ label: text.UIAgentSelectPartyRecs, value: "PartyRecs" }
+						{ label: text.UIAgentInfo, value: "Info" },
+						{ label: text.UIAgentStats, value: "Stats" },
+						{ label: text.UIAgentBasicAttack, value: "BasicAttack" },
+						{ label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
+						{ label: text.UIAgentComboAttack, value: "ComboAttack" },
+						{ label: text.UIAgentDodge, value: "Dodge" },
+						{ label: text.UIAgentTalent, value: "Talent" },
+						{ label: text.UIAgentPartyRecs, value: "PartyRecs" }
 					])
 			);
 			return Row;

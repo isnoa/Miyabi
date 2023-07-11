@@ -36,12 +36,12 @@ module.exports = {
                     },
                     {
                         name: text.UIProfilezzzAuth,
-                        value: text[!!user.zzzAuth ?? false],
+                        value: text[user.is_authorized],
                         inline: true
                     },
                     {
                         name: text.UIProfileDailyCheckIn,
-                        value: text[user.dailyCheckIn ?? false],
+                        value: text[user.dailyCheckIn],
                         inline: true
                     }
                 )

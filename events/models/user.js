@@ -1,17 +1,41 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../handler/connectMysqlDB.js');
 
-const userSchema = new mongoose.Schema(
-    {
-        userId: { type: String, required: true },
-        dailyCheckIn: { type: Boolean, default: null },
-        privateProfile: { type: Boolean, default: null },
-        publicProfile: { type: Boolean, default: null },
-        showUID: { type: Boolean, default: null },
-        zzzAuth: { type: String, default: null },
-        zzzDate: { type: String, default: null },
-        zzzUID: { type: Number, default: null }
+const user = sequelize.define('user', {
+    num: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
     },
-    { versionKey: false, timestamps: true }
-);
+    user_id: {
+        type: DataTypes.STRING(24),
+        allowNull: false
+    },
+    is_show_uid: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
+    is_public_profile: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
+    },
+    is_private_profile: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    }
+}, {
+    modelName: 'user',
+    tableName: 'user',
+    timestamps: true,
+    underscored: true
+});
 
-module.exports = mongoose.model("user", userSchema);
+user.associate = function (models) {
+    user.belongsTo(models.zzz, { as: 'zzz', foreignKey: 'user_id' });
+}
+
+module.exports = user;
