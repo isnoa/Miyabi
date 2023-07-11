@@ -38,11 +38,6 @@ module.exports = {
                         name: text.UIProfilezzzAuth,
                         value: text[user.is_authorized],
                         inline: true
-                    },
-                    {
-                        name: text.UIProfileDailyCheckIn,
-                        value: text[user.dailyCheckIn],
-                        inline: true
                     }
                 )
                 .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
