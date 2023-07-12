@@ -22,8 +22,8 @@ module.exports = {
             let target = await client.users.fetch(interaction.targetId);
 
             Promise.all([
-                user.findOne({ where: { user_id: interaction.user.id } }),
-                zzz.findOne({ where: { user_id: interaction.user.id } })
+                user.findOne({ where: { user_id: target.id } }),
+                zzz.findOne({ where: { user_id: target.id } })
             ]).then(([userData, zzzData]) => {
                 const Embed = new EmbedBuilder()
                     .setTitle(`${zzzData.srv_uid ? `${target.username}(${zzzData.srv_uid})` : target.username}`)

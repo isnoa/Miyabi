@@ -1,6 +1,6 @@
 const { WebhookClient } = require('discord.js');
-
 const fetch = require('axios');
+
 const { version: axios } = require('axios/package.json');
 const { version: discordjs } = require('discord.js/package.json');
 const { version: dotenv } = require('dotenv/package.json');
@@ -52,7 +52,7 @@ const sendWebhookMessage = async (updates) => {
 
   // 업데이트가 필요한 패키지만 필터링하여 메시지 생성
   const message = updates
-    .map(update => `${update.packageName}: (now: ${update.currentVersion} / latest: ${update.latestVersion})`)
+    .map(update => `## ${update.packageName}: (now: ${update.currentVersion} / latest: ${update.latestVersion})`)
     .join('\n');
 
   const npmInstallCommands = updates
@@ -60,7 +60,7 @@ const sendWebhookMessage = async (updates) => {
     .join(' ');
 
   // 웹훅을 통해 메시지 전송
-  await webhook.send("<@1010159742104113162>\n# 새로운 패키지 업데이트가 존재함\n## " + message + "\n\n```bash\nnpm install " + npmInstallCommands + "\n```");
+  await webhook.send("<@1010159742104113162>\n# 새로운 패키지 업데이트가 존재함\n" + message + "\n\n```bash\nnpm install " + npmInstallCommands + "\n```");
 };
 
 const runVersionChecks = async () => {
