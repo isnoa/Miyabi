@@ -36,7 +36,6 @@ const client = new Client({
   ws: { properties: { browser: 'Discord iOS' } },
 });
 
-client.agentName = new Collection();
 client.coolDown = new Collection();
 client.slashCommands = new Collection();
 

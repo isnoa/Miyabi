@@ -21,8 +21,7 @@ module.exports = {
     UIProfilePreview: "프로필 미리보기",
     UIProfileLookUp: "프로필 조회",
     UIProfileRegist: "서비스 가입",
-    UIProfilezzzAuth: "ZZZ 연동",
-    UIProfileDailyCheckIn: "출석체크",
+    UIProfileAuth: "연동 여부",
 
     /** UISettings */
     UISettingUnknownDocument: [

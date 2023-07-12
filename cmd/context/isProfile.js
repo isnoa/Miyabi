@@ -4,7 +4,8 @@ const {
     EmbedBuilder,
     userMention
 } = require("discord.js");
-const db = require("../../events/models/user.js");
+const user = require("../../events/models/user.js");
+const zzz = require("../../events/models/zzz.js");
 const text = require("../../events/utils/ko-kr.js");
 
 module.exports = {
@@ -20,13 +21,11 @@ module.exports = {
         try {
             let target = await client.users.fetch(interaction.targetId);
             
-            const user = await db.findOne({ userId: target.id });
-            if (!user) {
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
-            }
+            const userData = await user.findOne({ user_id: target.id });
+            if (!userData) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
 
             const Embed = new EmbedBuilder()
-                .setTitle(`${user.uid ? `${target.username}(${user.uid})` : target.username}`)
+                .setTitle(`${zzz.srv_uid ? `${target.username}(${zzz.srv_uid})` : target.username}`)
                 .setDescription("-")
                 .setFields(
                     {
@@ -35,7 +34,7 @@ module.exports = {
                         inline: true
                     },
                     {
-                        name: text.UIProfilezzzAuth,
+                        name: text.UIProfileAuth,
                         value: text[user.is_authorized],
                         inline: true
                     }
@@ -51,9 +50,10 @@ module.exports = {
                 Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
                 Embed.setImage("https://upload-os-bbs.hoyolab.com/upload/2023/04/18/e3571431cda03b9df8dda1e341f9b975_2275000779002878493.png")
             }
+
             // 지분지신
             if (target.id === interaction.user.id) {
-                interaction.reply({ embeds: [Embed], ephemeral: !user.publicProfile })
+                interaction.reply({ embeds: [Embed], ephemeral: !user.is_public_profile })
             } else {
                 // 호카노히토
                 if (user.publicProfile === true) {

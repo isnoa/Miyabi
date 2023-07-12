@@ -77,7 +77,6 @@ module.exports = {
 				if (!(i.user.id === interaction.user.id))
 				return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
 
-				let agentName = client.agentName.get(`lastagent${i.user.id}`)
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {
 						case 'Info':
