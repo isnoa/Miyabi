@@ -22,6 +22,7 @@ module.exports = {
     UIProfileLookUp: "프로필 조회",
     UIProfileRegist: "서비스 가입",
     UIProfileAuth: "연동 여부",
+    UIProfileUid: "UID",
 
     /** UISettings */
     UISettingUnknownDocument: [
@@ -85,7 +86,7 @@ module.exports = {
     true: "사용중",
     false: "사용안함",
     UIRetcodeZero: "등록 여부를 조사해봤는데 아무도 일치하지 않았어.",
-    UIMisMatchData: "데이터를 확인할 수 없어.",
+    UIMisMatchData: "의 데이터를 확인할 수 없어.",
     UISrcIssue: "다시 시도해 보거나 개발자한테 물어보는게 좋을 것 같아",
 
     /** Camps */

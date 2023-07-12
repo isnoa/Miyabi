@@ -17,15 +17,10 @@ const user = sequelize.define('user', {
         allowNull: false,
         defaultValue: false
     },
-    is_public_profile: {
+    is_show_profile: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
-    },
-    is_private_profile: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
     }
 }, {
     modelName: 'user',

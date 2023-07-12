@@ -108,14 +108,11 @@ client.on("interactionCreate", async (interaction) => {
                         if (userData.is_show_uid === null) {
                             user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
                         }
-                        if (userData.is_public_profile === null) {
-                            user.update({ is_public_profile: true }, { where: { user_id: interaction.user.id } });
-                        }
-                        if (userData.is_private_profile === null) {
-                            user.update({ is_private_profile: false }, { where: { user_id: interaction.user.id } });
+                        if (userData.is_show_profile === null) {
+                            user.update({ is_show_profile: true }, { where: { user_id: interaction.user.id } });
                         }
                     } else {
-                        user.create({ user_id: interaction.user.id, is_show_uid: true, is_public_profile: true, is_private_profile: false })
+                        user.create({ user_id: interaction.user.id, is_show_uid: true, is_show_profile: true })
                             .catch((error) => {
                                 console.error(`Failed to create userData: ${error}`);
                             });
