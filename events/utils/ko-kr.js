@@ -23,6 +23,7 @@ module.exports = {
     UIProfileRegist: "서비스 가입",
     UIProfileAuth: "연동 여부",
     UIProfileUid: "UID",
+    UIProfileReg: "지역",
 
     /** UISettings */
     UISettingUnknownDocument: [

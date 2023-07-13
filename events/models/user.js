@@ -17,7 +17,7 @@ const user = sequelize.define('user', {
         allowNull: false,
         defaultValue: false
     },
-    is_show_profile: {
+    is_hide_profile: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true
