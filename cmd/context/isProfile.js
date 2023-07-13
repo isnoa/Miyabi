@@ -33,6 +33,11 @@ module.exports = {
                     .setDescription("-")
                     .setFields(
                         {
+                            name: text.UIProfileName,
+                            value: "미야비코박죽",
+                            inline: true
+                        },
+                        {
                             name: text.UIProfileUid,
                             value: zzzData.srv_uid,
                             inline: true

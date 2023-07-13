@@ -22,6 +22,7 @@ module.exports = {
     UIProfileLookUp: "프로필 조회",
     UIProfileRegist: "서비스 가입",
     UIProfileAuth: "연동 여부",
+    UIProfileName: "이름",
     UIProfileUid: "UID",
     UIProfileReg: "지역",
 
