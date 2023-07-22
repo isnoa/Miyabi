@@ -1,6 +1,6 @@
 const client = require("../../miyabi.js");
 const { InteractionType } = require('discord.js');
-const text = require("../utils/ko-kr.js");
+const text = require("../utils/ko-kr");
 
 const choices = [
     { name: text.anby_demara, value: "anby_demara" },
@@ -19,7 +19,7 @@ const choices = [
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
-        if (interaction.commandName === '요원') {
+        if (interaction.commandName === '에이전트') {
             const focusedValue = interaction.options.getFocused();
             const filtered = choices.filter(choice => choice.name.startsWith(focusedValue));
             interaction.respond(filtered);

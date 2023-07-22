@@ -5,10 +5,10 @@ const {
     ButtonBuilder,
     ButtonStyle
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr.js");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-    name: "가입",
+    name: text.SC_IS_REGISTER_NAME,
     description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할 수 있도록 가입을 하는걸 도와줄게.",
     cooldown: 5000,
     /**
@@ -18,8 +18,8 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription(text.UISettingUnknownDocument.join('\n'))
-            .setColor(text.UIColourMiyabi)
+            .setDescription(text.SettingUnknownDocument.join('\n'))
+            .setColor(text.ColourOfMiyabi)
 
         const Row = new ActionRowBuilder()
             .addComponents(

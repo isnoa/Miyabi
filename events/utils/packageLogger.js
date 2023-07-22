@@ -4,7 +4,6 @@ const fetch = require('axios');
 const { version: axios } = require('axios/package.json');
 const { version: discordjs } = require('discord.js/package.json');
 const { version: dotenv } = require('dotenv/package.json');
-const { version: mongoose } = require('mongoose/package.json');
 const { version: mysql2 } = require('mysql2/package.json');
 const { version: sequelize } = require('sequelize/package.json');
 const { version: uuid } = require('uuid/package.json');
@@ -69,7 +68,6 @@ const runVersionChecks = async () => {
       checkPackageVersion('axios', axios),
       checkPackageVersion('discord.js', discordjs),
       checkPackageVersion('dotenv', dotenv),
-      checkPackageVersion('mongoose', mongoose),
       checkPackageVersion('mysql2', mysql2),
       checkPackageVersion('sequelize', sequelize),
       checkPackageVersion('uuid', uuid)

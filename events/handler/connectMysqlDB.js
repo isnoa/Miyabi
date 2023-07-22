@@ -7,7 +7,7 @@ const sequelize = new Sequelize('miyabi', process.env.MYSQL_USERNAME, process.en
     logging: false
 });
 
-const connectMysqlDB = async () => {
+(async () => {
     try {
         await sequelize.authenticate();
         await sequelize.sync();
@@ -16,6 +16,6 @@ const connectMysqlDB = async () => {
         console.error(err);
         process.exit(1);
     }
-};
+})();
 
-module.exports = { sequelize, connectMysqlDB };
+module.exports = sequelize;

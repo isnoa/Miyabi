@@ -3,11 +3,11 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder
 } = require("discord.js");
-const db = require("../../events/models/user.js");
-const text = require("../../events/utils/ko-kr.js");
+const db = require("../../events/models/user");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-	name: "설정",
+	name: text.SC_IS_SETTING_NAME,
 	description: "너에 관한 정보를 수정할 수 있어.",
 	cooldown: 5000,
 	options: [
@@ -22,12 +22,8 @@ module.exports = {
 					type: ApplicationCommandOptionType.String,
 					choices: [
 						{
-							name: "유저용 프로필 표시 여부",
-							value: "publicProfile"
-						},
-						{
-							name: "관리자용 프로필 표시 여부",
-							value: "privateProfile"
+							name: "프로필 표시 여부",
+							value: "showProfile"
 						},
 						{
 							name: "UID 프로필에 표시 여부",
@@ -67,7 +63,7 @@ module.exports = {
 
 			const user = await db.findOne({ userId: interaction.user.id });
 			if (!user) {
-				return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.UIColourMiyabi)] });
+				return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.ColourOfMiyabi)] });
 			}
 
 			let booleanSelection = selection === "off" ? false : true;
@@ -85,7 +81,7 @@ module.exports = {
 
 			interaction.reply()
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.UIColourMiyabi)], components: [] });
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] });
 		}
 	}
 }

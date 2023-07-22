@@ -7,11 +7,11 @@ const {
 	ComponentType
 } = require("discord.js");
 const axios = require("axios");
-const text = require("../../events/utils/ko-kr.js");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-	name: "요원",
-	description: "요원의 모든 정보를 알려줄게.",
+	name: text.SC_IS_AGENT_NAME,
+	description: "에이전트의 모든 정보를 알려줄게.",
 	cooldown: 30000,
 	options: [{
 		name: "이름",
@@ -28,26 +28,26 @@ module.exports = {
 	run: async (client, interaction) => {
 		try {
 			let agentName = interaction.options.getString("이름");
-			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(text.UIColourMiyabi)] });
+			if (!agentName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)] });
 
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 				const Embed = new EmbedBuilder()
-					.setTitle(text.UIAgentInfo)
+					.setTitle(text.AgentInfo)
 					.setColor(agentData.data.colour)
 					.setDescription(replaceDescription(agentName, agentData))
 					.setFields(
 						{
-							name: text.UIAgentNomalInfo,
-							value: `${text.UIAgentName}: ${agentData.data.name}\n${text.UIAgentGender}: ${agentData.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agentData.data.camp}`,
+							name: text.AgentNomalInfo,
+							value: `${text.AgentName}: ${agentData.data.name}\n${text.AgentGender}: ${agentData.data.gender}\n${text.AgentBirthDay}: ██월 ██일\n${text.AgentCamp}: ${agentData.data.camp}`,
 							inline: true
 						},
 						{
-							name: text.UIAgentBattleInfo,
-							value: `${text.UIAgentPropDamage}: 얼음\n${text.UIAgentPropAttack}: 베기\n→ *에테리얼류(상성)*`,
+							name: text.AgentBattleInfo,
+							value: `${text.AgentElement}: 얼음\n${text.AgentDamage}: 베기\n→ *에테리얼류(상성)*`,
 							inline: true
 						},
 						{
-							name: text.UIAgentIAIInfo,
+							name: text.AgentIAIInfo,
 							value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 							inline: false
 						}
@@ -81,22 +81,22 @@ module.exports = {
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
-								.setTitle(text.UIAgentInfo)
+								.setTitle(text.AgentInfo)
 								.setColor(agentData.data.colour)
 								.setDescription(replaceDescription(agentName, agentData))
 								.setFields(
 									{
-										name: text.UIAgentNomalInfo,
-										value: `${text.UIAgentName}: ${agentData.data.name}\n${text.UIAgentGender}: ${agentData.data.gender}\n${text.UIAgentBirthDay}: ██월 ██일\n${text.UIAgentCamp}: ${agentData.data.camp}`,
+										name: text.AgentNomalInfo,
+										value: `${text.AgentName}: ${agentData.data.name}\n${text.AgentGender}: ${agentData.data.gender}\n${text.AgentBirthDay}: ██월 ██일\n${text.AgentCamp}: ${agentData.data.camp}`,
 										inline: true
 									},
 									{
-										name: text.UIAgentBattleInfo,
-										value: `${text.UIAgentPropDamage}: 얼음\n${text.UIAgentPropAttack}: 베기\n→ *에테리얼류(상성)*`,
+										name: text.AgentBattleInfo,
+										value: `${text.AgentElement}: 얼음\n${text.AgentDamage}: 베기\n→ *에테리얼류(상성)*`,
 										inline: true
 									},
 									{
-										name: text.UIAgentIAIInfo,
+										name: text.AgentIAIInfo,
 										value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
 										inline: false
 									}
@@ -106,21 +106,21 @@ module.exports = {
 							break;
 						case 'Stats':
 							const StatsEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentStats)
+								.setTitle(agentData.data.name + " — " + text.AgentStats)
 								.setColor(agentData.data.colour)
 								.setFields(
 									{
-										name: text.UIAgentEXIndicator,
-										value: text.UIAgentMAXLvCriteria,
+										name: text.AgentEXIndicator,
+										value: text.AgentMAXLvCriteria,
 										inline: false
 									},
 									{
-										name: text.UIAgentNecessaryArticles,
-										value: ` · ${text.UIAgentMaterial}·${agentData.data.name}: ?\n · ${text.UIAgentAgentArchive}: ?`,
+										name: text.AgentNecessaryArticles,
+										value: ` · ${text.AgentMaterial}·${agentData.data.name}: ?\n · ${text.AgentAgentArchive}: ?`,
 										inline: false
 									},
 									{
-										name: text.UIAgentCompare,
+										name: text.AgentCompare,
 										value: `${text.FIGHT_PROP_HP}: 462 → 5164\n${text.FIGHT_PROP_ATK}: 101 → 1132\n${text.FIGHT_PROP_DEF}: 48 → 567\n${text.FIGHT_PROP_IMPACT}: 110 → 121\n${text.FIGHT_PROP_CRITICAL_RATE}: 5% → 10%\n${text.FIGHT_PROP_CRITICAL_DMG}: 50% → 50%\n${text.FIGHT_PROP_PENETRATION_RATIO}: 0% → 0%\n${text.FIGHT_PROP_PENETRATION}: 0 → 3%\n${text.FIGHT_PROP_ENERGY_RECOVERY}: 1.8 → 1.86`,
 										inline: false
 									}
@@ -130,7 +130,7 @@ module.exports = {
 							break;
 						case 'BasicAttack':
 							const Embed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentBasicAttack)
+								.setTitle(agentData.data.name + " — " + text.AgentBasicAttack)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -155,7 +155,7 @@ module.exports = {
 							break;
 						case 'SpecialAttack':
 							const SpecialAttackEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setTitle(agentData.data.name + " — " + text.AgentDodge)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -180,7 +180,7 @@ module.exports = {
 							break;
 						case 'ComboAttack':
 							const ComboAttackEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setTitle(agentData.data.name + " — " + text.AgentDodge)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -205,7 +205,7 @@ module.exports = {
 							break;
 						case 'Dodge':
 							const DodgeEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentDodge)
+								.setTitle(agentData.data.name + " — " + text.AgentDodge)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -230,7 +230,7 @@ module.exports = {
 							break;
 						case 'Talent':
 							const TalentEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentTalent)
+								.setTitle(agentData.data.name + " — " + text.AgentTalent)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -255,22 +255,22 @@ module.exports = {
 							break;
 						case 'PartyRecs':
 							const PartyRecsEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " — " + text.UIAgentPartyRecs)
+								.setTitle(agentData.data.name + " — " + text.AgentPartyRecs)
 								.setColor(agentData.data.colour)
-								.setDescription(text.UIAgentOrderOfTier)
+								.setDescription(text.AgentOrderOfTier)
 								.setFields(
 									{
-										name: `${text.UIAgentTierOrder1st} — 호소빌`,
+										name: `${text.AgentTierOrder1st} — 호소빌`,
 										value: "> 호시미 미야비\n> 소우카쿠\n> 빌리 키드",
 										inline: true
 									},
 									{
-										name: `${text.UIAgentTierOrder2nd} — 호소코`,
+										name: `${text.AgentTierOrder2nd} — 호소코`,
 										value: "> 호시미 미야비\n> 소우카쿠\n> 코린 위크스",
 										inline: true
 									},
 									{
-										name: `${text.UIAgentTierOrder3rd} — 호소앤`,
+										name: `${text.AgentTierOrder3rd} — 호소앤`,
 										value: "> 호시미 미야비\n> 소우카쿠\n> 앤톤 이바노프",
 										inline: true
 									}
@@ -283,7 +283,7 @@ module.exports = {
 			})
 			console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.UIColourMiyabi)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] })
 		}
 
 
@@ -308,17 +308,17 @@ module.exports = {
 			const Row = new ActionRowBuilder().addComponents(
 				new StringSelectMenuBuilder()
 					.setCustomId("selectAgent")
-					.setPlaceholder(text.UIPlaceholderForAgent)
+					.setPlaceholder(text.ForAgent)
 					.setMaxValues(1)
 					.addOptions([
-						{ label: text.UIAgentInfo, value: "Info" },
-						{ label: text.UIAgentStats, value: "Stats" },
-						{ label: text.UIAgentBasicAttack, value: "BasicAttack" },
-						{ label: text.UIAgentSpecialAttack, value: "SpecialAttack" },
-						{ label: text.UIAgentComboAttack, value: "ComboAttack" },
-						{ label: text.UIAgentDodge, value: "Dodge" },
-						{ label: text.UIAgentTalent, value: "Talent" },
-						{ label: text.UIAgentPartyRecs, value: "PartyRecs" }
+						{ label: text.AgentInfo, value: "Info" },
+						{ label: text.AgentStats, value: "Stats" },
+						{ label: text.AgentBasicAttack, value: "BasicAttack" },
+						{ label: text.AgentSpecialAttack, value: "SpecialAttack" },
+						{ label: text.AgentComboAttack, value: "ComboAttack" },
+						{ label: text.AgentDodge, value: "Dodge" },
+						{ label: text.AgentTalent, value: "Talent" },
+						{ label: text.AgentPartyRecs, value: "PartyRecs" }
 					])
 			);
 			return Row;

@@ -8,12 +8,6 @@ const {
   GatewayIntentBits,
 } = require("discord.js");
 
-const { connectMongoDB } = require("./events/handler/connectMongoDB.js");
-const { connectMysqlDB } = require("./events/handler/connectMysqlDB.js");
-
-connectMongoDB();
-connectMysqlDB();
-
 const client = new Client({
   fetchAllMembers: false,
   allowedMentions: {

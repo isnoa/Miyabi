@@ -2,10 +2,10 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr.js");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-    name: "정보",
+    name: text.SC_IS_INFO_NAME,
     description: "「나」에 대해 알려줄게.",
     cooldown: 5000,
     /**
@@ -34,7 +34,7 @@ module.exports = {
                 }
             )
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
-            .setColor(text.UIColourMiyabi)
+            .setColor(text.ColourOfMiyabi)
         await interaction.reply({ embeds: [Embed], ephemeral: true })
         console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     

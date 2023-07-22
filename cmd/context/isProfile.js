@@ -4,12 +4,12 @@ const {
     EmbedBuilder,
     userMention
 } = require("discord.js");
-const user = require("../../events/models/user.js");
-const zzz = require("../../events/models/zzz.js");
-const text = require("../../events/utils/ko-kr.js");
+const user = require("../../events/models/user");
+const zzz = require("../../events/models/zzz");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-    name: "프로필",
+    name: text.SC_IS_PROFILE_NAME,
     type: ApplicationCommandType.User,
     cooldown: 5000,
     /**
@@ -26,30 +26,29 @@ module.exports = {
                 zzz.findOne({ where: { user_id: target.id } })
             ]).then(([userData, zzzData]) => {
 
-                if (!userData && !zzzData) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
+                if (!userData && !zzzData) return interaction.reply({ embeds: [new EmbedBuilder().setDescription((text.UI_MISMATCHED_DATA).replace("{user}", userMention(target.id))).setColor(text.MIYABI_COLOR)] })
 
                 const Embed = new EmbedBuilder()
                     .setTitle(`${zzzData.srv_uid ? `${target.username}(${zzzData.srv_uid})` : target.username}`)
-                    .setDescription("-")
                     .setFields(
                         {
-                            name: text.UIProfileName,
+                            name: text.PROFILE_NAME,
                             value: "미야비코박죽",
                             inline: true
                         },
                         {
-                            name: text.UIProfileUid,
-                            value: zzzData.srv_uid,
+                            name: text.PROFILE_UID,
+                            value: zzzData.srv_uid ? text.USED : text.UNUSED,
                             inline: true
                         },
                         {
-                            name: text.UIProfileReg,
-                            value: zzzData.srv_reg,
+                            name: text.PROFILE_REGION,
+                            value: zzzData.srv_reg ? text.USED : text.UNUSED,
                             inline: true
                         }
                     )
                     .setThumbnail(interaction.user.avatarURL({ dynamic: true, size: 2048 }))
-                    .setColor(text.UIColourMiyabi)
+                    .setColor(text.MIYABI_COLOR)
 
                 if (["1010159742104113162"].includes(target.id)) {
                     Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
@@ -65,7 +64,7 @@ module.exports = {
                 } else if (userData.is_hide_profile === true) {
                     return interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + text.UIMisMatchData).setColor(text.UIColourMiyabi)] })
+                    interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + text.UIMisMatchData).setColor(text.ColourOfMiyabi)] })
                 }
                 console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
             })

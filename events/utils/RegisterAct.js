@@ -7,9 +7,9 @@ const {
     EmbedBuilder
 } = require("discord.js");
 const crypto = require('node:crypto');
-const user = require("../models/user.js");
-const zzz = require("../models/zzz.js");
-const text = require("./ko-kr.js");
+const user = require("../models/user");
+const zzz = require("../models/zzz");
+const text = require("./ko-kr");
 const { createDataMachine } = require('./dataMachine.js');
 
 let region = "os_asia"
@@ -19,15 +19,15 @@ client.on("interactionCreate", async (interaction) => {
         if (interaction.customId === 'RegistrationButton') {
             const zzzAuthModal = new ModalBuilder()
                 .setCustomId('setzzzAuthModal')
-                .setTitle(text.UISettingzzzAuth)
+                .setTitle(text.SettingZZZAuth)
             const zzzAuthLtokenInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtokenInput')
-                .setLabel(`${text.UISettingReqValue}: ltoken`)
+                .setLabel(`${text.SettingReqVal}: ltoken`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
             const zzzAuthLtuidInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtuidInput')
-                .setLabel(`${text.UISettingReqValue}: ltuid`)
+                .setLabel(`${text.SettingReqVal}: ltuid`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
             const zzzAuthLtokenRow = new ActionRowBuilder().addComponents(zzzAuthLtokenInput)
@@ -62,7 +62,7 @@ client.on("interactionCreate", async (interaction) => {
                             inline: true
                         },
                     )
-                    .setColor(text.UIColourDanger)
+                    .setColor(text.ColourForDanger)
                 interaction.editReply({ embeds: [Embed], ephemeral: true })
                 return undefined;
             }

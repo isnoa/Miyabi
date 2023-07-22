@@ -2,9 +2,10 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-    name: "픽업",
+    name: text.SC_IS_PICK_UP_NAME,
     description: "현재 픽업 중 혹은 픽업 했던 캐릭터들을 알려줄게.",
     cooldown: 5000,
     /**

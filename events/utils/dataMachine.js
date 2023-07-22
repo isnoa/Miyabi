@@ -2,8 +2,8 @@ const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
 
-function createDataMachine(cookie) {
-    const dataMachine = axios.create({
+function createMiHoYoDataMachine(cookie) {
+    const instance = axios.create({
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46',
             Cookie: cookie,
@@ -18,7 +18,7 @@ function createDataMachine(cookie) {
         }
     });
 
-    dataMachine.interceptors.request.use((config) => {
+    instance.interceptors.request.use((config) => {
         config.headers.DS = generateDSToken();
         return config;
     });
@@ -41,7 +41,25 @@ function createDataMachine(cookie) {
         return str;
     }
 
-    return dataMachine;
+    return instance;
 }
 
-module.exports = { createDataMachine };
+function createActHoYoLABDataMachine(cookie) {
+    const instance = axios.create({
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46',
+            Cookie: cookie,
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json;charset=utf-8',
+            Referrer: 'https://act.hoyolab.com/',
+            'x-rpc-challenge': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', '')
+        }
+    });
+
+    return instance;
+}
+
+module.exports = {
+    createMiHoYoDataMachine,
+    createActHoYoLABDataMachine
+};

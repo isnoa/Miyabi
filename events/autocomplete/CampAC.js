@@ -1,6 +1,6 @@
 const client = require("../../miyabi.js");
 const { InteractionType } = require('discord.js');
-const text = require("../utils/ko-kr.js");
+const text = require("../utils/ko-kr");
 
 const choices = [
     { name: text.gentle, value: "gentle" },

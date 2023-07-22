@@ -4,10 +4,10 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const axios = require("axios");
-const text = require("../../events/utils/ko-kr.js");
+const text = require("../../events/utils/ko-kr");
 
 module.exports = {
-	name: '음식',
+	name: text.SC_IS_FOOD_NAME,
 	description: '음식 종류를 알려줄게.',
 	cooldown: 5000,
 	options: [{
@@ -52,7 +52,7 @@ module.exports = {
 				console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.UIColourMiyabi)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] })
 		}
 	}
 }
