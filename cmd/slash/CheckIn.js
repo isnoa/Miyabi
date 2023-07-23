@@ -12,7 +12,7 @@ const crypto = require("node:crypto");
 const { env } = require("process");
 
 module.exports = {
-  name: text.SC_IS_DAILY_CHECK_IN_NAME,
+  name: text.SC_IS_CHECK_IN_NAME,
   description: "지금/자동, 출석체크를 할 수 있어.",
   cooldown: 30000,
   options: [{
@@ -44,7 +44,7 @@ module.exports = {
         case "now":
           const Embed = new EmbedBuilder()
             .setDescription(await chkIn(cookie))
-            .setColor(text.ColourOfMiyabi)
+            .setColor(text.MIYABI_COLOR)
           interaction.reply({ embeds: [Embed] })
           break;
         case "auto":
@@ -55,7 +55,7 @@ module.exports = {
       console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     } catch (err) {
       console.log(err)
-      interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] })
+      interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
     }
   }
 }
@@ -118,6 +118,7 @@ async function chkIn(cookie) {
     chkInResult.data.data?.code !== 'ok' ||
     chkInResult.data.data?.is_risk !== false
   ) {
+    console.log(chkInResult.data)
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 실패했어.`;
   } else {
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 완료했어.`;

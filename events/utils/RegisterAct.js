@@ -10,7 +10,7 @@ const crypto = require('node:crypto');
 const user = require("../models/user");
 const zzz = require("../models/zzz");
 const text = require("./ko-kr");
-const { createDataMachine } = require('./dataMachine.js');
+const { createMiHoYoDataMachine } = require('./dataMachine.js');
 
 let region = "os_asia"
 
@@ -19,15 +19,15 @@ client.on("interactionCreate", async (interaction) => {
         if (interaction.customId === 'RegistrationButton') {
             const zzzAuthModal = new ModalBuilder()
                 .setCustomId('setzzzAuthModal')
-                .setTitle(text.SettingZZZAuth)
+                .setTitle(text.SETTING_ZZZ_AUTH)
             const zzzAuthLtokenInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtokenInput')
-                .setLabel(`${text.SettingReqVal}: ltoken`)
+                .setLabel(`${text.SETTING_REQUIRED_VALUE}: ltoken`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
             const zzzAuthLtuidInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtuidInput')
-                .setLabel(`${text.SettingReqVal}: ltuid`)
+                .setLabel(`${text.SETTING_REQUIRED_VALUE}: ltuid`)
                 .setStyle(TextInputStyle.Short)
                 .setRequired(true)
             const zzzAuthLtokenRow = new ActionRowBuilder().addComponents(zzzAuthLtokenInput)
@@ -44,12 +44,12 @@ client.on("interactionCreate", async (interaction) => {
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
             await interaction.deferReply();
 
-            const dataMachine = createDataMachine(cookie);
+            const dataMachine = createMiHoYoDataMachine(cookie);
 
             const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=hk4e_global&region=${region}`).then(res => res.data);
             if (profile.retcode !== 0) {
                 const Embed = new EmbedBuilder()
-                    .setDescription(text.UIRetcodeZero + "\n에러 내용: " + `\`${profile.message}\``)
+                    .setDescription(text.RETCODE_ZERO + "\n에러 내용: " + `\`${profile.message}\``)
                     .setFields(
                         {
                             name: "해결 방법 [1]",
@@ -62,7 +62,7 @@ client.on("interactionCreate", async (interaction) => {
                             inline: true
                         },
                     )
-                    .setColor(text.ColourForDanger)
+                    .setColor(text.DANGER_COLOR)
                 interaction.editReply({ embeds: [Embed], ephemeral: true })
                 return undefined;
             }

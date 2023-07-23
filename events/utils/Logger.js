@@ -7,8 +7,8 @@ function LogEvent(req) {
             ({
                 embeds: [new EmbedBuilder()
                     .setTitle("에러 발견")
-                    .setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue)
-                    .setColor(text.ColourOfMiyabi)
+                    .setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE)
+                    .setColor(text.MIYABI_COLOR)
                 ],
                 components: []
             })
@@ -17,8 +17,8 @@ function LogEvent(req) {
             ({
                 embeds: [new EmbedBuilder()
                     .setTitle("에러 발견")
-                    .setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue)
-                    .setColor(text.ColourOfMiyabi)
+                    .setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE)
+                    .setColor(text.MIYABI_COLOR)
                 ],
                 components: []
             })

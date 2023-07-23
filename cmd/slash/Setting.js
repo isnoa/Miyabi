@@ -63,7 +63,7 @@ module.exports = {
 
 			const user = await db.findOne({ userId: interaction.user.id });
 			if (!user) {
-				return interaction.reply({ embeds: [new EmbedBuilder().setDescription(userMention(target.id) + "의 " + text.UIMisMatchData).setColor(text.ColourOfMiyabi)] });
+				return interaction.reply({ embeds: [new EmbedBuilder().setDescription((text.MISMATCHED_DATA).replace("{user}", target)).setColor(text.MIYABI_COLOR)] })
 			}
 
 			let booleanSelection = selection === "off" ? false : true;
@@ -81,7 +81,7 @@ module.exports = {
 
 			interaction.reply()
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] });
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] });
 		}
 	}
 }

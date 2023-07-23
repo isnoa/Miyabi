@@ -25,7 +25,7 @@ module.exports = {
 	run: async (client, interaction) => {
 		try {
 			let campName = interaction.options.getString("이름");
-			if (!campName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)] });
+			if (!campName) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)] });
 
 			await axios.get(`https://zenlessdata.web.app/upload/community/data/zenless/${campName}/camp/ko-kron`).then(async (campData) => {
 				const Embed = new EmbedBuilder()
@@ -39,7 +39,7 @@ module.exports = {
 				console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 			})
 		} catch (err) {
-			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.UISrcIssue).setColor(text.ColourOfMiyabi)], components: [] })
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
 		}
 	}
 }

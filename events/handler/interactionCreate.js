@@ -19,7 +19,7 @@ client.on("interactionCreate", async (interaction) => {
 
     if (command.cooldown) {
       if (client.coolDown.has(interaction.user.id))
-        return interaction.reply({ content: "진정해, 페이스 유지할 시간은 ." });
+        return interaction.reply({ content: "진정해, 페이스 유지할 시간은 충분해." });
 
       command.run(client, interaction);
       client.coolDown.set(interaction.user.id, Date.now() + command.cooldown);

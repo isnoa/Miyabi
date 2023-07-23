@@ -18,8 +18,8 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription(text.SettingUnknownDocument.join('\n'))
-            .setColor(text.ColourOfMiyabi)
+            .setDescription(text.SETTING_REGISTRATION_DOCUMENT.join('\n'))
+            .setColor(text.MIYABI_COLOR)
 
         const Row = new ActionRowBuilder()
             .addComponents(
