@@ -29,9 +29,10 @@ module.exports = {
                 if (!userData && !zzzData) return interaction.reply({ embeds: [new EmbedBuilder().setDescription((text.MISMATCHED_DATA).replace("{user}", target)).setColor(text.MIYABI_COLOR)] })
 
                 const userInfo = await getUserGameInfoMachine(zzzData.authcookie, zzzData.srv_reg);
+                const regInfo = await recognizeServer(zzzData.srv_uid);
 
                 const Embed = new EmbedBuilder()
-                    .setTitle(`${zzzData.srv_uid ? `${target.username}(${zzzData.srv_uid})` : target.username}`)
+                    .setTitle(target.username)
                     .setFields(
                         {
                             name: text.PROFILE_NAME,
@@ -45,11 +46,11 @@ module.exports = {
                         },
                         {
                             name: text.PROFILE_REGION,
-                            value: zzzData.srv_reg ? zzzData.srv_reg : text.UNUSED,
+                            value: zzzData.srv_uid ? regInfo : text.UNUSED,
                             inline: true
                         }
                     )
-                    .setThumbnail(interaction.user.avatarURL({ dynamic: true, size: 2048 }))
+                    .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
                     .setColor(text.MIYABI_COLOR)
 
                 if (["1010159742104113162"].includes(target.id)) {
@@ -76,13 +77,20 @@ module.exports = {
     }
 }
 
-function regions(reg) {
-    switch (reg) {
-        case "os_asia":
-            
-            break;
+function recognizeServer(uid) {
+    const server = {
+        "1": "지원하지 않는 서버입니다.",
+        "2": "지원하지 않는 서버입니다.",
+        "5": "지원하지 않는 서버입니다.",
+        "6": "북미",
+        "7": "유럽",
+        "8": "아시아",
+        "9": "대만·홍콩·마카오",
+    }[String(uid)[0]];
     
-        default:
-            break;
+    if (server) {
+        return server;
+    } else {
+        interaction.reply({ content: `UID ${uid} isn't associated with any server` });
     }
 }
