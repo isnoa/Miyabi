@@ -50,7 +50,7 @@ client.login(process.env.CLIENT_TOKEN)
       const limitedErrorMessage = errorMessage.slice(0, 2000); // Limit the error message to 2000 characters
       
       channel.send({
-        embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(limitedErrorMessage).setColor(DANGER_COLOR).setTimestamp()],
+        embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(limitedErrorMessage).setColor(DANGER_COLOR).setTimestamp()]
       });
     } catch (error) {
       console.error("Error sending message:", error);
