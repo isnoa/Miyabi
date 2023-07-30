@@ -12,7 +12,7 @@ const user = sequelize.define('user', {
         type: DataTypes.STRING(24),
         allowNull: false
     },
-    is_show_uid: {
+    is_hide_uid: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false

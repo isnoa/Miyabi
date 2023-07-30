@@ -1,4 +1,4 @@
-const client = require("../../miyabi.js");
+const client = require("../../miyabi");
 
 client.on("interactionCreate", async (interaction) => {
   if (interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {

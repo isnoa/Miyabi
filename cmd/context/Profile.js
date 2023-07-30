@@ -5,7 +5,7 @@ const {
 } = require("discord.js");
 const user = require("../../events/models/user");
 const zzz = require("../../events/models/zzz");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 const { getUserGameInfoMachine } = require("../../events/utils/dataMachine");
 
 module.exports = {
@@ -41,12 +41,12 @@ module.exports = {
                         },
                         {
                             name: text.PROFILE_UID,
-                            value: zzzData.srv_uid ? zzzData.srv_uid : text.UNUSED,
+                            value: zzzData.is_hide_profile ? text.UNKNOWN : zzzData.srv_uid,
                             inline: true
                         },
                         {
                             name: text.PROFILE_REGION,
-                            value: zzzData.srv_uid ? regInfo : text.UNUSED,
+                            value: zzzData.srv_uid ? regInfo : text.UNKNOWN,
                             inline: true
                         }
                     )
@@ -69,10 +69,9 @@ module.exports = {
                 } else {
                     interaction.reply({ embeds: [new EmbedBuilder().setDescription((text.MISMATCHED_DATA).replace("{user}", target)).setColor(text.MIYABI_COLOR)] })
                 }
-                console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`)
             })
         } catch (err) {
-            console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`)
+            interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
         }
     }
 }

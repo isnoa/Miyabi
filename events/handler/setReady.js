@@ -1,9 +1,9 @@
-const client = require("../../miyabi.js");
+const client = require("../../miyabi");
 const {
   EmbedBuilder,
   ActivityType
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr")
+const text = require("../../events/utils/TextMap")
 
 client.once("ready", () => {
   console.log(`${client.user.username} is ready for battle.`);

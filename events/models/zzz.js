@@ -24,10 +24,6 @@ const zzz = sequelize.define('zzz', {
     srv_uid: {
         type: DataTypes.STRING(9),
         allowNull: true
-    },
-    srv_reg: {
-        type: DataTypes.STRING(7),
-        allowNull: true
     }
 }, {
     modelName: 'zzz',

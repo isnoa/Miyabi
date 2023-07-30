@@ -7,17 +7,17 @@ const {
   createActHoYoLABDataMachine
 } = require("../../events/utils/dataMachine");
 const zzz = require("../../events/models/zzz");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 const crypto = require("node:crypto");
 const { env } = require("process");
 
 module.exports = {
-  name: text.SC_IS_CHECK_IN_NAME,
-  description: "지금/자동, 출석체크를 할 수 있어.",
+  name: text.SC_IS_CHECKIN_DESC,
+  description: text.SC_IS_CHECKIN_DESC,
   cooldown: 30000,
   options: [{
-    name: "선택",
-    description: "출석체크 방식을 선택해.",
+    name: text.SC_SUB_SELCET,
+    description: text.SC_SUB_NAME_DESC,
     type: ApplicationCommandOptionType.String,
     choices: [
       { name: "지금", value: "now" },
@@ -32,13 +32,13 @@ module.exports = {
    */
   run: async (client, interaction) => {
     try {
-      let chosen = interaction.options.getString("선택");
+      let chosen = interaction.options.getString(text.SC_SUB_SELCET);
 
       const zzzData = await zzz.findOne({ where: { user_id: interaction.user.id } });
-      if (!zzzData) return interaction.reply({ content: "너의 데이터를 찾을 수 없어.", ephemeral: true });
+      if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
 
       const cookie = await decipher(zzzData);
-      if (!isValidCookie(cookie)) return interaction.reply({ content: "잘못된 쿠키 형식이야." });
+      if (!isValidCookie(cookie)) return interaction.reply({ content: text.VAILD_COOKIE });
 
       switch (chosen) {
         case "now":
@@ -51,10 +51,7 @@ module.exports = {
           console.log(cookie)
           break;
       }
-
-      console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
     } catch (err) {
-      console.log(err)
       interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
     }
   }
@@ -88,7 +85,6 @@ async function decipher(zzzData) {
 
     const cookie = Buffer.from(EncryptedCookie, 'base64');
 
-    // 암호 해독을 위해 createDecipheriv 사용
     const decipherDo = crypto.createDecipheriv(
       env.SECRET_ALGORITHM,
       env.SECRET_KEY,
@@ -101,14 +97,14 @@ async function decipher(zzzData) {
 
     return decryptedCookie;
   } catch (err) {
-    console.error(err)
+    throw err;
   }
 }
 
 async function chkIn(cookie) {
 
   const chkInResult = await createActHoYoLABDataMachine(cookie)
-    .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=ko-kr");
+    .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=TextMap");
 
   if (chkInResult.data.retcode == '-5003') {
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크가 이미 되어 있어.`;

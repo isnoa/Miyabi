@@ -2,11 +2,11 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 
 module.exports = {
     name: text.SC_IS_INFO_NAME,
-    description: "「나」에 대해 알려줄게.",
+    description: text.SC_IS_FOOD_DESC,
     cooldown: 5000,
     /**
      *
@@ -36,7 +36,7 @@ module.exports = {
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
             .setColor(text.MIYABI_COLOR)
         await interaction.reply({ embeds: [Embed], ephemeral: true })
-        console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        
     
         /**
          * Create a text progress bar

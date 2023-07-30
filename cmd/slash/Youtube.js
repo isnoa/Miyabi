@@ -6,11 +6,11 @@
 // } = require("discord.js");
 // const Video = require("../../events/models/youtube")
 // const axios = require("axios");
-// const text = require("../../events/utils/ko-kr");
+// const text = require("../../events/utils/TextMap");
 
 // module.exports = {
 //     name: text.SC_IS_YOUTUBE_NAME,
-//     description: "「젠레스 존 제로」의 유튜브 채널의 알림을 받을 수 있어.",
+//     description: text.SC_IS_YOUTUBE_DESC,
 //     cooldown: 30000,
 //     options: [
 //         {

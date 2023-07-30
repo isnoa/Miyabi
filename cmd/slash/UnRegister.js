@@ -2,12 +2,12 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const db = require("../../events/models/user");
-const text = require("../../events/utils/ko-kr");
+const zzz = require("../../events/models/zzz");
+const text = require("../../events/utils/TextMap");
 
 module.exports = {
     name: text.SC_IS_UNREGISTER_NAME,
-    description: "가입을 탈퇴하는 하는걸 도와줄게.",
+    description: text.SC_IS_PROFILE_DESC,
     cooldown: 5000,
     /**
      *
@@ -15,23 +15,24 @@ module.exports = {
      * @param {CommandInteraction} interaction
      */
     run: async (client, interaction) => {
-        db.findOne({ userId: interaction.user.id }).then(async (user) => {
-            if (user.zzzAuth && user.zzzDate && user.zzzUID && user.dailyCheckIn) {
+        zzz.findOne({ where: { user_id: interaction.user.id } }).then(async (zzz) => {
+            if (zzz.is_authorized) {
+                await zzz.update({
+                    is_authorized: false,
+                    authcookie: null,
+                    srv_uid: null
+                });
+
                 const Embed = new EmbedBuilder()
-                    .setTitle("탈퇴를 완료했어.")
-                    .setDescription("탈퇴는 완료 했지만 쿠키(Cookie) & UID만 제거를 한 것일뿐 명령어를 처음 쓴 일자 및 최근에 검색해본 에이전트, 프로필 공개 여부, 로그 등은 지속될거야.")
+                    .setTitle(text.SETTING_REGISTRATION_SUCCESS)
+                    .setDescription(text.SETTING_REGISTRATION_WARNING)
                     .setColor(text.MIYABI_COLOR)
-                await interaction.reply({ embeds: [Embed] })
-                console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
-                db.updateOne({ userId: interaction.user.id },
-                    {
-                        $unset: { zzzAuth: 1, zzzData: 1, zzzUID: 1, dailyCheckIn: 1 }
-                    }).catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
+                interaction.reply({ embeds: [Embed] })
             } else {
-                interaction.reply({ content: "가입 이력이 없어서 탈퇴를 못 해줘." })
+                interaction.reply({ content: text.SETTING_REGISTRATION_ERROR })
             }
         }).catch((err) => {
-            if (err) throw err;
+            interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
         })
     }
 }

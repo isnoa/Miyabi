@@ -4,11 +4,11 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const db = require("../../events/models/user");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 
 module.exports = {
 	name: text.SC_IS_SETTING_NAME,
-	description: "너에 관한 정보를 수정할 수 있어.",
+	description: text.SC_IS_SETTING_DESC,
 	cooldown: 5000,
 	options: [
 		{
@@ -70,15 +70,11 @@ module.exports = {
 
 			if (display === "publicProfile") {
 				db.updateOne({ userId: interaction.user.id }, { $set: { publicProfile: booleanSelection } })
-					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else if (display === "privateProfile") {
 				db.updateOne({ userId: interaction.user.id }, { $set: { privateProfile: booleanSelection } })
-					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			} else if (display === "showUID") {
 				db.updateOne({ userId: interaction.user.id }, { $set: { showUID: booleanSelection } })
-					.catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
 			}
-
 			interaction.reply()
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] });

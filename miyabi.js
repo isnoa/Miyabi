@@ -8,7 +8,7 @@ const {
   GatewayIntentBits,
   EmbedBuilder,
 } = require("discord.js");
-const { DANGER_COLOR } = require("./events/utils/ko-kr");
+const { DANGER_COLOR } = require("./events/utils/TextMap");
 
 const client = new Client({
   fetchAllMembers: false,
@@ -44,47 +44,33 @@ client.login(process.env.CLIENT_TOKEN)
     process.exit();
   })
 
-  const sendErrorMessage = async (errorTitle, errorMessage) => {
-    try {
-      const channel = await client.channels.fetch("1123984272760520794");
-      const limitedErrorMessage = errorMessage.slice(0, 2000); // Limit the error message to 2000 characters
-      
-      channel.send({
-        embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(limitedErrorMessage).setColor(DANGER_COLOR).setTimestamp()]
-      });
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
-  
-  process.on("uncaughtException", async (err, origin) => {
-    console.log('[antiCrash] :: Uncaught Exception/Catch');
-    console.error(err, origin);
-    await sendErrorMessage("Unhandled Exception/Catch", err.stack);
-  });
-  
-  process.on('unhandledRejection', async (err) => {
-    console.log('[antiCrash] :: Unhandled Rejection/Catch');
-    console.error(err);
-    await sendErrorMessage("Unhandled Rejection/Catch", err.stack);
-  });
-  
-  process.on('uncaughtExceptionMonitor', async (err, origin) => {
-    console.log('[antiCrash] :: Uncaught Exception/Catch (MONITOR)');
-    console.error(err, origin);
-    await sendErrorMessage("Unhandled Exception/Catch (MONITOR)", err.stack);
-  });
-  
+const sendErrorMessage = async (errorTitle, errorMessage) => {
+  try {
+    const channel = await client.channels.fetch("1123984272760520794");
+    const limitedErrorMessage = errorMessage.slice(0, 2000);
 
-// process.on('multipleResolves', (type, promise) => {
-//   console.log(' [antiCrash] :: Multiple Resolves');
-//   console.log(type, promise);
-// });
+    channel.send({
+      embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(`\`\`\`bash\n${limitedErrorMessage}\n\`\`\``).setColor(DANGER_COLOR).setTimestamp()]
+    });
+  } catch (error) {
+    console.error("Error sending message:", error);
+  }
+};
 
-process.on('warning', (warn) => {
-  console.warn(warn);
+process.on("uncaughtException", async (err, origin) => {
+  console.log('[antiCrash] :: Uncaught Exception/Catch');
+  console.error(err, origin);
+  await sendErrorMessage("Unhandled Exception/Catch", err.stack);
 });
 
-if (process.env.NODE_ENV === "production") {
-  client.on('debug', console.log);
-}
+process.on('unhandledRejection', async (err, origin) => {
+  console.log('[antiCrash] :: Unhandled Rejection/Catch');
+  console.error(err, origin);
+  await sendErrorMessage("Unhandled Rejection/Catch", err.stack);
+});
+
+process.on('uncaughtExceptionMonitor', async (err, origin) => {
+  console.log('[antiCrash] :: Uncaught Exception/Catch (MONITOR)');
+  console.error(err, origin);
+  await sendErrorMessage("Unhandled Exception/Catch (MONITOR)", err.stack);
+});

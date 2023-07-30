@@ -5,11 +5,11 @@ const {
     ButtonBuilder,
     ButtonStyle
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 
 module.exports = {
     name: text.SC_IS_REGISTER_NAME,
-    description: "「Zenless Zone Zero」와 관련된 명령어들을 사용할 수 있도록 가입을 하는걸 도와줄게.",
+    description: text.SC_IS_REGISTER_DESC,
     cooldown: 5000,
     /**
      *
@@ -39,6 +39,6 @@ module.exports = {
             );
 
         await interaction.reply({ embeds: [Embed], components: [Row], ephemeral: true })
-        console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        
     }
 }

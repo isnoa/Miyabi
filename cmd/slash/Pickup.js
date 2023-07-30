@@ -2,11 +2,11 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const text = require("../../events/utils/ko-kr");
+const text = require("../../events/utils/TextMap");
 
 module.exports = {
-    name: text.SC_IS_PICK_UP_NAME,
-    description: "현재 픽업 중 혹은 픽업 했던 캐릭터들을 알려줄게.",
+    name: text.SC_IS_PICKUP_NAME,
+    description: text.SC_IS_PICKUP_DESC,
     cooldown: 5000,
     /**
      *
@@ -26,6 +26,6 @@ module.exports = {
                     inline: false
                 })
         await interaction.reply({ embeds: [Embed] })
-        console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+        
     }
 }

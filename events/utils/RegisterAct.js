@@ -1,4 +1,4 @@
-const client = require("../../miyabi.js");
+const client = require("../../miyabi");
 const {
     ActionRowBuilder,
     ModalBuilder,
@@ -9,7 +9,7 @@ const {
 const crypto = require('node:crypto');
 const user = require("../models/user");
 const zzz = require("../models/zzz");
-const text = require("./ko-kr");
+const text = require("./TextMap");
 const { createMiHoYoDataMachine } = require('./dataMachine.js');
 
 let region = "os_asia"
@@ -34,7 +34,7 @@ client.on("interactionCreate", async (interaction) => {
             const zzzAuthLtuidRow = new ActionRowBuilder().addComponents(zzzAuthLtuidInput)
             zzzAuthModal.addComponents(zzzAuthLtokenRow, zzzAuthLtuidRow)
             await interaction.showModal(zzzAuthModal);
-            console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
+
         }
     }
     if (interaction.isModalSubmit()) {
@@ -85,54 +85,30 @@ client.on("interactionCreate", async (interaction) => {
             addCookieData(encryptedCookie, uid);
             interaction.editReply({ content: profile.message + " 승인.\n" + encryptedCookie, ephemeral: true });
 
-            // function addCookieData(encryptedCookie, uid) {
-            //     db.findOne({ userId: interaction.user.id }).then(async (user) => {
-            //         if (user) {
-            //             db.updateOne({ userId: interaction.user.id }, { $set: { zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false } })
-            //                 .catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-            //         } else {
-            //             new db({ userId: interaction.user.id, zzzAuth: encryptedCookie, zzzUID: uid, zzzDate: new Date().toISOString().substring(0, 10), dailyCheckIn: false })
-            //                 .save().catch(err => console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`));
-            //         }
-            //     }).catch((err) => {
-            //         if (err) throw err;
-            //     })
-            // }
-
             function addCookieData(encryptedCookie, uid) {
                 Promise.all([
                     user.findOne({ where: { user_id: interaction.user.id } }),
                     zzz.findOne({ where: { user_id: interaction.user.id } })
                 ]).then(([userData, zzzData]) => {
                     if (userData) {
-                        if (userData.is_show_uid === null) {
-                            user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
+                        if (userData.is_hide_uid === null) {
+                            user.update({ is_hide_uid: true }, { where: { user_id: interaction.user.id } });
                         }
                         if (userData.is_hide_profile === null) {
                             user.update({ is_hide_profile: true }, { where: { user_id: interaction.user.id } });
                         }
                     } else {
-                        user.create({ user_id: interaction.user.id, is_show_uid: true, is_hide_profile: true })
-                            .catch((error) => {
-                                console.error(`Failed to create userData: ${error}`);
-                            });
+                        user.create({ user_id: interaction.user.id, is_hide_uid: true, is_hide_profile: true })
                     }
 
                     if (zzzData) {
-                        zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region }, { where: { user_id: interaction.user.id } })
-                            .catch((error) => {
-                                console.error(`Failed to update zzzData: ${error}`);
-                            });
+                        zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid }, { where: { user_id: interaction.user.id } })
                     } else {
-                        zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid, srv_reg: region })
-                            .catch((error) => {
-                                console.error(`Failed to create zzzData: ${error}`);
-                            });
+                        zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid })
                     }
-                })
-                    .catch(err => {
-                        console.error(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Reason: ${err.message}`);
-                    });
+                }).catch(err => {
+                    interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
+                });
             }
         }
     }
