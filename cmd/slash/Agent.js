@@ -70,7 +70,7 @@ module.exports = {
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
-							.setAuthor({ name: text.AGENT_INFO })
+								.setAuthor({ name: text.AGENT_INFO })
 								.setTitle(text.AGENT_INFO)
 								.setColor(agentData.data.colour)
 								.setDescription(replaceDescription(agentName, agentData))
@@ -96,7 +96,8 @@ module.exports = {
 							break;
 						case 'Stats':
 							const StatsEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_STATS)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_STATS)
 								.setColor(agentData.data.colour)
 								.setFields(
 									{
@@ -106,7 +107,7 @@ module.exports = {
 									},
 									{
 										name: text.AGENT_NECESSARY_ITEM,
-										value: ` · ${text.AGENT_MATERIALS}·${agentData.data.name}: ?\n · ${text.AGENT_ARCHIVE}: ?`,
+										value: `${text.MIDDLE_DOT}${text.AGENT_MATERIALS}·${agentData.data.name}: ?\n${text.MIDDLE_DOT}${text.AGENT_ARCHIVE}: ?`,
 										inline: false
 									},
 									{
@@ -120,7 +121,8 @@ module.exports = {
 							break;
 						case 'BasicAttack':
 							const Embed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_BASIC_ATK)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_BASIC_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -145,7 +147,8 @@ module.exports = {
 							break;
 						case 'SpecialAttack':
 							const SpecialAttackEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_SPECIAL_ATK)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_SPECIAL_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -170,7 +173,8 @@ module.exports = {
 							break;
 						case 'ComboAttack':
 							const ComboAttackEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_COMBO_ATK)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_COMBO_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -195,7 +199,8 @@ module.exports = {
 							break;
 						case 'Dodge':
 							const DodgeEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_DODGE)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_DODGE)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -220,7 +225,8 @@ module.exports = {
 							break;
 						case 'Talent':
 							const TalentEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_TALENT)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_TALENT)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.setFields(
@@ -245,7 +251,8 @@ module.exports = {
 							break;
 						case 'PartyRecs':
 							const PartyRecsEmbed = new EmbedBuilder()
-								.setTitle(agentData.data.name + " / " + text.AGENT_RECOMMENDED_PARTY)
+								.setAuthor({ name: agentData.data.name })
+								.setTitle(text.AGENT_RECOMMENDED_PARTY)
 								.setColor(agentData.data.colour)
 								.setDescription(text.AGENT_TIER_ORDER)
 								.setFields(

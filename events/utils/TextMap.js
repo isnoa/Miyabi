@@ -98,6 +98,8 @@ module.exports = {
     RETCODE_ZERO: "등록 여부를 조사해 봤는데 아무도 일치하지 않았어.",
     MISMATCHED_DATA: "{user}의 데이터를 확인할 수 없어.",
     SRC_ISSUE: "다시 시도해 보거나 개발자한테 물어보는 게 좋을 것 같아",
+    MIDDLE_DOT: " · ",
+    TWO_LINE: " ∥ ",
     CAMP_GENTLE: "교활한 토끼굴",
     CAMP_VICTORIA: "빅토리아 하우스키핑",
     CAMP_BELOBOG: "벨로보그 중공업",
