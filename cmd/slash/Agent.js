@@ -15,7 +15,7 @@ module.exports = {
 	cooldown: 30000,
 	options: [{
 		name: text.SC_SUB_NAME,
-		description: text.SC_SUB_DESC,
+		description: text.SC_SUB_NAME_DESC,
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true
@@ -61,26 +61,16 @@ module.exports = {
 					}, 30000));
 			});
 
-
-
-
-
-
-
-			/////////////////////////////////////////////////////
-			// INTERACTION COLLECTOR ////////////////////////////
-			/////////////////////////////////////////////////////
 			const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30000 });
 
 			collector.on('collect', async (i) => {
-
-				if (!(i.user.id === interaction.user.id))
-				return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
+				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
 
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
+							.setAuthor({ name: text.AGENT_INFO })
 								.setTitle(text.AGENT_INFO)
 								.setColor(agentData.data.colour)
 								.setDescription(replaceDescription(agentName, agentData))
@@ -281,19 +271,11 @@ module.exports = {
 					}
 				})
 			})
-			console.info(`File Director: (${__filename}) || User Id: [${interaction.user.id}] || Interaction Latency: [${Math.abs(Date.now() - interaction.createdTimestamp)}ms] || API Latency: [${Math.round(client.ws.ping)}ms]`);
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
 			throw err;
 		}
 
-
-
-
-
-		/////////////////////////////////////////////////////
-		// ADDITIONAL FUNCTIONS /////////////////////////////
-		/////////////////////////////////////////////////////
 		function replaceDescription(agentName, agentData) {
 			switch (agentName) {
 				case "soukaku":

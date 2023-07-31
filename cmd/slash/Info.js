@@ -6,7 +6,7 @@ const text = require("../../events/utils/TextMap");
 
 module.exports = {
     name: text.SC_IS_INFO_NAME,
-    description: text.SC_IS_FOOD_DESC,
+    description: text.SC_IS_INFO_DESC,
     cooldown: 5000,
     /**
      *

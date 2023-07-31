@@ -94,6 +94,7 @@ module.exports = {
     UNUSED: "사용 안 함",
     UNKNOWN: "알 수 없음",
     VAILD_COOKIE: "잘못된 쿠키 형식이야.",
+    STEAL_CONTROL: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.",
     RETCODE_ZERO: "등록 여부를 조사해 봤는데 아무도 일치하지 않았어.",
     MISMATCHED_DATA: "{user}의 데이터를 확인할 수 없어.",
     SRC_ISSUE: "다시 시도해 보거나 개발자한테 물어보는 게 좋을 것 같아",

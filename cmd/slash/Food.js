@@ -12,7 +12,7 @@ module.exports = {
 	cooldown: 5000,
 	options: [{
 		name: text.SC_SUB_NAME,
-		description: text.SC_SUB_DESC,
+		description: text.SC_SUB_NAME_DESC,
 		type: ApplicationCommandOptionType.String,
 		required: true,
 		autocomplete: true
@@ -52,6 +52,7 @@ module.exports = {
 			})
 		} catch (err) {
 			interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
+			throw err;
 		}
 	}
 }

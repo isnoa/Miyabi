@@ -12,12 +12,12 @@ const crypto = require("node:crypto");
 const { env } = require("process");
 
 module.exports = {
-  name: text.SC_IS_CHECKIN_DESC,
+  name: text.SC_IS_CHECKIN_NAME,
   description: text.SC_IS_CHECKIN_DESC,
   cooldown: 30000,
   options: [{
     name: text.SC_SUB_SELCET,
-    description: text.SC_SUB_NAME_DESC,
+    description: text.SC_SUB_SELCET_DESC,
     type: ApplicationCommandOptionType.String,
     choices: [
       { name: "지금", value: "now" },
@@ -53,6 +53,7 @@ module.exports = {
       }
     } catch (err) {
       interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
+      throw err;
     }
   }
 }
@@ -76,11 +77,10 @@ function parseCookie(cookie) {
 }
 
 async function decipher(zzzData) {
-  try {
     const EncryptedCookie = zzzData.authcookie;
 
     if (typeof EncryptedCookie !== 'string' || EncryptedCookie.trim() === '') {
-      throw new Error('Cookie is invalid or empty.');
+      return 'Cookie is invalid or empty.';
     }
 
     const cookie = Buffer.from(EncryptedCookie, 'base64');
@@ -96,9 +96,6 @@ async function decipher(zzzData) {
     decryptedCookie += decipherDo.final('utf8');
 
     return decryptedCookie;
-  } catch (err) {
-    throw err;
-  }
 }
 
 async function chkIn(cookie) {

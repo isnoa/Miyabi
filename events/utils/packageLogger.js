@@ -63,7 +63,6 @@ const sendWebhookMessage = async (updates) => {
 };
 
 const runVersionChecks = async () => {
-  try {
     const updates = await Promise.all([
       checkPackageVersion('axios', axios),
       checkPackageVersion('discord.js', discordjs),
@@ -78,9 +77,6 @@ const runVersionChecks = async () => {
     if (packagesToUpdate.length > 0) {
       await sendWebhookMessage(packagesToUpdate);
     }
-  } catch (error) {
-    console.error('An error occurred while checking package versions:', error);
-  }
 };
 
 runVersionChecks();
