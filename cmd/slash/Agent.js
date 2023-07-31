@@ -64,7 +64,7 @@ module.exports = {
 			const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.StringSelect, time: 30000 });
 
 			collector.on('collect', async (i) => {
-				if (!(i.user.id === interaction.user.id)) return i.reply({ content: "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.", ephemeral: true })
+				if (!(i.user.id === interaction.user.id)) return i.reply({ content: text.STEAL_CONTROL, ephemeral: true })
 
 				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 					switch (i.values[0]) {
