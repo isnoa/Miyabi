@@ -32,7 +32,7 @@ module.exports = {
 
 			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
 				const Embed = new EmbedBuilder()
-					.setTitle(text.AGENT_INFO)
+					.setAuthor({ name: agentData.data.name + text.ONE_COLON + text.AGENT_INFO })
 					.setColor(agentData.data.colour)
 					.setDescription(replaceDescription(agentName, agentData))
 					.setFields(
@@ -70,7 +70,7 @@ module.exports = {
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
-								.setAuthor({ name: text.AGENT_INFO })
+								.setAuthor({ name: agentData.data.name })
 								.setTitle(text.AGENT_INFO)
 								.setColor(agentData.data.colour)
 								.setDescription(replaceDescription(agentName, agentData))
