@@ -7,7 +7,7 @@ const {
   createActHoYoLABDataMachine
 } = require("../../events/utils/dataMachine");
 const zzz = require("../../events/models/zzz");
-const text = require("../../events/utils/TextMap");
+const text = require("../../events/utils/TextMap.json");
 const crypto = require("node:crypto");
 const { env } = require("process");
 
@@ -99,9 +99,8 @@ async function decipher(zzzData) {
 }
 
 async function chkIn(cookie) {
-
   const chkInResult = await createActHoYoLABDataMachine(cookie)
-    .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=TextMap");
+    .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=ko-kr");
 
   if (chkInResult.data.retcode == '-5003') {
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크가 이미 되어 있어.`;

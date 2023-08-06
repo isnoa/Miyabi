@@ -1,6 +1,6 @@
 const client = require("../../miyabi");
 const { InteractionType } = require('discord.js');
-const text = require("../utils/TextMap");
+const text = require("../utils/TextMap.json");
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {

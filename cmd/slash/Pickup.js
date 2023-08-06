@@ -2,7 +2,7 @@ const {
 	CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const text = require("../../events/utils/TextMap");
+const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
     name: text.SC_IS_PICKUP_NAME,

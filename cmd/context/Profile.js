@@ -5,7 +5,7 @@ const {
 } = require("discord.js");
 const user = require("../../events/models/user");
 const zzz = require("../../events/models/zzz");
-const text = require("../../events/utils/TextMap");
+const text = require("../../events/utils/TextMap.json");
 const { getUserGameInfoMachine } = require("../../events/utils/dataMachine");
 
 module.exports = {

@@ -4,7 +4,7 @@ const {
 	EmbedBuilder
 } = require("discord.js");
 const db = require("../../events/models/user");
-const text = require("../../events/utils/TextMap");
+const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
 	name: text.SC_IS_SETTING_NAME,

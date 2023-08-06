@@ -6,7 +6,7 @@
 // } = require("discord.js");
 // const Video = require("../../events/models/youtube")
 // const axios = require("axios");
-// const text = require("../../events/utils/TextMap");
+// const text = require("../../events/utils/TextMap.json");
 
 // module.exports = {
 //     name: text.SC_IS_YOUTUBE_NAME,

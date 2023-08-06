@@ -8,7 +8,7 @@ const {
   GatewayIntentBits,
   EmbedBuilder,
 } = require("discord.js");
-const { DANGER_COLOR } = require("./events/utils/TextMap");
+const { DANGER_COLOR } = require("./events/utils/TextMap.json");
 
 const client = new Client({
   fetchAllMembers: false,

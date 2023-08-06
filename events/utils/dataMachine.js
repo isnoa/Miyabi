@@ -9,7 +9,7 @@ function createMiHoYoDataMachine(cookie) {
             Cookie: cookie,
             Accept: 'application/json;charset=utf-8',
             Referrer: 'https://webstatic-sea.mihoyo.com/',
-            'x-rpc-language': 'TextMap',
+            'x-rpc-language': 'TextMap.json',
             'x-rpc-client_type': '4',
             'x-rpc-app_version': '1.5.0',
             'x-rpc-device_id': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', ''),

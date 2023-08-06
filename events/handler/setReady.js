@@ -3,7 +3,7 @@ const {
   EmbedBuilder,
   ActivityType
 } = require("discord.js");
-const text = require("../../events/utils/TextMap")
+const text = require("../../events/utils/TextMap.json")
 
 client.once("ready", () => {
   console.log(`${client.user.username} is ready for battle.`);

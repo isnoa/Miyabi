@@ -9,8 +9,8 @@ const {
 const crypto = require('node:crypto');
 const user = require("../models/user");
 const zzz = require("../models/zzz");
-const text = require("./TextMap");
-const { createMiHoYoDataMachine } = require('./dataMachine.js');
+const text = require("./TextMap.json");
+const { createMiHoYoDataMachine } = require('./dataMachine');
 
 let region = "os_asia"
 
@@ -37,6 +37,7 @@ client.on("interactionCreate", async (interaction) => {
 
         }
     }
+
     if (interaction.isModalSubmit()) {
         if (interaction.customId === 'setzzzAuthModal') {
             const Ltoken = interaction.fields.getTextInputValue('zzzAuthLtokenInput').replace(/\s+/g, '');
@@ -53,12 +54,17 @@ client.on("interactionCreate", async (interaction) => {
                     .setFields(
                         {
                             name: "해결 방법 [1]",
-                            value: `[[이동]](https://www.hoyolab.com/article/5840049) 해결 가이드를 통해 알아보는 방법이 있어.`,
+                            value: `게임에 들어가서 계정을 생성해.`,
                             inline: true
                         },
                         {
                             name: "해결 방법 [2]",
-                            value: `[[이동]](://discord) 개발자에게 물어보는 방법이 있어.`,
+                            value: `쿠키 정보를 다시 정확하게 입력해.`,
+                            inline: true
+                        },
+                        {
+                            name: "해결 방법 [3]",
+                            value: `HoYoLAB을 로그아웃 후 로그인하고 쿠키 정보를 다시 입력해.`,
                             inline: true
                         },
                     )
@@ -83,7 +89,10 @@ client.on("interactionCreate", async (interaction) => {
             const uid = profile.data.list[0].game_uid
 
             addCookieData(encryptedCookie, uid);
-            interaction.editReply({ content: profile.message + " 승인.\n" + encryptedCookie, ephemeral: true });
+            const Embed = new EmbedBuilder()
+            .setTitle("등록 완료")
+            .setDescription(profile.message)
+            interaction.editReply({ embeds: [Embed] , ephemeral: true });
 
             function addCookieData(encryptedCookie, uid) {
                 Promise.all([
