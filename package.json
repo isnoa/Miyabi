@@ -3,10 +3,10 @@
   "version": "14.5.6",
   "private": true,
   "description": "MIYABI'S LOVER",
-  "main": "miyabi.js",
+  "main": "src/miyabi.js",
   "scripts": {
-    "start": "node miyabi.js",
-    "dev": "nodemon miyabi.js"
+    "start": "node src/miyabi.js",
+    "dev": "nodemon src/miyabi.js"
   },
   "keywords": [
     "Zenless Zone Zero",
