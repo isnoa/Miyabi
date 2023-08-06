@@ -4,7 +4,7 @@ const globPromise = promisify(glob);
 
 module.exports = async (client) => {
   // SlashCommands
-  const slashCommands = await globPromise(`${process.cwd()}/commands/*/*.js`);
+  const slashCommands = await globPromise(`${process.cwd()}/src/commands/*/*.js`);
   const arrayOfSlashCommands = [];
   
   slashCommands.map((value) => {
@@ -22,11 +22,11 @@ module.exports = async (client) => {
   });
 
   // Events
-  const eventFiles = await globPromise(`${process.cwd()}/events/*/*.js`);
+  const eventFiles = await globPromise(`${process.cwd()}/src/events/*/*.js`);
   eventFiles.map((value) => require(value));
 
   // SlashCommands Register
-  client.on("ready", async () => {
+  client.once("ready", async () => {
     await client.application.commands.set(arrayOfSlashCommands);
     console.log("ALL SlashCommands registered.");
   });
