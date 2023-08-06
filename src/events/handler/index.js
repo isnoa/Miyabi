@@ -4,7 +4,7 @@ const globPromise = promisify(glob);
 
 module.exports = async (client) => {
   // SlashCommands
-  const slashCommands = await globPromise(`${process.cwd()}/cmd/*/*.js`);
+  const slashCommands = await globPromise(`${process.cwd()}/commands/*/*.js`);
   const arrayOfSlashCommands = [];
   
   slashCommands.map((value) => {
