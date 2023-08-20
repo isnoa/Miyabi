@@ -43,7 +43,7 @@ module.exports = {
 						},
 						{
 							name: text.AGENT_BATTLE_INFO,
-							value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n→ *에테리얼류(상성)*`,
+							value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n*→ 에테리얼류(상성)*`,
 							inline: true
 						},
 						{
@@ -82,7 +82,7 @@ module.exports = {
 									},
 									{
 										name: text.AGENT_BATTLE_INFO,
-										value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n→ *에테리얼류(상성)*`,
+										value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n*→ 에테리얼류(상성)*`,
 										inline: true
 									},
 									{
