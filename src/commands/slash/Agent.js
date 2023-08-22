@@ -35,7 +35,7 @@ module.exports = {
 					.setAuthor({ name: agentData.data.name + text.ONE_COLON + text.AGENT_INFO })
 					.setColor(agentData.data.colour)
 					.setDescription(replaceDescription(agentName, agentData))
-					.setFields(
+					.addFields(
 						{
 							name: text.AGENT_BASIC_INFO,
 							value: `${text.AGENT_NAME}: ${agentData.data.name}\n${text.AGENT_GENDER}: ${agentData.data.gender}\n${text.AGENT_BIRTHDAY}: ██월 ██일\n${text.AGENT_CAMP}: ${agentData.data.camp}`,
@@ -74,7 +74,7 @@ module.exports = {
 								.setTitle(text.AGENT_INFO)
 								.setColor(agentData.data.colour)
 								.setDescription(replaceDescription(agentName, agentData))
-								.setFields(
+								.addFields(
 									{
 										name: text.AGENT_BASIC_INFO,
 										value: `${text.AGENT_NAME}: ${agentData.data.name}\n${text.AGENT_GENDER}: ${agentData.data.gender}\n${text.AGENT_BIRTHDAY}: ██월 ██일\n${text.AGENT_CAMP}: ${agentData.data.camp}`,
@@ -99,7 +99,7 @@ module.exports = {
 								.setAuthor({ name: agentData.data.name })
 								.setTitle(text.AGENT_STATS)
 								.setColor(agentData.data.colour)
-								.setFields(
+								.addFields(
 									{
 										name: text.AGENT_EX_INDICATOR,
 										value: text.AGENT_MAX_LEVEL_CRITERIA,
@@ -125,7 +125,7 @@ module.exports = {
 								.setTitle(text.AGENT_BASIC_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-								.setFields(
+								.addFields(
 									{
 										name: "—",
 										value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
@@ -151,7 +151,7 @@ module.exports = {
 								.setTitle(text.AGENT_SPECIAL_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-								.setFields(
+								.addFields(
 									{
 										name: "1st (호소빌)",
 										value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
@@ -177,7 +177,7 @@ module.exports = {
 								.setTitle(text.AGENT_COMBO_ATK)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-								.setFields(
+								.addFields(
 									{
 										name: "1st (호소빌)",
 										value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
@@ -203,7 +203,7 @@ module.exports = {
 								.setTitle(text.AGENT_DODGE)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-								.setFields(
+								.addFields(
 									{
 										name: "1st (호소빌)",
 										value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
@@ -229,7 +229,7 @@ module.exports = {
 								.setTitle(text.AGENT_TALENT)
 								.setColor(agentData.data.colour)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
-								.setFields(
+								.addFields(
 									{
 										name: "1st (호소빌)",
 										value: "> 호시미 미야비\n소우카쿠\n빌리 키드",
@@ -255,7 +255,7 @@ module.exports = {
 								.setTitle(text.AGENT_RECOMMENDED_PARTY)
 								.setColor(agentData.data.colour)
 								.setDescription(text.AGENT_TIER_ORDER)
-								.setFields(
+								.addFields(
 									{
 										name: `${text.AGENT_TIER_1ST} — 호소빌`,
 										value: "> 호시미 미야비\n> 소우카쿠\n> 빌리 키드",

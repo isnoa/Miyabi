@@ -1,5 +1,5 @@
 const {
-	CommandInteraction,
+    CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
 const text = require("../../events/utils/TextMap.json");
@@ -17,7 +17,7 @@ module.exports = {
         const Embed = new EmbedBuilder()
             .setTitle("MIYABI에 대해")
             .setDescription("MIYABI는 「Zenless Zone Zero」에 나오는 캐릭터 중에 하나입니다. [노아](https://discord.com/users/1010159742104113162)의 생각 아래에 진행되고 있는 프로젝트이며, 상식개변(돈과 미야비를 등가교환) 시켜서 로프꾼 여러분과 함께하고 있습니다!")
-            .setFields(
+            .addFields(
                 {
                     name: "#이용 및 통계",
                     value: `현재 \`${client.guilds.cache.size}\`개의 서버에서 활동 중이며 \`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)}\`명의 로프꾼분께서 도움 받고 계십니다!\n\n\n**#미야비 개발자**\n- [노아](https://discord.com/users/1010159742104113162) (모든 프로젝트 담당)\n- [윤](https://discord.com/users/1010159742104113162) (게임정보수집, 사이트 담당)`,
@@ -36,8 +36,8 @@ module.exports = {
             .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1093910093352939620/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
             .setColor(text.MIYABI_COLOR)
         await interaction.reply({ embeds: [Embed], ephemeral: true })
-        
-    
+
+
         /**
          * Create a text progress bar
          * @param {Number} minValue - The min value to fill the bar

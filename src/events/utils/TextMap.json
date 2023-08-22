@@ -93,6 +93,7 @@
     "USED": "사용 중",
     "UNUSED": "사용 안 함",
     "UNKNOWN": "알 수 없음",
+    "HIDDEN": "*숨겨짐*",
     "VAILD_COOKIE": "잘못된 쿠키 형식이야.",
     "STEAL_CONTROL": "남의 것을 뺴앗는건 질서를 무너뜨리는 행위야.",
     "RETCODE_ZERO": "등록 여부를 조사해 봤는데 아무도 일치하지 않았어.",

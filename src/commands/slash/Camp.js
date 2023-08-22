@@ -34,7 +34,7 @@ module.exports = {
 					.setColor(campData.data.ZZZCamp.camp_info[0].camp_original_color)
 					.setImage(campData.data.ZZZCamp.camp_info[0].camp_banner)
 					.setThumbnail(campData.data.ZZZCamp.camp_info[0].camp_logo)
-					.setFields({ name: "소속된 에이전트", value: campData.data.ZZZCamp.camp_info[1].camp_character.map(agents => `— ${agents}`).join('\n') })
+					.addFields({ name: "소속된 에이전트", value: campData.data.ZZZCamp.camp_info[1].camp_character.map(agents => `— ${agents}`).join('\n') })
 				await interaction.reply({ embeds: [Embed] })
 			})
 		} catch (err) {

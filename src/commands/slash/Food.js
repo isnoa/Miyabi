@@ -30,7 +30,7 @@ module.exports = {
 					.setAuthor({ iconURL: "https://cdn.discordapp.com/emojis/1082596238404354058.webp?size=48&quality=lossless", name: foodData.data.ZZZRamen.name })
 					.setDescription('> ' + foodData.data.ZZZRamen.desc)
 					.setColor('#C02E1B')
-					.setFields(
+					.addFields(
 						{
 							name: `음식 효과`,
 							value: foodData.data.ZZZRamen.effect.desc + '\n' + foodData.data.ZZZRamen.info.tips,

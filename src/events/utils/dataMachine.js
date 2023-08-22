@@ -47,7 +47,7 @@ async function getUserGameInfoMachine(cookie, region) {
 
         const instance = await createMiHoYoDataMachine(decryptedCookie)
             .get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=hk4e_global&region=${region}`);
-            
+
         const userInfo = instance.data.data.list[0];
 
         return userInfo;
@@ -56,8 +56,10 @@ async function getUserGameInfoMachine(cookie, region) {
 
 function isValidCookie(cookie) {
     if (typeof cookie !== 'string') return undefined;
+    
     const output = parseCookie(cookie);
-    const requiredFields = ['ltuid', 'ltuid'];
+    const requiredFields = ['ltuid', 'ltoken'];
+
     return requiredFields
         .map((field) => Object.keys(output).includes(field))
         .every((element) => !!element);
@@ -65,10 +67,12 @@ function isValidCookie(cookie) {
 
 function parseCookie(cookie) {
     const output = {};
+
     cookie.split(/\s*;\s*/).forEach((pair) => {
         pair = pair.split(/\s*=\s*/);
         output[pair[0]] = pair.splice(1).join('=');
     });
+
     return output;
 }
 
@@ -80,6 +84,7 @@ function decryptCookie(cookie) {
     const decipher = crypto.createDecipheriv(algorithm, key, iv);
     let decryptedCookie = decipher.update(cookie, 'base64', 'utf8');
     decryptedCookie += decipher.final('utf8');
+
     return decryptedCookie;
 }
 
@@ -89,6 +94,7 @@ function generateDSToken() {
     const randomChar = generateRandomString(6);
     const dataString = `salt=${DS_SALT}&t=${time}&r=${randomChar}`;
     const hashedData = crypto.createHash('md5').update(dataString).digest('hex');
+
     return `${time},${randomChar},${hashedData}`;
 }
 
@@ -98,6 +104,7 @@ function generateRandomString(len) {
     for (let i = 0; i < len; i++) {
         str += charSet[Math.floor(Math.random() * charSet.length)]
     }
+
     return str;
 }
 

@@ -51,7 +51,7 @@ client.on("interactionCreate", async (interaction) => {
             if (profile.retcode !== 0) {
                 const Embed = new EmbedBuilder()
                     .setDescription(text.RETCODE_ZERO + "\n에러 내용: " + `\`${profile.message}\``)
-                    .setFields(
+                    .addFields(
                         {
                             name: "해결 방법 [1]",
                             value: `게임에 들어가서 계정을 생성해.`,
@@ -90,9 +90,9 @@ client.on("interactionCreate", async (interaction) => {
 
             addCookieData(encryptedCookie, uid);
             const Embed = new EmbedBuilder()
-            .setTitle("등록 완료")
-            .setDescription(profile.message)
-            interaction.editReply({ embeds: [Embed] , ephemeral: true });
+                .setTitle("등록 완료")
+                .setDescription(profile.message)
+            interaction.editReply({ embeds: [Embed], ephemeral: true });
 
             function addCookieData(encryptedCookie, uid) {
                 Promise.all([
@@ -100,14 +100,14 @@ client.on("interactionCreate", async (interaction) => {
                     zzz.findOne({ where: { user_id: interaction.user.id } })
                 ]).then(([userData, zzzData]) => {
                     if (userData) {
-                        if (userData.is_hide_uid === null) {
-                            user.update({ is_hide_uid: true }, { where: { user_id: interaction.user.id } });
+                        if (userData.is_show_uid === null) {
+                            user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
                         }
-                        if (userData.is_hide_profile === null) {
-                            user.update({ is_hide_profile: true }, { where: { user_id: interaction.user.id } });
+                        if (userData.is_show_profile === null) {
+                            user.update({ is_show_profile: true }, { where: { user_id: interaction.user.id } });
                         }
                     } else {
-                        user.create({ user_id: interaction.user.id, is_hide_uid: true, is_hide_profile: true })
+                        user.create({ user_id: interaction.user.id, is_show_uid: true, is_show_profile: true })
                     }
 
                     if (zzzData) {
