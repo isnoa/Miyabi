@@ -27,32 +27,47 @@ module.exports = {
 	 */
 	run: async (client, interaction) => {
 		try {
-			let agentName = interaction.options.getString(text.SC_SUB_NAME);
-			if (!agentName) return interaction.eply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)] });
+			let agentId = interaction.options.getString(text.SC_SUB_NAME);
+			if (!agentId) return interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`이름을 찾을 수 없어.\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)] });
 
-			await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
+			const instance = axios.create({
+				headers: {
+					Authorization: `Token ${process.env.ghp}`
+				}
+			})
+
+			await instance.get(`https://raw.githubusercontent.com/Shunsphere/zero-archive/main/database/agents/${agentId}.json`).then(async (response) => {
+				let agentData = response.data.details
+
 				const Embed = new EmbedBuilder()
-					.setAuthor({ name: agentData.data.name + text.ONE_COLON + text.AGENT_INFO })
-					.setColor(agentData.data.colour)
-					.setDescription(replaceDescription(agentName, agentData))
+					.setAuthor({ name: agentData.real_name + text.TWO_LINE + text.AGENT_INFO })
+					.setColor(agentData.color)
+					.setDescription((agentData.description.title).split("——")[0])
 					.addFields(
 						{
 							name: text.AGENT_BASIC_INFO,
-							value: `${text.AGENT_NAME}: ${agentData.data.name}\n${text.AGENT_GENDER}: ${agentData.data.gender}\n${text.AGENT_BIRTHDAY}: ██월 ██일\n${text.AGENT_CAMP}: ${agentData.data.camp}`,
+							value: `${text.AGENT_NAME}: ${agentData.real_name}\n${text.AGENT_GENDER}: ${agentData.gender}\n${text.AGENT_CAMP}: ${agentData.faction.text}`,
 							inline: true
 						},
 						{
 							name: text.AGENT_BATTLE_INFO,
-							value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n*→ 에테리얼류(상성)*`,
+							value: `${text.AGENT_ELEMENT}: ${agentData.element.text}\n${text.AGENT_DAMAGE}: ${agentData.attack.type.text}\n*→ ${agentData.attack.strong.text}(상성)*`,
 							inline: true
 						},
 						{
-							name: text.AGENT_IAI_INFO,
-							value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
+							name: text.AGENT_VOICE_ACTOR,
+							value: `\`\`\`🇯🇵 ${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n🇨🇳 ${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})\`\`\``,
+							// value: `:flag_jp: ${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n:flag_cn: ${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})`,
+							// value: `\`\`\`${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})\`\`\``,
 							inline: false
-						}
+						},
+						// {
+						// 	name: text.AGENT_IAI_INFO,
+						// 	value: agentData.description.introduce,
+						// 	inline: false
+						// }
 					)
-					.setThumbnail(agentData.data.archive.avatar);
+					.setThumbnail("https://zenlessdata.web.app/upload/op-public/2023/02/05/9eefd58e0e58ae5b8f904af6c5b534f6_1424369388568759999.png");
 
 				await interaction.reply({ embeds: [Embed], components: [selectAgentRow()] })
 					.then(setTimeout(() => {
@@ -66,39 +81,48 @@ module.exports = {
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: text.STEAL_CONTROL, ephemeral: true })
 
-				await axios.get(`https://zenlessdata.web.app/content_v2_user/app/3e9196a4b9274bd7/${agentName}.json`).then(async (agentData) => {
+				await instance.get(`https://raw.githubusercontent.com/Shunsphere/zero-archive/main/database/agents/103379.json`).then(async (response) => {
+					let agentData = response.data.details
+
 					switch (i.values[0]) {
 						case 'Info':
 							const InfoEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
-								.setTitle(text.AGENT_INFO)
-								.setColor(agentData.data.colour)
-								.setDescription(replaceDescription(agentName, agentData))
+								.setAuthor({ name: agentData.real_name + text.TWO_LINE + text.AGENT_INFO })
+								.setColor(agentData.color)
+								.setDescription((agentData.description.title).split("——")[0])
 								.addFields(
 									{
 										name: text.AGENT_BASIC_INFO,
-										value: `${text.AGENT_NAME}: ${agentData.data.name}\n${text.AGENT_GENDER}: ${agentData.data.gender}\n${text.AGENT_BIRTHDAY}: ██월 ██일\n${text.AGENT_CAMP}: ${agentData.data.camp}`,
+										value: `${text.AGENT_NAME}: ${agentData.real_name}\n${text.AGENT_GENDER}: ${agentData.gender}\n${text.AGENT_CAMP}: ${agentData.faction.text}`,
 										inline: true
 									},
 									{
 										name: text.AGENT_BATTLE_INFO,
-										value: `${text.AGENT_ELEMENT}: 얼음\n${text.AGENT_DAMAGE}: 베기\n*→ 에테리얼류(상성)*`,
+										value: `${text.AGENT_ELEMENT}: ${agentData.element.text}\n${text.AGENT_DAMAGE}: ${agentData.attack.type.text}\n*→ ${agentData.attack.strong.text}(상성)*`,
 										inline: true
 									},
 									{
-										name: text.AGENT_IAI_INFO,
-										value: `${agentData.data.interview}\n\n${agentData.data.intro}`,
+										name: text.AGENT_VOICE_ACTOR,
+										value: `\`\`\`🇯🇵 ${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n🇨🇳 ${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})\`\`\``,
+										// value: `:flag_jp: ${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n:flag_cn: ${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})`,
+										// value: `\`\`\`${text.AGENT_VOICE_ACTOR_JAPANESE}: ${agentData.voice_actor.jp.localization}(${agentData.voice_actor.jp.mainland})\n${text.AGENT_VOICE_ACTOR_CHINESE}: ${agentData.voice_actor.cn.localization}(${agentData.voice_actor.cn.mainland})\`\`\``,
 										inline: false
-									}
+									},
+									// {
+									// 	name: text.AGENT_IAI_INFO,
+									// 	value: agentData.description.introduce,
+									// 	inline: false
+									// }
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail("https://zenlessdata.web.app/upload/op-public/2023/02/05/9eefd58e0e58ae5b8f904af6c5b534f6_1424369388568759999.png");
+
 							await i.update({ embeds: [InfoEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Stats':
 							const StatsEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_STATS)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.addFields(
 									{
 										name: text.AGENT_EX_INDICATOR,
@@ -107,7 +131,7 @@ module.exports = {
 									},
 									{
 										name: text.AGENT_NECESSARY_ITEM,
-										value: `${text.MIDDLE_DOT}${text.AGENT_MATERIALS}·${agentData.data.name}: ?\n${text.MIDDLE_DOT}${text.AGENT_ARCHIVE}: ?`,
+										value: `${text.MIDDLE_DOT}${text.AGENT_MATERIALS}·${agentData.name}: ?\n${text.MIDDLE_DOT}${text.AGENT_ARCHIVE}: ?`,
 										inline: false
 									},
 									{
@@ -116,14 +140,14 @@ module.exports = {
 										inline: false
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							await i.update({ embeds: [StatsEmbed], components: [selectAgentRow()] })
 							break;
 						case 'BasicAttack':
 							const Embed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_BASIC_ATK)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.addFields(
 									{
@@ -142,14 +166,14 @@ module.exports = {
 										inline: false
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							await i.update({ embeds: [Embed], components: [selectAgentRow()] })
 							break;
 						case 'SpecialAttack':
 							const SpecialAttackEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_SPECIAL_ATK)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.addFields(
 									{
@@ -168,14 +192,14 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							await i.update({ embeds: [SpecialAttackEmbed], components: [selectAgentRow()] })
 							break;
 						case 'ComboAttack':
 							const ComboAttackEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_COMBO_ATK)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.addFields(
 									{
@@ -194,14 +218,14 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							await i.update({ embeds: [ComboAttackEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Dodge':
 							const DodgeEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_DODGE)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.addFields(
 									{
@@ -220,14 +244,14 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							await i.update({ embeds: [DodgeEmbed], components: [selectAgentRow()] })
 							break;
 						case 'Talent':
 							const TalentEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_TALENT)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription("해당 캐릭터의 추천 순위는 1st, 2nd, 3rd 순이랍니다.")
 								.addFields(
 									{
@@ -246,14 +270,14 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							interaction.update({ embeds: [TalentEmbed], components: [selectAgentRow()] })
 							break;
 						case 'PartyRecs':
 							const PartyRecsEmbed = new EmbedBuilder()
-								.setAuthor({ name: agentData.data.name })
+								.setAuthor({ name: agentData.name })
 								.setTitle(text.AGENT_RECOMMENDED_PARTY)
-								.setColor(agentData.data.colour)
+								.setColor(agentData.color)
 								.setDescription(text.AGENT_TIER_ORDER)
 								.addFields(
 									{
@@ -272,7 +296,7 @@ module.exports = {
 										inline: true
 									}
 								)
-								.setThumbnail(agentData.data.archive.avatar)
+								.setThumbnail(agentData.archive.avatar)
 							interaction.update({ embeds: [PartyRecsEmbed], components: [selectAgentRow()] })
 							break;
 					}
@@ -283,14 +307,14 @@ module.exports = {
 			throw err;
 		}
 
-		function replaceDescription(agentName, agentData) {
-			switch (agentName) {
+		function replaceDescription(agentId, agentData) {
+			switch (agentId) {
 				case "soukaku":
-					return `> ${(agentData.data.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
+					return `> ${(agentData.description.title).replace(/\n/i, " ").replace(/면/i, "면\n>")}`;
 				case "ben_bigger":
-					return `> ${(agentData.data.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
+					return `> ${(agentData.description.title).replace(/\n/i, " ").replace(/을/i, "을\n>")}`;
 				default:
-					return `> ${(agentData.data.title).replace(/\n/i, "\n> ")}`;
+					return `> ${(agentData.description.title).replace(/\n/i, "\n> ")}`;
 			}
 		}
 

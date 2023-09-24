@@ -14,7 +14,7 @@ const choices = [
     { name: text.KOLEDA_BELOBOG, value: "koleda_belobog" },
     { name: text.BEN_BIGGER, value: "ben_bigger" },
     { name: text.SOUKAKU, value: "soukaku" },
-    { name: text.HOSHIMI_MIYABI, value: "hoshimi_miyabi" }
+    { name: text.HOSHIMI_MIYABI, value: "103379" }
 ];
 
 client.on("interactionCreate", async (interaction) => {
