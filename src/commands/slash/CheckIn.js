@@ -37,7 +37,7 @@ module.exports = {
       const zzzData = await zzz.findOne({ where: { user_id: interaction.user.id } });
       if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
 
-      const cookie = await decipher(zzzData);
+      const cookie = await decipher(zzzData.authcookie);
       if (!isValidCookie(cookie)) return interaction.reply({ content: text.VAILD_COOKIE });
 
       switch (chosen) {
@@ -76,14 +76,12 @@ function parseCookie(cookie) {
   return output;
 }
 
-async function decipher(zzzData) {
-    const EncryptedCookie = zzzData.authcookie;
-
-    if (typeof EncryptedCookie !== 'string' || EncryptedCookie.trim() === '') {
+async function decipher(authcookie) {
+    if (typeof authcookie !== 'string' || authcookie.trim() === '') {
       return 'Cookie is invalid or empty.';
     }
 
-    const cookie = Buffer.from(EncryptedCookie, 'base64');
+    const cookie = Buffer.from(authcookie, 'base64');
 
     const decipherDo = crypto.createDecipheriv(
       env.SECRET_ALGORITHM,
