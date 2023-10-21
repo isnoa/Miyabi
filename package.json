@@ -6,7 +6,7 @@
   "main": "src/miyabi.js",
   "scripts": {
     "start": "node src/miyabi.js",
-    "dev": "nodemon src/miyabi.js"
+    "start:dev": "nodemon src/miyabi.js"
   },
   "keywords": [
     "Zenless Zone Zero",
@@ -15,11 +15,11 @@
   ],
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "glob": "^7.2.3",
-    "mysql2": "^3.6.1",
+    "mysql2": "^3.6.2",
     "sequelize": "^6.33.0",
     "uuid": "^9.0.1"
   },
