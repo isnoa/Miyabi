@@ -9,7 +9,7 @@ function createMiHoYoDataMachine(cookie) {
             Cookie: cookie,
             Accept: 'application/json;charset=utf-8',
             Referrer: 'https://webstatic-sea.mihoyo.com/',
-            'x-rpc-language': 'TextMap.json',
+            'x-rpc-language': 'ko-kr',
             'x-rpc-client_type': '4',
             'x-rpc-app_version': '1.5.0',
             'x-rpc-device_id': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', ''),
@@ -32,8 +32,8 @@ function createActHoYoLABDataMachine(cookie) {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46',
             Cookie: cookie,
             Accept: 'application/json, text/plain, */*',
-            'Content-Type': 'application/json;charset=utf-8',
             Referrer: 'https://act.hoyolab.com/',
+            'Content-Type': 'application/json;charset=utf-8',
             'x-rpc-challenge': uuid.v3(cookie ?? '', uuid.v3.URL).replace('-', '')
         }
     });
@@ -56,7 +56,7 @@ async function getUserGameInfoMachine(cookie, region) {
 
 function isValidCookie(cookie) {
     if (typeof cookie !== 'string') return undefined;
-    
+
     const output = parseCookie(cookie);
     const requiredFields = ['ltuid', 'ltoken'];
 

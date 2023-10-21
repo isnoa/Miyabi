@@ -16,9 +16,9 @@ let region = "os_asia"
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isButton()) {
-        if (interaction.customId === 'RegistrationButton') {
+        if (interaction.customId === 'AuthButton') {
             const zzzAuthModal = new ModalBuilder()
-                .setCustomId('setzzzAuthModal')
+                .setCustomId('zzzAuthModal')
                 .setTitle(text.SETTING_ZZZ_AUTH)
             const zzzAuthLtokenInput = new TextInputBuilder()
                 .setCustomId('zzzAuthLtokenInput')
@@ -34,12 +34,11 @@ client.on("interactionCreate", async (interaction) => {
             const zzzAuthLtuidRow = new ActionRowBuilder().addComponents(zzzAuthLtuidInput)
             zzzAuthModal.addComponents(zzzAuthLtokenRow, zzzAuthLtuidRow)
             await interaction.showModal(zzzAuthModal);
-
         }
     }
 
     if (interaction.isModalSubmit()) {
-        if (interaction.customId === 'setzzzAuthModal') {
+        if (interaction.customId === 'zzzAuthModal') {
             const Ltoken = interaction.fields.getTextInputValue('zzzAuthLtokenInput').replace(/\s+/g, '');
             const Ltuid = interaction.fields.getTextInputValue('zzzAuthLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
@@ -54,7 +53,7 @@ client.on("interactionCreate", async (interaction) => {
                     .addFields(
                         {
                             name: "해결 방법 [1]",
-                            value: `게임에 들어가서 계정을 생성해.`,
+                            value: `게임에 들어가서 프로필을 생성해.`,
                             inline: true
                         },
                         {
@@ -100,10 +99,10 @@ client.on("interactionCreate", async (interaction) => {
                     zzz.findOne({ where: { user_id: interaction.user.id } })
                 ]).then(([userData, zzzData]) => {
                     if (userData) {
-                        if (userData.is_show_uid === null) {
+                        if (userData.is_show_uid) {
                             user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
                         }
-                        if (userData.is_show_profile === null) {
+                        if (userData.is_show_profile) {
                             user.update({ is_show_profile: true }, { where: { user_id: interaction.user.id } });
                         }
                     } else {

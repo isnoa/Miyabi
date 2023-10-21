@@ -8,8 +8,8 @@ const {
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
-    name: text.SC_IS_REGISTER_NAME,
-    description: text.SC_IS_REGISTER_DESC,
+    name: text.SC_IS_AUTH_NAME,
+    description: text.SC_IS_AUTH_DESC,
     cooldown: 5000,
     /**
      *
@@ -24,7 +24,7 @@ module.exports = {
         const Row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId('RegistrationButton')
+                    .setCustomId('AuthButton')
                     .setEmoji("1110886494786302083")
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Secondary),

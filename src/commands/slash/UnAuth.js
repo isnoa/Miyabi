@@ -6,8 +6,8 @@ const zzz = require("../../events/models/zzz");
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
-    name: text.SC_IS_UNREGISTER_NAME,
-    description: text.SC_IS_UNREGISTER_DESC,
+    name: text.SC_IS_UNAUTH_NAME,
+    description: text.SC_IS_UNAUTH_DESC,
     cooldown: 5000,
     /**
      *
