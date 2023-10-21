@@ -25,12 +25,12 @@ module.exports = {
                     });
 
                     const Embed = new EmbedBuilder()
-                        .setTitle(text.SETTING_REGISTRATION_SUCCESS)
-                        .setDescription(text.SETTING_REGISTRATION_WARNING)
+                        .setTitle(text.SETTING_AUTH_SUCCESS)
+                        .setDescription(text.SETTING_AUTH_WARNING)
                         .setColor(text.MIYABI_COLOR)
                     interaction.reply({ embeds: [Embed] })
                 } else {
-                    interaction.reply({ content: text.SETTING_REGISTRATION_ERROR })
+                    interaction.reply({ content: text.SETTING_AUTH_ERROR })
                 }
             })
         } catch (err) {

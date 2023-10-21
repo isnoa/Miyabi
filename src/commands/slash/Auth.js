@@ -18,7 +18,7 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription(text.SETTING_REGISTRATION_DOCUMENT.join('\n'))
+            .setDescription(text.SETTING_AUTH_DOCUMENT.join('\n'))
             .setColor(text.MIYABI_COLOR)
 
         const Row = new ActionRowBuilder()
