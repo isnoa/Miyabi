@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "target": "ES6",
+      "checkJs": true,
+      "baseUrl": "src",
+      "paths": {
+            "@commands/*": ["commands/*"],
+            "@context/*": ["commands/_context*"],
+            "@slash/*": ["commands/_slash/*"],
+            "@events/*": ["events/*"],
+            "@handler/*": ["events/_handler/*"],
+            "@models/*": ["events/_models/*"],
+            "@utils/*": ["events/_utils/*"]
+        },
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
+  }
