@@ -65,7 +65,6 @@ process.on('uncaughtExceptionMonitor', async (err, origin) => {
 async function sendErrorMessage(errorTitle, errorMessage) {
   try {
     const channel = await client.channels.fetch("1123984272760520794");
-    console.log("Fetched channel:", channel);
 
     if (!channel) {
       console.error("Channel not found.");
@@ -78,6 +77,6 @@ async function sendErrorMessage(errorTitle, errorMessage) {
       embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(`\`\`\`bash\n${limitedErrorMessage}\n\`\`\``).setColor(DANGER_COLOR).setTimestamp()]
     });
   } catch (error) {
-    console.error("Error sending message:", error);
+    console.error("Error sending message:", limitedErrorMessage);
   }
 };
