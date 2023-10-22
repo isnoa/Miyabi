@@ -44,19 +44,6 @@ client.login(process.env.CLIENT_TOKEN)
     process.exit();
   })
 
-const sendErrorMessage = async (errorTitle, errorMessage) => {
-  try {
-    const channel = await client.channels.fetch("1123984272760520794");
-    const limitedErrorMessage = errorMessage.slice(0, 2000);
-
-    channel.send({
-      embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(`\`\`\`bash\n${limitedErrorMessage}\n\`\`\``).setColor(DANGER_COLOR).setTimestamp()]
-    });
-  } catch (error) {
-    console.error("Error sending message:", error);
-  }
-};
-
 process.on("uncaughtException", async (err, origin) => {
   console.log('[antiCrash] :: Uncaught Exception/Catch');
   console.error(err, origin);
@@ -74,3 +61,23 @@ process.on('uncaughtExceptionMonitor', async (err, origin) => {
   console.error(err, origin);
   await sendErrorMessage("Unhandled Exception/Catch (MONITOR)", err.stack);
 });
+
+async function sendErrorMessage(errorTitle, errorMessage) {
+  try {
+    const channel = await client.channels.fetch("1123984272760520794");
+    console.log("Fetched channel:", channel);
+
+    if (!channel) {
+      console.error("Channel not found.");
+      return;
+    }
+
+    const limitedErrorMessage = errorMessage.slice(0, 2000);
+
+    channel.send({
+      embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(`\`\`\`bash\n${limitedErrorMessage}\n\`\`\``).setColor(DANGER_COLOR).setTimestamp()]
+    });
+  } catch (error) {
+    console.error("Error sending message:", error);
+  }
+};

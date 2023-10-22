@@ -2,8 +2,12 @@
     "compilerOptions": {
       "module": "CommonJS",
       "target": "ES6",
-      "checkJs": true,
+      "checkJs": false,
       "baseUrl": "src",
+      "resolveJsonModule": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "noUnusedLocals": true,
       "paths": {
             "@commands/*": ["commands/*"],
             "@context/*": ["commands/_context*"],
