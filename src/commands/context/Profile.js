@@ -3,8 +3,8 @@ const {
     ApplicationCommandType,
     EmbedBuilder
 } = require("discord.js");
-const user = require("../../events/models/user");
-const zzz = require("../../events/models/zzz");
+const user = require("../../models/user");
+const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
 const { getUserGameInfoMachine } = require("../../events/utils/dataMachine");
 

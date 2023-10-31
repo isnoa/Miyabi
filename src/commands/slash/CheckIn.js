@@ -6,7 +6,7 @@ const {
 const {
   createActHoYoLABDataMachine
 } = require("../../events/utils/dataMachine");
-const zzz = require("../../events/models/zzz");
+const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
 const crypto = require("node:crypto");
 const { env } = require("process");
@@ -77,23 +77,23 @@ function parseCookie(cookie) {
 }
 
 async function decipher(authcookie) {
-    if (typeof authcookie !== 'string' || authcookie.trim() === '') {
-      return 'Cookie is invalid or empty.';
-    }
+  if (typeof authcookie !== 'string' || authcookie.trim() === '') {
+    return 'Cookie is invalid or empty.';
+  }
 
-    const cookie = Buffer.from(authcookie, 'base64');
+  const cookie = Buffer.from(authcookie, 'base64');
 
-    const decipherDo = crypto.createDecipheriv(
-      env.SECRET_ALGORITHM,
-      env.SECRET_KEY,
-      env.SECRET_IV
-    );
+  const decipherDo = crypto.createDecipheriv(
+    env.SECRET_ALGORITHM,
+    env.SECRET_KEY,
+    env.SECRET_IV
+  );
 
-    // 암호 해독 수행
-    let decryptedCookie = decipherDo.update(cookie, 'base64', 'utf8');
-    decryptedCookie += decipherDo.final('utf8');
+  // 암호 해독 수행
+  let decryptedCookie = decipherDo.update(cookie, 'base64', 'utf8');
+  decryptedCookie += decipherDo.final('utf8');
 
-    return decryptedCookie;
+  return decryptedCookie;
 }
 
 async function chkIn(cookie) {

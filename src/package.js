@@ -79,4 +79,6 @@ const runVersionChecks = async () => {
   }
 };
 
-runVersionChecks();
+if (process.argv[2] === "start:dev") {
+  runVersionChecks();
+}

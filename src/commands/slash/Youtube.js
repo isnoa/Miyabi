@@ -4,7 +4,7 @@
 //     ChannelType,
 //     PermissionsBitField
 // } = require("discord.js");
-// const Video = require("../../events/models/youtube")
+// const Video = require("../../models/youtube")
 // const axios = require("axios");
 // const text = require("../../events/utils/TextMap.json");
 

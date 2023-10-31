@@ -7,8 +7,8 @@ const {
     EmbedBuilder
 } = require("discord.js");
 const crypto = require('node:crypto');
-const user = require("../models/user");
-const zzz = require("../models/zzz");
+const user = require("../../models/user");
+const zzz = require("../../models/zzz");
 const text = require("./TextMap.json");
 const { createMiHoYoDataMachine } = require('./dataMachine');
 

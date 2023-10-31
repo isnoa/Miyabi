@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../handler/connectDB.js');
+const sequelize = require('../events/handler/connectDB.js');
 
 const zzz = sequelize.define('zzz', {
     num: {

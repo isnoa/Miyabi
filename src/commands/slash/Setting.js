@@ -3,7 +3,7 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder
 } = require("discord.js");
-const db = require("../../events/models/user");
+const db = require("../../models/user");
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {

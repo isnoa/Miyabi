@@ -2,7 +2,7 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const zzz = require("../../events/models/zzz");
+const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
