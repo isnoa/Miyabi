@@ -81,7 +81,7 @@ module.exports = {
 			collector.on('collect', async (i) => {
 				if (!(i.user.id === interaction.user.id)) return i.reply({ content: text.STEAL_CONTROL, ephemeral: true })
 
-				await instance.get(`https://raw.githubusercontent.com/Shunsphere/zero-archive/main/database/agents/103379.json`).then(async (response) => {
+				await instance.get(`https://raw.githubusercontent.com/Shunsphere/zero-archive/main/database/agents/${agentId}.json`).then(async (response) => {
 					let agentData = response.data.details
 
 					switch (i.values[0]) {

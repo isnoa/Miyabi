@@ -63,20 +63,20 @@ const sendWebhookMessage = async (updates) => {
 };
 
 const runVersionChecks = async () => {
-    const updates = await Promise.all([
-      checkPackageVersion('axios', axios),
-      checkPackageVersion('discord.js', discordjs),
-      checkPackageVersion('dotenv', dotenv),
-      checkPackageVersion('mysql2', mysql2),
-      checkPackageVersion('sequelize', sequelize),
-      checkPackageVersion('uuid', uuid)
-    ]);
+  const updates = await Promise.all([
+    checkPackageVersion('axios', axios),
+    checkPackageVersion('discord.js', discordjs),
+    checkPackageVersion('dotenv', dotenv),
+    checkPackageVersion('mysql2', mysql2),
+    checkPackageVersion('sequelize', sequelize),
+    checkPackageVersion('uuid', uuid)
+  ]);
 
-    // 업데이트가 필요한 패키지만 필터링하여 웹훅으로 보내기
-    const packagesToUpdate = updates.filter(update => update.status === 'outdated');
-    if (packagesToUpdate.length > 0) {
-      await sendWebhookMessage(packagesToUpdate);
-    }
+  // 업데이트가 필요한 패키지만 필터링하여 웹훅으로 보내기
+  const packagesToUpdate = updates.filter(update => update.status === 'outdated');
+  if (packagesToUpdate.length > 0) {
+    await sendWebhookMessage(packagesToUpdate);
+  }
 };
 
 runVersionChecks();
