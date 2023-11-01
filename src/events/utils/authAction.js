@@ -51,10 +51,16 @@ client.on("interactionCreate", async (interaction) => {
             axios.all([hoyolabPromise, ingamePromise])
                 .then(axios.spread((hoyolabRes, ingameRes) => {
                     if (hoyolabRes.retcode !== 0) {
+                        const Embed = new EmbedBuilder()
+                            .setDescription("쿠키 정보를 다시 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 쿠키 정보를 입력해.")
 
+                        return interaction.editReply({ embeds: [Embed], ephemeral: true })
                     }
                     if (ingameRes.retcode !== 0) {
+                        const Embed = new EmbedBuilder()
+                            .setDescription("게임에 접속해서 프로필을 생성해.")
 
+                        return interaction.editReply({ embeds: [Embed], ephemeral: true })
                     }
 
                     const Embed = new EmbedBuilder()
@@ -83,17 +89,17 @@ client.on("interactionCreate", async (interaction) => {
             //         .addFields(
             //             {
             //                 name: "해결 방법 [1]",
-            //                 value: `게임에 들어가서 프로필을 생성해.`,
+            //                 value: `게임에 접속해서 프로필을 생성해.`,
             //                 inline: true
             //             },
             //             {
             //                 name: "해결 방법 [2]",
-            //                 value: `쿠키 정보를 다시 정확하게 입력해.`,
+            //                 value: `쿠키 정보를 다시 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 쿠키 정보를 입력해.`,
             //                 inline: true
             //             },
             //             {
             //                 name: "해결 방법 [3]",
-            //                 value: `HoYoLAB을 로그아웃 후 로그인하고 쿠키 정보를 다시 입력해.`,
+            //                 value: `???`,
             //                 inline: true
             //             },
             //         )
