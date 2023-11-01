@@ -4,6 +4,8 @@ const {
     ModalBuilder,
     TextInputBuilder,
     TextInputStyle,
+    ButtonBuilder,
+    ButtonStyle,
     EmbedBuilder
 } = require("discord.js");
 const crypto = require('node:crypto');
@@ -41,7 +43,7 @@ client.on("interactionCreate", async (interaction) => {
             const Ltoken = interaction.fields.getTextInputValue('zzzAuthLtokenInput').replace(/\s+/g, '');
             const Ltuid = interaction.fields.getTextInputValue('zzzAuthLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
-            await interaction.deferReply();
+            // await interaction.deferReply();
 
             const dataMachine = createMiHoYoDataMachine(cookie);
 
@@ -55,18 +57,18 @@ client.on("interactionCreate", async (interaction) => {
                             .setDescription("쿠키 정보를 다시 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 쿠키 정보를 입력해.")
                             .setColor(text.DANGER_COLOR)
 
-                        return interaction.editReply({ embeds: [Embed], ephemeral: true })
+                        return interaction.update({ embeds: [Embed], ephemeral: true })
                     }
                     if (ingameRes.retcode !== 0) {
                         const Embed = new EmbedBuilder()
                             .setDescription("게임에 접속해서 프로필을 생성해.")
                             .setColor(text.DANGER_COLOR)
 
-                        return interaction.editReply({ embeds: [Embed], ephemeral: true })
+                        return interaction.update({ embeds: [Embed], ephemeral: true })
                     }
 
                     const Embed = new EmbedBuilder()
-                        .setAuthor({ name: hoyolabRes.data.user_info.nickname })
+                        .setAuthor({ name: `'${hoyolabRes.data.user_info.nickname}'이(가) 네 계정이 맞아?` })
                         .setDescription(`- ${hoyolabRes.data.user_info.introduce || "자기 소개 없음"}\n**${hoyolabRes.data.user_info.achieve.post_num || "0"}**게시물 / **${hoyolabRes.data.user_info.achieve.follow_cnt || "0"}**팔로우 / **${hoyolabRes.data.user_info.achieve.followed_cnt || "0"}**팔로워 / **${hoyolabRes.data.user_info.achieve.like_num_unit || "0"}**좋아요`)
                         .addFields(
                             { name: "UID", value: hoyolabRes.data.user_info.uid, inline: true },
@@ -77,10 +79,22 @@ client.on("interactionCreate", async (interaction) => {
                         .setImage(hoyolabRes.data.user_info.pc_bg_url)
                         .setColor(hoyolabRes.data.user_info.level.bg_color)
 
-                    return interaction.editReply({ embeds: [Embed], ephemeral: true });
+                    const Row = new ActionRowBuilder()
+                        .addComponents(
+                            new ButtonBuilder()
+                                .setCustomId('AuthYesButton')
+                                .setLabel("맞아.")
+                                .setStyle(ButtonStyle.Success),
+                            new ButtonBuilder()
+                                .setCustomId('AuthNoButton')
+                                .setLabel("아니.")
+                                .setStyle(ButtonStyle.Danger)
+                        )
+
+                    return interaction.update({ embeds: [Embed], components: [Row], ephemeral: true });
                 }))
                 .catch(err => {
-                    interaction.editReply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
+                    interaction.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
                     throw err;
                 });
 
@@ -106,7 +120,7 @@ client.on("interactionCreate", async (interaction) => {
             //             },
             //         )
             //         .setColor(text.DANGER_COLOR)
-            //     interaction.editReply({ embeds: [Embed], ephemeral: true })
+            //     interaction.update({ embeds: [Embed], ephemeral: true })
             //     return undefined;
             // }
 
@@ -129,7 +143,7 @@ client.on("interactionCreate", async (interaction) => {
             // const Embed = new EmbedBuilder()
             //     .setTitle("등록 완료")
             //     .setDescription(profile.message)
-            // interaction.editReply({ embeds: [Embed], ephemeral: true });
+            // interaction.update({ embeds: [Embed], ephemeral: true });
 
             function addCookieData(encryptedCookie, uid) {
                 Promise.all([
@@ -153,7 +167,7 @@ client.on("interactionCreate", async (interaction) => {
                         zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid })
                     }
                 }).catch(err => {
-                    interaction.reply({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
+                    interaction.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
                 });
             }
         }
