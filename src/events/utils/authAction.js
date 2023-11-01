@@ -43,7 +43,6 @@ client.on("interactionCreate", async (interaction) => {
             const Ltoken = interaction.fields.getTextInputValue('zzzAuthLtokenInput').replace(/\s+/g, '');
             const Ltuid = interaction.fields.getTextInputValue('zzzAuthLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${Ltoken}; ltuid=${Ltuid};`;
-            // await interaction.deferReply();
 
             const dataMachine = createMiHoYoDataMachine(cookie);
 
