@@ -53,12 +53,14 @@ client.on("interactionCreate", async (interaction) => {
                     if (hoyolabRes.retcode !== 0) {
                         const Embed = new EmbedBuilder()
                             .setDescription("쿠키 정보를 다시 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 쿠키 정보를 입력해.")
+                            .setColor(text.DANGER_COLOR)
 
                         return interaction.editReply({ embeds: [Embed], ephemeral: true })
                     }
                     if (ingameRes.retcode !== 0) {
                         const Embed = new EmbedBuilder()
                             .setDescription("게임에 접속해서 프로필을 생성해.")
+                            .setColor(text.DANGER_COLOR)
 
                         return interaction.editReply({ embeds: [Embed], ephemeral: true })
                     }
