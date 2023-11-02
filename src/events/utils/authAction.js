@@ -87,7 +87,11 @@ client.on("interactionCreate", async (interaction) => {
                             new ButtonBuilder()
                                 .setCustomId('AuthNoButton')
                                 .setLabel("아니.")
-                                .setStyle(ButtonStyle.Danger)
+                                .setStyle(ButtonStyle.Danger),
+                            new ButtonBuilder()
+                                .setCustomId('AuthCancelButton')
+                                .setLabel("(취소하기)")
+                                .setStyle(ButtonStyle.Secondary)
                         )
 
                     return interaction.update({ embeds: [Embed], components: [Row], ephemeral: true });
