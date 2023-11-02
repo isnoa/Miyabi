@@ -29,7 +29,6 @@ const client = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildVoiceStates,
   ],
-  ws: { properties: { browser: 'Discord iOS' } },
 });
 
 client.coolDown = new Collection();
