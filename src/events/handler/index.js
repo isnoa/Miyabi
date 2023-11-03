@@ -28,6 +28,7 @@ module.exports = async (client) => {
   // SlashCommands Register
   client.once("ready", async () => {
     await client.application.commands.set(arrayOfSlashCommands);
-    console.log("ALL SlashCommands registered.");
+    console.info("All slashCommands registered.");
+    console.info("All systems are a go.")
   });
 };
