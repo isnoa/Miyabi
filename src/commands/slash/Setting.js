@@ -7,8 +7,8 @@ const db = require("../../models/user");
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
-	name: text.SC_IS_SETTING_NAME,
-	description: text.SC_IS_SETTING_DESC,
+	name: text.SC_IS_NAME,
+	description: text.SC_IS_DESC,
 	cooldown: 5000,
 	options: [
 		{

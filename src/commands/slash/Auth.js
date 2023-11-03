@@ -18,13 +18,13 @@ module.exports = {
      */
     run: async (client, interaction) => {
         const Embed = new EmbedBuilder()
-            .setDescription(text.SETTING_AUTH_DOCUMENT.join('\n'))
+            .setDescription(text.AUTH_DOCUMENT.join('\n'))
             .setColor(text.MIYABI_COLOR)
 
         const Row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
-                    .setCustomId('AuthButton')
+                    .setCustomId('AuthModalButton')
                     .setEmoji("1110886494786302083")
                     .setLabel('가입하기')
                     .setStyle(ButtonStyle.Secondary),
