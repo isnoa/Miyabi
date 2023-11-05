@@ -31,6 +31,7 @@ const client = new Client({
   ],
 });
 
+client.cookies = new Collection();
 client.coolDown = new Collection();
 client.slashCommands = new Collection();
 
