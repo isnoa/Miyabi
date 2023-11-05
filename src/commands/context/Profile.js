@@ -39,24 +39,10 @@ module.exports = {
                             name: text.PROFILE_UID,
                             value: userData.is_show_uid ? zzzData.srv_uid : text.HIDDEN,
                             inline: true
-                        },
-                        {
-                            name: text.PROFILE_REGION,
-                            value: zzzData.srv_uid ? zzzData.srv_uid : text.HIDDEN,
-                            inline: true
                         }
                     )
                     .setThumbnail(target.avatarURL({ dynamic: true, size: 2048 }))
                     .setColor(text.MIYABI_COLOR)
-
-                if (["1010159742104113162"].includes(target.id)) {
-                    Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                        .setImage("https://cdn.discordapp.com/attachments/1019924590723612733/1128710777335988224/-__ZZZ_Trailer_yZy_-iZTzP8_-_1920x810_-_0m11s1.png")
-                }
-                if (["893424082945720351"].includes(target.id)) {
-                    Embed.setAuthor({ name: "DEVELOPER", iconURL: "https://cdn.discordapp.com/attachments/1019924590723612733/1070782165362675842/IconSilver_1475898.png" })
-                        .setImage("https://upload-os-bbs.hoyolab.com/upload/2023/04/18/e3571431cda03b9df8dda1e341f9b975_2275000779002878493.png")
-                }
 
                 if (target.id === interaction.user.id) {
                     return interaction.reply({ embeds: [Embed], ephemeral: userData.is_show_profile })
@@ -82,11 +68,9 @@ module.exports = {
                 "9": "os_cht",
             }[String(uid)[0]];
 
-            if (server) {
-                return server;
-            } else {
-                interaction.reply({ content: `UID ${uid} isn't associated with any server` });
-            }
+            if (!server) return interaction.reply({ content: `UID ${uid} isn't associated with any server` });
+
+            return server;
         }
     }
 }

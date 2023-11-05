@@ -89,25 +89,19 @@ client.on("interactionCreate", async (interaction) => {
                             .setColor(text.DANGER_COLOR)
 
                         return interaction.update({ embeds: [Embed], components: [], ephemeral: true })
-                    } else if (ingameInfo) {
-                        const Embed = new EmbedBuilder()
-                            .setDescription("가입 전에 게임에 접속해서 프로필을 생성해.")
-                            .setColor(text.DANGER_COLOR)
-
-                        return interaction.update({ embeds: [Embed], components: [], ephemeral: true })
                     }
 
-                    // const Embed = new EmbedBuilder()
-                    //     .setAuthor({ name: `'${hoyolabRes.data.user_info.nickname}'이(가) 네 계정이 맞아?` })
-                    //     .setDescription(`- ${hoyolabRes.data.user_info.introduce || "자기 소개 없음"}\n**${hoyolabRes.data.user_info.achieve.post_num || "0"}** 게시물 / **${hoyolabRes.data.user_info.achieve.follow_cnt || "0"}** 팔로우 / **${hoyolabRes.data.user_info.achieve.followed_cnt || "0"}** 팔로워 / **${hoyolabRes.data.user_info.achieve.like_num_unit || "0"}** 좋아요`)
-                    //     .addFields(
-                    //         { name: "UID", value: hoyolabRes.data.user_info.uid, inline: true },
-                    //         { name: "성별", value: hoyolabRes.data.user_info.gender || text.UNKNOWN, inline: true },
-                    //         { name: "레벨", value: hoyolabRes.data.user_info.level.level_desc, inline: true }
-                    //     )
-                    //     .setThumbnail(hoyolabRes.data.user_info.avatar_url)
-                    //     .setImage(hoyolabRes.data.user_info.pc_bg_url)
-                    //     .setColor(hoyolabRes.data.user_info.level.bg_color)
+                    const Embed = new EmbedBuilder()
+                        .setAuthor({ iconURL: "https://play-lh.googleusercontent.com/KtDuSNwcx8nuDg5AGincsvLVm1xn7gfitdD7E9TVBC7C9zShz_oKOTwSNM7CzFP7pcI", name: `'${hoyolabRes.data.user_info.nickname}'이(가) 네 계정이 맞아?` })
+                        .setDescription(`- ${hoyolabRes.data.user_info.introduce || "자기 소개 없음"}\n**${hoyolabRes.data.user_info.achieve.post_num || "0"}** 게시물 / **${hoyolabRes.data.user_info.achieve.follow_cnt || "0"}** 팔로우 / **${hoyolabRes.data.user_info.achieve.followed_cnt || "0"}** 팔로워 / **${hoyolabRes.data.user_info.achieve.like_num_unit || "0"}** 좋아요`)
+                        .addFields(
+                            { name: "UID", value: hoyolabRes.data.user_info.uid, inline: true },
+                            { name: "성별", value: hoyolabRes.data.user_info.gender || text.UNKNOWN, inline: true },
+                            { name: "레벨", value: hoyolabRes.data.user_info.level.level_desc, inline: true }
+                        )
+                        .setThumbnail(hoyolabRes.data.user_info.avatar_url)
+                        .setImage(hoyolabRes.data.user_info.pc_bg_url)
+                        .setColor(hoyolabRes.data.user_info.level.bg_color)
 
                     const Row = new ActionRowBuilder()
                         .addComponents(
