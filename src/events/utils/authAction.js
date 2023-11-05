@@ -33,17 +33,10 @@ client.on("interactionCreate", async (interaction) => {
                 .setStyle(TextInputStyle.Short)
                 .setMinLength(9)
                 .setRequired(true)
-            const AuthUIDInput = new TextInputBuilder()
-                .setCustomId('AuthServerInput')
-                .setLabel(`${text.REQUIRED_VALUE}: 게임 UID (HoYoLAB의 API가 개편되면 없어질 항목.)`)
-                .setStyle(TextInputStyle.Short)
-                .setMaxLength(9)
-                .setRequired(true)
 
             const AuthLtokenRow = new ActionRowBuilder().addComponents(AuthLtokenInput)
             const AuthLtuidRow = new ActionRowBuilder().addComponents(AuthLtuidInput)
-            const AuthUIDRow = new ActionRowBuilder().addComponents(AuthUIDInput)
-            AuthModal.addComponents(AuthLtokenRow, AuthLtuidRow, AuthUIDRow)
+            AuthModal.addComponents(AuthLtokenRow, AuthLtuidRow)
             await interaction.showModal(AuthModal);
         }
 
@@ -79,7 +72,6 @@ client.on("interactionCreate", async (interaction) => {
         if (interaction.customId === 'AuthTitleModal') {
             const ltoken = interaction.fields.getTextInputValue('AuthLtokenInput').replace(/\s+/g, '');
             const ltuid = interaction.fields.getTextInputValue('AuthLtuidInput').replace(/\s+/g, '');
-            const uid = interaction.fields.getTextInputValue('AuthUIDInput').replace(/\s+/g, '');
             const cookie = `ltoken=${ltoken}; ltuid=${ltuid};`;
 
             const dataMachine = createMiHoYoDataMachine(cookie);
@@ -89,13 +81,15 @@ client.on("interactionCreate", async (interaction) => {
 
             axios.all([hoyolabPromise, ingamePromise])
                 .then(axios.spread((hoyolabRes, ingameRes) => {
+                    const ingameInfo = ingameListOne(ingameRes);
+
                     if (hoyolabRes.retcode !== 0) {
                         const Embed = new EmbedBuilder()
                             .setDescription("쿠키 정보를 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 입력해.")
                             .setColor(text.DANGER_COLOR)
 
                         return interaction.update({ embeds: [Embed], components: [], ephemeral: true })
-                    } else if (ingameRes.data.list[0].game_uid === 2) {
+                    } else if (ingameInfo) {
                         const Embed = new EmbedBuilder()
                             .setDescription("가입 전에 게임에 접속해서 프로필을 생성해.")
                             .setColor(text.DANGER_COLOR)
@@ -131,8 +125,8 @@ client.on("interactionCreate", async (interaction) => {
                                 .setStyle(ButtonStyle.Secondary)
                         )
 
-                    const uid = profile.data.list[0].game_uid;
-                    const region = profile.data.list[0].region;
+                    const uid = ingameInfo.game_uid;
+                    const region = ingameInfo.region;
 
                     cookiesCollection(cookie, uid, region);
                     return interaction.update({ embeds: [Embed], components: [Row], ephemeral: true });
@@ -141,54 +135,22 @@ client.on("interactionCreate", async (interaction) => {
                     interaction.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
                     throw err;
                 });
-
-            // const profile = await dataMachine.get(`https://api-os-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie?game_biz=hk4e_global&region=os_asia`).then(res => res.data);
-            // if (profile.retcode !== 0) {
-            //     const Embed = new EmbedBuilder()
-            //         .setDescription(text.RETCODE_ZERO + "\n에러 내용: " + `\`${profile.message}\``)
-            //         .addFields(
-            //             {
-            //                 name: "해결 방법 [1]",
-            //                 value: `게임에 접속해서 프로필을 생성해.`,
-            //                 inline: true
-            //             },
-            //             {
-            //                 name: "해결 방법 [2]",
-            //                 value: `쿠키 정보를 다시 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 쿠키 정보를 입력해.`,
-            //                 inline: true
-            //             },
-            //             {
-            //                 name: "해결 방법 [3]",
-            //                 value: `???`,
-            //                 inline: true
-            //             },
-            //         )
-            //         .setColor(text.DANGER_COLOR)
-            //     interaction.update({ embeds: [Embed], ephemeral: true })
-            //     return undefined;
-            // }
-
-            // const algorithm = process.env.SECRET_ALGORITHM;
-            // const key = process.env.SECRET_KEY;
-            // const iv = process.env.SECRET_IV;
-
-            // const cipher = crypto.createCipheriv(algorithm, key, iv);
-            // let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
-            // encryptedCookie += cipher.final('base64');
-
-            // /** 복호화 */
-            // // const decipher = crypto.createDecipheriv(algorithm, key, iv);
-            // // let result = decipher.update(encryptedCookie, 'base64', 'utf8');
-            // // result += decipher.final('utf8');
-
-            // const uid = profile.data.list[0].game_uid
-
-            // storeCookie(encryptedCookie, uid);
-            // const Embed = new EmbedBuilder()
-            //     .setTitle("등록 완료")
-            //     .setDescription(profile.message)
-            // interaction.update({ embeds: [Embed], ephemeral: true });
         }
+    }
+
+    function ingameListOne(req) {
+        let foundItem;
+        for (let i = 0; i < req.data.list.length; i++) {
+            // 2 = 젠레스 존 제로의 game_id
+            if (req.data.list[i].game_id === 2) {
+                foundItem = req.data.list[i];
+                break;
+            }
+        }
+
+        if (!foundItem) return null;
+
+        return foundItem;
     }
 
     function cookiesCollection(cookie, uid, region) {
@@ -198,7 +160,11 @@ client.on("interactionCreate", async (interaction) => {
             cookies.delete(interaction.user.id);
         }
 
-        cookies.set(interaction.user.id, { "cookie": cookie, "uid": uid, "region": region });
+        cookies.set(interaction.user.id, {
+            "cookie": cookie,
+            "uid": uid,
+            "region": region
+        });
         setTimeout(() => {
             cookies.delete(interaction.user.id);
         }, 60000);
@@ -219,63 +185,62 @@ client.on("interactionCreate", async (interaction) => {
         storeCookie(encryptedCookie, uid);
     }
 
-    function storeCookie(encryptedCookie, uid) {
-        Promise.all([
-            user.findOne({ where: { user_id: interaction.user.id } }),
-            zzz.findOne({ where: { user_id: interaction.user.id } })
-        ]).then(([userData, zzzData]) => {
+    async function storeCookie(interaction, encryptedCookie, uid) {
+        try {
+            const [userData, zzzData] = await Promise.all([
+                user.findOne({ where: { user_id: interaction.user.id } }),
+                zzz.findOne({ where: { user_id: interaction.user.id } }),
+            ]);
+
             if (userData) {
-                if (userData.is_show_uid) {
-                    user.update({ is_show_uid: true }, { where: { user_id: interaction.user.id } });
-                }
-                if (userData.is_show_profile) {
-                    user.update({ is_show_profile: true }, { where: { user_id: interaction.user.id } });
-                }
+                await user.update(
+                    {
+                        is_show_uid: true,
+                        is_show_profile: true,
+                    },
+                    { where: { user_id: interaction.user.id } }
+                );
             } else {
-                user.create({ user_id: interaction.user.id, is_show_uid: true, is_show_profile: true })
+                await user.create({
+                    user_id: interaction.user.id,
+                    is_show_uid: true,
+                    is_show_profile: true,
+                });
             }
 
             if (zzzData) {
-                zzz.update({ is_authorized: true, authcookie: encryptedCookie, srv_uid: uid }, { where: { user_id: interaction.user.id } })
+                await zzz.update(
+                    {
+                        is_authorized: true,
+                        authcookie: encryptedCookie,
+                        srv_uid: uid,
+                    },
+                    { where: { user_id: interaction.user.id } }
+                );
             } else {
-                zzz.create({ user_id: interaction.user.id, is_authorized: true, authcookie: encryptedCookie, srv_uid: uid })
+                await zzz.create({
+                    user_id: interaction.user.id,
+                    is_authorized: true,
+                    authcookie: encryptedCookie,
+                    srv_uid: uid,
+                });
             }
-        }).catch(err => {
-            interaction.update({ embeds: [new EmbedBuilder().setTitle("에러 발견").setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE).setColor(text.MIYABI_COLOR)], components: [] })
-        });
+        } catch (err) {
+            console.error(err);
+
+            await interaction.update({
+                embeds: [
+                    new EmbedBuilder()
+                        .setTitle("에러 발견")
+                        .setDescription(`\`\`\`${err.message}\`\`\`\n` + text.SRC_ISSUE)
+                        .setColor(text.MIYABI_COLOR),
+                ],
+                components: []
+            });
+        }
     }
 })
 
 async function waitFor(ms) {
     await new Promise(resolve => setTimeout(resolve, ms));
 }
-
-// function recognize_server(uid) {
-//     if (typeof uid === 'string') {
-//         return 'UID type must be a string.';
-//     }
-
-//     const serverMap = {
-//         "1": "cn_gf01",
-//         "2": "cn_gf01",
-//         "5": "cn_qd01",
-//         "6": "os_usa",
-//         "7": "os_euro",
-//         "8": "os_asia",
-//         "9": "os_cht",
-//     };
-
-//     const server = serverMap[String(uid)[0]];
-
-//     if (!server) {
-//         return {
-//             "reason": `연관된 서버를 찾을 수 없어.`
-//         };
-//     } else if (['cn_gf01', 'cn_qd01'].includes(server)) {
-//         return {
-//             "reason": '해당 계정이 사용하는 서버의 기능은 지원하지 않고 있어.'
-//         };
-//     } else {
-//         return server;
-//     }
-// }
