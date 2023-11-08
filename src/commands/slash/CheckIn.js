@@ -4,7 +4,7 @@ const {
   EmbedBuilder
 } = require("discord.js");
 const {
-  createActHoYoLABDataMachine
+  createDataMachineHoYoLAB
 } = require("../../events/utils/dataMachine");
 const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
@@ -97,7 +97,7 @@ async function decipher(authcookie) {
 }
 
 async function chkIn(cookie) {
-  const chkInResult = await createActHoYoLABDataMachine(cookie)
+  const chkInResult = await createDataMachineHoYoLAB(cookie)
     .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=ko-kr");
 
   if (chkInResult.data.retcode == '-5003') {
@@ -108,7 +108,6 @@ async function chkIn(cookie) {
     chkInResult.data.data?.code !== 'ok' ||
     chkInResult.data.data?.is_risk !== false
   ) {
-    console.log(chkInResult.data)
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 실패했어.`;
   } else {
     return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 완료했어.`;
