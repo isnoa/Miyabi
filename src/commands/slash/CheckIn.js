@@ -37,38 +37,38 @@ module.exports = {
       if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
 
       const cookie = await decipher(zzzData.authcookie);
-      if (!isValidCookie(cookie)) return interaction.reply({ content: text.VAILD_COOKIE });
+
+      if (!isValidCookie(cookie))
+        return interaction.reply({ content: text.VAILD_COOKIE });
 
       switch (chosen) {
         case "now":
-          const checkInMsg = await singleCheckIn(cookie);
-
           const nowEmbed = new EmbedBuilder()
-            .setDescription(checkInMsg)
+            .setDescription(await singleCheckIn(cookie))
             .setColor(text.MIYABI_COLOR)
           interaction.reply({ embeds: [nowEmbed] })
           break;
         case "auto_allow":
-          const checkInMsg = await singleCheckIn(cookie);
-
           await zzz.update(
             { is_checkin: true },
             { where: { user_id: interaction.user.id } }
           );
-          const autoEmbed = new EmbedBuilder()
-            .setDescription(`${checkInMsg}\n.이 시간부로 0시마다 너의 출석체크를 대신해 줄 거야.`)
+
+          const autoAllowEmbed = new EmbedBuilder()
+            .setDescription(await singleCheckIn(cookie) + `\n.이 시간부로 0시마다 너의 출석체크를 대신해 줄 거야.`)
             .setColor(text.MIYABI_COLOR)
-          interaction.reply({ embeds: [autoEmbed] })
+          interaction.reply({ embeds: [autoAllowEmbed] })
           break;
         case "auto_cancel":
           await zzz.update(
             { is_checkin: false },
             { where: { user_id: interaction.user.id } }
           );
-          const autoEmbed = new EmbedBuilder()
-            .setDescription("이 시간부로 0시마다 너의 출석체크를 대신하지 않도록 할게.")
+
+          const autoCancelEmbed = new EmbedBuilder()
+            .setDescription("이 시간부로 0시마다 너의 출석체크를 대신하지 않도록 할게. 내 일거리를 덜어준 것에 대해 감사를 표해.")
             .setColor(text.MIYABI_COLOR)
-          interaction.reply({ embeds: [autoEmbed] })
+          interaction.reply({ embeds: [autoCancelEmbed] })
           break;
       }
     } catch (err) {
