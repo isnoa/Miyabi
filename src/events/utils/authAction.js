@@ -47,7 +47,7 @@ client.on("interactionCreate", async (interaction) => {
                 return interaction.update("1분이 경과돼서 쿠키 값이 존재하지 않아, 다시 시도하길 바라.");
 
             const cookie = cookies.get(interaction.user.id);
-            encryptCookie(cookie);
+            await encryptCookie(cookie);
 
             const Embed = new EmbedBuilder()
                 .setTitle("등록 완료")
@@ -166,7 +166,7 @@ client.on("interactionCreate", async (interaction) => {
         return;
     }
 
-    function encryptCookie(cookie) {
+    async function encryptCookie(cookie) {
         const algorithm = process.env.SECRET_ALGORITHM;
         const key = process.env.SECRET_KEY;
         const iv = process.env.SECRET_IV;
@@ -176,7 +176,7 @@ client.on("interactionCreate", async (interaction) => {
         let encryptedCookie = cipher.update(cookie, 'utf8', 'base64');
         encryptedCookie += cipher.final('base64');
 
-        storeCookie(encryptedCookie, uid);
+        await storeCookie(encryptedCookie, uid);
     }
 
     async function storeCookie(interaction, encryptedCookie, uid) {
@@ -186,37 +186,32 @@ client.on("interactionCreate", async (interaction) => {
                 zzz.findOne({ where: { user_id: interaction.user.id } }),
             ]);
 
+            const userUpdateData = {
+                is_show_uid: true,
+                is_show_profile: true,
+            };
+
+            const zzzUpdateData = {
+                is_authorized: true,
+                authcookie: encryptedCookie,
+                srv_uid: uid,
+            };
+
             if (userData) {
-                await user.update(
-                    {
-                        is_show_uid: true,
-                        is_show_profile: true,
-                    },
-                    { where: { user_id: interaction.user.id } }
-                );
+                await user.update(userUpdateData, { where: { user_id: interaction.user.id } });
             } else {
                 await user.create({
                     user_id: interaction.user.id,
-                    is_show_uid: true,
-                    is_show_profile: true,
+                    ...userUpdateData,
                 });
             }
 
             if (zzzData) {
-                await zzz.update(
-                    {
-                        is_authorized: true,
-                        authcookie: encryptedCookie,
-                        srv_uid: uid,
-                    },
-                    { where: { user_id: interaction.user.id } }
-                );
+                await zzz.update(zzzUpdateData, { where: { user_id: interaction.user.id } });
             } else {
                 await zzz.create({
                     user_id: interaction.user.id,
-                    is_authorized: true,
-                    authcookie: encryptedCookie,
-                    srv_uid: uid,
+                    ...zzzUpdateData,
                 });
             }
         } catch (err) {
