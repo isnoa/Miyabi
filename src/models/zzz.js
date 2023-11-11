@@ -17,6 +17,11 @@ const zzz = sequelize.define('zzz', {
         allowNull: false,
         defaultValue: false
     },
+    is_checkin: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+    },
     authcookie: {
         type: DataTypes.STRING(112),
         allowNull: true

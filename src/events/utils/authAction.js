@@ -80,9 +80,7 @@ client.on("interactionCreate", async (interaction) => {
             const ingamePromise = await dataMachine.get(`https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard?uid=${ltuid}`).then(res => res.data);
 
             axios.all([hoyolabPromise, ingamePromise])
-                .then(axios.spread((hoyolabRes, ingameRes) => {
-                    const ingameInfo = ingameListOne(ingameRes);
-
+                .then(axios.spread(async (hoyolabRes, ingameRes) => {
                     if (hoyolabRes.retcode !== 0) {
                         const Embed = new EmbedBuilder()
                             .setDescription("쿠키 정보를 정확하게 입력하거나 HoYoLAB을 다시 로그인하고 입력해.")
@@ -119,6 +117,8 @@ client.on("interactionCreate", async (interaction) => {
                                 .setStyle(ButtonStyle.Secondary)
                         )
 
+                    const ingameInfo = await ingameListOne(ingameRes);
+
                     const uid = ingameInfo.game_uid;
                     const region = ingameInfo.region;
 
@@ -132,7 +132,7 @@ client.on("interactionCreate", async (interaction) => {
         }
     }
 
-    function ingameListOne(req) {
+    async function ingameListOne(req) {
         let foundItem;
         for (let i = 0; i < req.data.list.length; i++) {
             // 2 = 젠레스 존 제로의 game_id

@@ -3,9 +3,7 @@ const {
   ApplicationCommandOptionType,
   EmbedBuilder
 } = require("discord.js");
-const {
-  createDataMachineHoYoLAB
-} = require("../../events/utils/dataMachine");
+const { singleCheckIn } = require("../../events/utils/checkInAction")
 const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
 const crypto = require("node:crypto");
@@ -21,7 +19,8 @@ module.exports = {
     type: ApplicationCommandOptionType.String,
     choices: [
       { name: "지금", value: "now" },
-      { name: "자동", value: "auto" }
+      { name: "자동 요청하기", value: "auto_allow" },
+      { name: "자동 취소하기", value: "auto_cancel" }
     ],
     required: true
   }],
@@ -42,13 +41,34 @@ module.exports = {
 
       switch (chosen) {
         case "now":
-          const Embed = new EmbedBuilder()
-            .setDescription(await chkIn(cookie))
+          const checkInMsg = await singleCheckIn(cookie);
+
+          const nowEmbed = new EmbedBuilder()
+            .setDescription(checkInMsg)
             .setColor(text.MIYABI_COLOR)
-          interaction.reply({ embeds: [Embed] })
+          interaction.reply({ embeds: [nowEmbed] })
           break;
-        case "auto":
-          console.log(cookie)
+        case "auto_allow":
+          const checkInMsg = await singleCheckIn(cookie);
+
+          await zzz.update(
+            { is_checkin: true },
+            { where: { user_id: interaction.user.id } }
+          );
+          const autoEmbed = new EmbedBuilder()
+            .setDescription(`${checkInMsg}\n.이 시간부로 0시마다 너의 출석체크를 대신해 줄 거야.`)
+            .setColor(text.MIYABI_COLOR)
+          interaction.reply({ embeds: [autoEmbed] })
+          break;
+        case "auto_cancel":
+          await zzz.update(
+            { is_checkin: false },
+            { where: { user_id: interaction.user.id } }
+          );
+          const autoEmbed = new EmbedBuilder()
+            .setDescription("이 시간부로 0시마다 너의 출석체크를 대신하지 않도록 할게.")
+            .setColor(text.MIYABI_COLOR)
+          interaction.reply({ embeds: [autoEmbed] })
           break;
       }
     } catch (err) {
@@ -89,27 +109,8 @@ async function decipher(authcookie) {
     env.SECRET_IV
   );
 
-  // 암호 해독 수행
   let decryptedCookie = decipherDo.update(cookie, 'base64', 'utf8');
   decryptedCookie += decipherDo.final('utf8');
 
   return decryptedCookie;
-}
-
-async function chkIn(cookie) {
-  const chkInResult = await createDataMachineHoYoLAB(cookie)
-    .post("https://sg-hk4e-api.hoyolab.com/event/sol/sign?act_id=e202102251931481&lang=ko-kr");
-
-  if (chkInResult.data.retcode == '-5003') {
-    return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크가 이미 되어 있어.`;
-  } else if (
-    chkInResult.status !== 200 ||
-    chkInResult.data.retcode !== 0 ||
-    chkInResult.data.data?.code !== 'ok' ||
-    chkInResult.data.data?.is_risk !== false
-  ) {
-    return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 실패했어.`;
-  } else {
-    return `이유: ${chkInResult.data?.message ?? '알 수 없음'} 출석체크를 완료했어.`;
-  }
 }
