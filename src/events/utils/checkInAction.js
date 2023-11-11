@@ -41,6 +41,10 @@ async function singleCheckIn(cookie) {
 }
 
 async function dailyCheckIn() {
+  const succeedJobs = [];
+  const alreadyJobs = [];
+  const failedJobs = [];
+
   let signCookie = await zzz.findAll({ where: { is_authorized: true } })
     .then(users => {
       const cookies = users.map(user => {
@@ -56,10 +60,6 @@ async function dailyCheckIn() {
     .catch(error => {
       console.error(error);
     });
-
-  const succeedJobs = [];
-  const alreadyJobs = [];
-  const failedJobs = [];
 
   for (const jobCookie of signCookie) {
     await waitFor(config.delayMS);
