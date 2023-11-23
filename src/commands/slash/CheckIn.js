@@ -31,7 +31,7 @@ module.exports = {
    */
   run: async (client, interaction) => {
     try {
-      let chosen = interaction.options.getString(text.SC_SUB_SELCET);
+      let selectedOption = interaction.options.getString(text.SC_SUB_SELCET);
 
       const zzzData = await zzz.findOne({ where: { user_id: interaction.user.id } });
       if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
@@ -41,7 +41,7 @@ module.exports = {
       if (!isValidCookie(cookie))
         return interaction.reply({ content: text.VAILD_COOKIE });
 
-      switch (chosen) {
+      switch (selectedOption) {
         case "now":
           const nowEmbed = new EmbedBuilder()
             .setDescription(await singleCheckIn(cookie))
@@ -79,11 +79,11 @@ module.exports = {
 }
 
 async function isValidCookie(cookie) {
-  if (typeof cookie !== 'string') return undefined;
+  if (typeof cookie !== 'string') return false;
   const output = parseCookie(cookie);
-  const requiredFields = ['ltuid', 'ltuid'];
+  const requiredFields = ['ltoken', 'ltuid'];
   return requiredFields
-    .map((field) => Object.keys(output).includes(field))
+    .map((field) => output.hasOwnProperty(field))
     .every((element) => !!element);
 }
 
