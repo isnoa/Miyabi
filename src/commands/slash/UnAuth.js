@@ -2,7 +2,7 @@ const {
     CommandInteraction,
     EmbedBuilder
 } = require("discord.js");
-const zzz = require("../../models/zzz");
+const hoyolab = require("../../models/hoyolab");
 const text = require("../../events/utils/TextMap.json");
 
 module.exports = {
@@ -16,13 +16,13 @@ module.exports = {
      */
     run: async (client, interaction) => {
         try {
-            zzz.findOne({ where: { user_id: interaction.user.id } })
-                .then(async (zzz) => {
-                    if (zzz.is_authorized) {
-                        await zzz.update({
+            hoyolab.findOne({ where: { user_id: interaction.user.id } })
+                .then(async (hoyolab) => {
+                    if (hoyolab.is_authorized) {
+                        await hoyolab.update({
                             is_authorized: false,
                             authcookie: null,
-                            srv_uid: null
+                            hoyolab_uid: null
                         });
 
                         const Embed = new EmbedBuilder()

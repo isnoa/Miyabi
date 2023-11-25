@@ -25,10 +25,10 @@
 //             description: "유튜브 영상이 올라오면 알림을 받을 유튜브 채널을 선택해.",
 //             type: ApplicationCommandOptionType.String,
 //             choices: [
-//                 { name: '絕區零', value: "zzz_cht" },
-//                 { name: '젠레스 존 제로', value: 'zzz_ko' },
-//                 { name: 'ゼンレスゾーンゼロ', value: 'zzz_jp' },
-//                 { name: 'Zenless Zone Zero', value: 'zzz_official' }
+//                 { name: '絕區零', value: "hoyolab_cht" },
+//                 { name: '젠레스 존 제로', value: 'hoyolab_ko' },
+//                 { name: 'ゼンレスゾーンゼロ', value: 'hoyolab_jp' },
+//                 { name: 'Zenless Zone Zero', value: 'hoyolab_official' }
 
 //             ],
 //             required: true,

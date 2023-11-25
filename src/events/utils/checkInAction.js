@@ -6,7 +6,7 @@ const {
   createDataMachineHoYoLAB,
   isDecryptCookie
 } = require("../../events/utils/dataMachine");
-const zzz = require("../../models/zzz");
+const hoyolab = require("../../models/hoyolab");
 
 const config = {
   delayMS: 1300,
@@ -45,7 +45,7 @@ async function dailyCheckIn() {
   let failureCount = 0;
   let alreadyCount = 0;
 
-  let authCookie = await zzz.findAll({ where: { is_autocheckin: true } })
+  let authCookie = await hoyolab.findAll({ where: { is_autocheckin: true } })
     .then(users => {
       const authcookies = users.map(user => {
 

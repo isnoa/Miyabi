@@ -11,7 +11,7 @@ const {
 const crypto = require('node:crypto');
 const axios = require("axios");
 const user = require("../../models/user");
-const zzz = require("../../models/zzz");
+const hoyolab = require("../../models/hoyolab");
 const text = require("./TextMap.json");
 const { createMiHoYoDataMachine } = require('./dataMachine');
 
@@ -181,9 +181,9 @@ client.on("interactionCreate", async (interaction) => {
 
     async function storeCookie(interaction, encryptedCookie, uid) {
         try {
-            const [userData, zzzData] = await Promise.all([
+            const [userData, hoyolabData] = await Promise.all([
                 user.findOne({ where: { user_id: interaction.user.id } }),
-                zzz.findOne({ where: { user_id: interaction.user.id } }),
+                hoyolab.findOne({ where: { user_id: interaction.user.id } }),
             ]);
 
             const userUpdateData = {
@@ -191,10 +191,10 @@ client.on("interactionCreate", async (interaction) => {
                 is_show_profile: true,
             };
 
-            const zzzUpdateData = {
+            const hoyolabUpdateData = {
                 is_authorized: true,
                 authcookie: encryptedCookie,
-                srv_uid: uid,
+                hoyolab_uid: uid,
             };
 
             if (userData) {
@@ -206,12 +206,12 @@ client.on("interactionCreate", async (interaction) => {
                 });
             }
 
-            if (zzzData) {
-                await zzz.update(zzzUpdateData, { where: { user_id: interaction.user.id } });
+            if (hoyolabData) {
+                await hoyolab.update(hoyolabUpdateData, { where: { user_id: interaction.user.id } });
             } else {
-                await zzz.create({
+                await hoyolab.create({
                     user_id: interaction.user.id,
-                    ...zzzUpdateData,
+                    ...hoyolabUpdateData,
                 });
             }
         } catch (err) {

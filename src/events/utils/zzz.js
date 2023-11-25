@@ -2,7 +2,7 @@ const axios = require("axios");
 const uuid = require("uuid");
 const crypto = require('crypto');
 
-class ZZZ {
+class hoyolab {
     constructor(options) {
         const { cookie, language } = options;
 
@@ -169,4 +169,4 @@ class AccountNotFound extends Error {
     }
 }
 
-module.exports = ZZZ;
+module.exports = hoyolab;

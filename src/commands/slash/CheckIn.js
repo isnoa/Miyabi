@@ -8,7 +8,7 @@ const {
   isDecryptCookie,
   isValidCookie
 } = require("../../events/utils/checkInAction")
-const zzz = require("../../models/zzz");
+const hoyolab = require("../../models/hoyolab");
 const text = require("../../events/utils/TextMap.json");
 const crypto = require("node:crypto");
 
@@ -36,10 +36,10 @@ module.exports = {
     try {
       let selectedOption = interaction.options.getString(text.SC_SUB_SELCET);
 
-      const zzzData = await zzz.findOne({ where: { user_id: interaction.user.id } });
-      if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
+      const hoyolabData = await hoyolab.findOne({ where: { user_id: interaction.user.id } });
+      if (!hoyolabData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
 
-      const cookie = await isDecryptCookie(zzzData.authcookie);
+      const cookie = await isDecryptCookie(hoyolabData.authcookie);
 
       if (!isValidCookie(cookie))
         return interaction.reply({ content: text.VAILD_COOKIE });
@@ -52,7 +52,7 @@ module.exports = {
           interaction.reply({ embeds: [nowEmbed] })
           break;
         case "auto_allow":
-          await zzz.update(
+          await hoyolab.update(
             { is_autocheckin: true },
             { where: { user_id: interaction.user.id } }
           );
@@ -63,7 +63,7 @@ module.exports = {
           interaction.reply({ embeds: [autoAllowEmbed] })
           break;
         case "auto_cancel":
-          await zzz.update(
+          await hoyolab.update(
             { is_autocheckin: false },
             { where: { user_id: interaction.user.id } }
           );
