@@ -12,7 +12,7 @@
   "SC_IS_YOUTUBE_NAME": "유튜브",
   "SC_IS_AGENT_DESC": "에이전트의 모든 정보를 알려줄게.",
   "SC_IS_CAMP_DESC": "에이전트의 모든 소속을 알려줄게.",
-  "SC_IS_CHECKIN_DESC": "지금/자동, 출석체크를 할 수 있어.",
+  "SC_IS_CHECKIN_DESC": "`출석체크하기/출석체크 자동 요청/출석체크 자동 취소`를 할 수 있어.",
   "SC_IS_FOOD_DESC": "「나」에 대해 알려줄게.",
   "SC_IS_INFO_DESC": "정보에 관련된 설명",
   "SC_IS_PICKUP_DESC": "현재 픽업 중 혹은 픽업 했던 캐릭터들을 알려줄게.",

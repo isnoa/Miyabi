@@ -17,7 +17,7 @@ const zzz = sequelize.define('zzz', {
         allowNull: false,
         defaultValue: false
     },
-    is_checkin: {
+    is_autocheckin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false

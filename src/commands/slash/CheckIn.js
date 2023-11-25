@@ -3,11 +3,14 @@ const {
   ApplicationCommandOptionType,
   EmbedBuilder
 } = require("discord.js");
-const { singleCheckIn } = require("../../events/utils/checkInAction")
+const {
+  singleCheckIn,
+  isDecryptCookie,
+  isValidCookie
+} = require("../../events/utils/checkInAction")
 const zzz = require("../../models/zzz");
 const text = require("../../events/utils/TextMap.json");
 const crypto = require("node:crypto");
-const { env } = require("process");
 
 module.exports = {
   name: text.SC_IS_CHECKIN_NAME,
@@ -18,9 +21,9 @@ module.exports = {
     description: text.SC_SUB_SELCET_DESC,
     type: ApplicationCommandOptionType.String,
     choices: [
-      { name: "지금", value: "now" },
-      { name: "자동 요청하기", value: "auto_allow" },
-      { name: "자동 취소하기", value: "auto_cancel" }
+      { name: "출석체크하기", value: "now" },
+      { name: "출석체크 자동 요청하기", value: "auto_allow" },
+      { name: "출석체크 자동 취소하기", value: "auto_cancel" }
     ],
     required: true
   }],
@@ -36,7 +39,7 @@ module.exports = {
       const zzzData = await zzz.findOne({ where: { user_id: interaction.user.id } });
       if (!zzzData) return interaction.reply({ content: text.MISMATCHED_DATA.replace("{user}", interaction.user) });
 
-      const cookie = await decipher(zzzData.authcookie);
+      const cookie = await isDecryptCookie(zzzData.authcookie);
 
       if (!isValidCookie(cookie))
         return interaction.reply({ content: text.VAILD_COOKIE });
@@ -50,7 +53,7 @@ module.exports = {
           break;
         case "auto_allow":
           await zzz.update(
-            { is_checkin: true },
+            { is_autocheckin: true },
             { where: { user_id: interaction.user.id } }
           );
 
@@ -61,7 +64,7 @@ module.exports = {
           break;
         case "auto_cancel":
           await zzz.update(
-            { is_checkin: false },
+            { is_autocheckin: false },
             { where: { user_id: interaction.user.id } }
           );
 
@@ -78,39 +81,3 @@ module.exports = {
   }
 }
 
-async function isValidCookie(cookie) {
-  if (typeof cookie !== 'string') return false;
-  const output = parseCookie(cookie);
-  const requiredFields = ['ltoken', 'ltuid'];
-  return requiredFields
-    .map((field) => output.hasOwnProperty(field))
-    .every((element) => !!element);
-}
-
-function parseCookie(cookie) {
-  const output = {};
-  cookie.split(/\s*;\s*/).forEach((pair) => {
-    pair = pair.split(/\s*=\s*/);
-    output[pair[0]] = pair.splice(1).join('=');
-  });
-  return output;
-}
-
-async function decipher(authcookie) {
-  if (typeof authcookie !== 'string' || authcookie.trim() === '') {
-    return 'Cookie is invalid or empty.';
-  }
-
-  const cookie = Buffer.from(authcookie, 'base64');
-
-  const decipherDo = crypto.createDecipheriv(
-    env.SECRET_ALGORITHM,
-    env.SECRET_KEY,
-    env.SECRET_IV
-  );
-
-  let decryptedCookie = decipherDo.update(cookie, 'base64', 'utf8');
-  decryptedCookie += decipherDo.final('utf8');
-
-  return decryptedCookie;
-}

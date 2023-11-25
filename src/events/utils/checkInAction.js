@@ -3,11 +3,12 @@ const { EmbedBuilder } = require("discord.js")
 const axios = require("axios");
 const cron = require("node-cron");
 const uuid = require("uuid");
-const crypto = require("node:crypto");
-const { env } = require("process");
 
 const text = require("../utils/TextMap.json")
-const { createDataMachineHoYoLAB } = require("../../events/utils/dataMachine");
+const {
+  createDataMachineHoYoLAB,
+  isDecryptCookie
+} = require("../../events/utils/dataMachine");
 const zzz = require("../../models/zzz");
 
 const config = {
@@ -21,8 +22,10 @@ cron.schedule('0 0 * * *', dailyCheckIn, {
   timezone: 'Asia/Shanghai',
 });
 
-async function singleCheckIn(cookie) {
-  const chkInResult = await createDataMachineHoYoLAB(cookie).post(config.signURL);
+async function singleCheckIn(authcookie) {
+  const chkInResult =
+    await createDataMachineHoYoLAB(authcookie)
+      .post(config.signURL);
 
   if (chkInResult.data.retcode == '-5003') {
     console.log(chkInResult.data)
@@ -41,53 +44,54 @@ async function singleCheckIn(cookie) {
 }
 
 async function dailyCheckIn() {
-  const succeedJobs = [];
-  const alreadyJobs = [];
-  const failedJobs = [];
+  let successCount = 0;
+  let failureCount = 0;
+  let alreadyCount = 0;
 
-  let signCookie = await zzz.findAll({ where: { is_authorized: true } })
+  let authCookie = await zzz.findAll({ where: { is_autocheckin: true } })
     .then(users => {
-      const cookies = users.map(user => {
-        const encryptedCookie = Buffer.from(user.authcookie, 'base64');
-        const decipher = crypto.createDecipheriv(env.SECRET_ALGORITHM, env.SECRET_KEY, env.SECRET_IV);
-        let decrypted = decipher.update(encryptedCookie, 'base64', 'utf8');
-        decrypted += decipher.final('utf8');
-        return decrypted;
+      const authcookies = users.map(user => {
+
+        const decryptResult = await isDecryptCookie(user.authcookie);
+
+        return decryptResult;
       });
 
-      return cookies;
+      return authcookies;
     })
     .catch(error => {
       console.error(error);
     });
 
-  for (const jobCookie of signCookie) {
+  for (const jobCookie of authCookie) {
     await waitFor(config.delayMS);
 
-    const chkInResult = await createDataMachineHoYoLAB(jobCookie).post(config.signURL);
+    const chkInResult =
+      await createDataMachineHoYoLAB(jobCookie)
+        .post(config.signURL);
 
     if (chkInResult.data.retcode == '-5003') {
-      alreadyJobs.push(zzz.srv_uid);
+      alreadyCount++;
     } else if (
       chkInResult.data.data?.risk_code === "-5001" ||
       chkInResult.data.data?.success === 1 ||
       chkInResult.data.data?.is_risk === true
     ) {
-      failedJobs.push(zzz.srv_uid);
+      failureCount++;
     } else {
-      succeedJobs.push(zzz.srv_uid);
+      successCount++;
     }
   }
 
-  const userRes = signCookie.length > 0 ? `${signCookie.length} 명` : '없음';
-  const alreadyRes = alreadyJobs.length > 0 ? `${alreadyJobs.length} 명` : '없음';
-  const failedRes = failedJobs.length > 0 ? `${failedJobs.length} 명` : '없음';
-  const succeedRes = succeedJobs.length > 0 ? `${succeedJobs.length} 명` : '없음';
+  const users = authCookie.length > 0 ? `${authCookie.length} 명` : '없음';
+  const already = alreadyCount > 0 ? `${alreadyCount} 명` : '없음';
+  const failed = failureCount > 0 ? `${failureCount} 명` : '없음';
+  const succeed = successCount > 0 ? `${successCount} 명` : '없음';
 
-  await clientNotice(userRes, alreadyRes, failedRes, succeedRes);
+  await clientNotice(users, already, failed, succeed);
 }
 
-async function clientNotice(userRes, alreadyRes, failedRes, succeedRes) {
+async function clientNotice(users, already, succeed, succeed) {
   const channel = await client.channels.fetch("1095317286983847946");
 
   if (!channel) {
@@ -98,12 +102,12 @@ async function clientNotice(userRes, alreadyRes, failedRes, succeedRes) {
   const Embed = new EmbedBuilder()
     .setDescription('# 0시에 다시 만나자.')
     .addFields(
-      { name: "이미함", value: alreadyRes, inline: true },
-      { name: "실패함", value: failedRes, inline: true },
-      { name: "완료함", value: succeedRes, inline: true }
+      { name: "이미함", value: already, inline: true },
+      { name: "실패함", value: succeed, inline: true },
+      { name: "완료함", value: succeed, inline: true }
     )
     .setColor(text.MIYABI_COLOR)
-    .setFooter({ text: `확인수: ${userRes}` })
+    .setFooter({ text: `확인수: ${users}` })
     .setTimestamp()
 
   return channel.send({ embeds: [Embed] });
