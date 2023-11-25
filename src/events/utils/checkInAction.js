@@ -1,9 +1,6 @@
 const client = require("../../miyabi");
 const { EmbedBuilder } = require("discord.js")
-const axios = require("axios");
 const cron = require("node-cron");
-const uuid = require("uuid");
-
 const text = require("../utils/TextMap.json")
 const {
   createDataMachineHoYoLAB,
