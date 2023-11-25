@@ -18,11 +18,10 @@ const user = sequelize.define('user', {
 
     charset: "utf8", // 한국어 설정
     collate: "utf8_general_ci", // 한국어 설정
-    modelName: 'user',
-    tableName: 'user',
+    tableName: 'user', // 테이블 이름
     timestamps: true, // createAt & updateAt 활성화
     underscored: true,
-    paranoid: true
+    paranoid: true // deletedAt 활성화
 });
 
 // user와 hoyolab 테이블 간의 관계 설정 (user_id)
