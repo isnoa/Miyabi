@@ -37,8 +37,4 @@ const zzz = sequelize.define('zzz', {
     underscored: true,
 });
 
-zzz.associate = function (models) {
-    zzz.belongsTo(models.user, { as: 'user', foreignKey: 'user_id' });
-}
-
 module.exports = zzz;
