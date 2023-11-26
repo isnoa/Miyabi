@@ -26,5 +26,7 @@ const user = sequelize.define('user', {
 
 // user와 hoyolab 테이블 간의 관계 설정 (user_id)
 user.hasOne(hoyolab, { foreignKey: 'user_id' });
+// user와 games 테이블 간의 관계 설정 (user_id)
+user.hasOne(games, { foreignKey: 'user_id' });
 
 module.exports = user;
