@@ -7,6 +7,7 @@ const {
   isDecryptCookie
 } = require("../../events/utils/dataMachine");
 const hoyolab = require("../../models/hoyolab");
+const games = require("../../models/games");
 
 const config = {
   delayMS: 1300,
@@ -45,11 +46,28 @@ async function dailyCheckIn() {
   let failureCount = 0;
   let alreadyCount = 0;
 
-  let authCookie = await hoyolab.findAll({ where: { is_autocheckin: true } })
-    .then(users => {
-      const authcookies = users.map(user => {
+  let authCookie = await hoyolab.findAll({
+    where: { is_autocheckin: true },
+    attributes: [
+      'user_id',
+      'authcookie'
+    ],
 
-        const decryptResult = await isDecryptCookie(user.authcookie);
+    //(join) Another DB
+    include: [{
+      model: games,
+      attributes: [
+        'zzzero',
+        'honkai_3rd',
+        'honkai_starrail',
+        'genshin_impact'
+      ]
+    }]
+  })
+    .then(db => {
+      const authcookies = db.map(profiles => {
+
+        const decryptResult = await isDecryptCookie(profiles.authcookie);
 
         return decryptResult;
       });
