@@ -13,7 +13,7 @@ const axios = require("axios");
 const user = require("../../models/user");
 const hoyolab = require("../../models/hoyolab");
 const text = require("./TextMap.json");
-const { createMiHoYoDataMachine } = require('./dataMachine');
+const { createDataMachineMiHoYo } = require('./dataMachine');
 
 client.on("interactionCreate", async (interaction) => {
     if (interaction.isButton()) {
@@ -74,7 +74,7 @@ client.on("interactionCreate", async (interaction) => {
             const ltuid = interaction.fields.getTextInputValue('AuthLtuidInput').replace(/\s+/g, '');
             const cookie = `ltoken=${ltoken}; ltuid=${ltuid};`;
 
-            const dataMachine = createMiHoYoDataMachine(cookie);
+            const dataMachine = createDataMachineMiHoYo(cookie);
 
             const hoyolabPromise = await dataMachine.get(`https://bbs-api-os.hoyolab.com/community/painter/wapi/user/full?uid=${ltuid}`).then(res => res.data);
             const ingamePromise = await dataMachine.get(`https://bbs-api-os.hoyolab.com/game_record/card/wapi/getGameRecordCard?uid=${ltuid}`).then(res => res.data);

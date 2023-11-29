@@ -47,7 +47,7 @@ async function isDecryptCookie(authcookie) {
         return false;
     }
 
-    const authcookie = Buffer.from(authcookie, 'base64');
+    const authCookie = Buffer.from(authcookie, 'base64');
 
     const decipherDo = crypto.createDecipheriv(
         process.env.SECRET_ALGORITHM,
@@ -55,7 +55,7 @@ async function isDecryptCookie(authcookie) {
         process.env.SECRET_IV
     );
 
-    let decryptedCookie = decipherDo.update(authcookie, 'base64', 'utf8');
+    let decryptedCookie = decipherDo.update(authCookie, 'base64', 'utf8');
     decryptedCookie += decipherDo.final('utf8');
 
     return decryptedCookie;
@@ -104,7 +104,7 @@ function generateRandomString(len) {
 }
 
 module.exports = {
-    createMiHoYoDataMachine,
+    createDataMachineMiHoYo,
     createDataMachineHoYoLAB,
     isDecryptCookie,
     isValidCookie

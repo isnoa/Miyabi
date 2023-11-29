@@ -64,13 +64,11 @@ async function dailyCheckIn() {
       ]
     }]
   })
-    .then(db => {
-      const authcookies = db.map(profiles => {
-
+    .then(async (db) => {
+      const authcookies = await Promise.all(db.map(async (profiles) => {
         const decryptResult = await isDecryptCookie(profiles.authcookie);
-
         return decryptResult;
-      });
+      }));
 
       return authcookies;
     })

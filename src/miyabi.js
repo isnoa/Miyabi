@@ -77,6 +77,6 @@ async function sendErrorMessage(errorTitle, errorMessage) {
       embeds: [new EmbedBuilder().setTitle(errorTitle).setDescription(`\`\`\`bash\n${limitedErrorMessage}\n\`\`\``).setColor(DANGER_COLOR).setTimestamp()]
     });
   } catch (error) {
-    console.error("Error sending message:", limitedErrorMessage);
+    console.error(error);
   }
 };
